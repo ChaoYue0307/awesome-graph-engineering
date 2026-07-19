@@ -19,6 +19,10 @@
   --mono: "SFMono-Regular", Consolas, "Liberation Mono", monospace;
   --shell: min(1320px, calc(100vw - 48px));
   --radius: 12px;
+  --safe-top: env(safe-area-inset-top, 0px);
+  --safe-right: env(safe-area-inset-right, 0px);
+  --safe-bottom: env(safe-area-inset-bottom, 0px);
+  --safe-left: env(safe-area-inset-left, 0px);
   color-scheme: dark;
 }
 
@@ -28,11 +32,13 @@
 
 html {
   scroll-behavior: smooth;
-  scroll-padding-top: 92px;
+  scroll-padding-top: calc(92px + var(--safe-top));
 }
 
 body {
   margin: 0;
+  padding-right: var(--safe-right);
+  padding-left: var(--safe-left);
   overflow-x: hidden;
   background:
     radial-gradient(circle at 85% 6%, rgba(72, 113, 217, 0.09), transparent 27rem),
@@ -127,6 +133,7 @@ canvas {
   border-bottom: 1px solid var(--line);
   background: color-mix(in srgb, var(--ink) 88%, transparent);
   backdrop-filter: blur(18px) saturate(130%);
+  padding-top: var(--safe-top);
 }
 
 .nav-shell {
@@ -447,6 +454,16 @@ canvas {
   width: 100%;
   height: 100%;
   cursor: grab;
+}
+
+#hero-graph,
+#model-graph {
+  touch-action: pan-y pinch-zoom;
+}
+
+#hero-graph:focus-visible,
+#model-graph:focus-visible {
+  outline-offset: -4px;
 }
 
 #hero-graph:active,
@@ -1016,6 +1033,20 @@ canvas {
   gap: 14px;
 }
 
+.filter-toggle {
+  display: none;
+}
+
+.atlas-filter-fields {
+  display: contents;
+}
+
+.atlas-filter-fields label {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
 .atlas-controls label:not(.search-field) {
   display: flex;
   flex-direction: column;
@@ -1165,6 +1196,7 @@ html:not([lang="en"]) .hero h1 span {
 }
 
 .resource-item {
+  scroll-margin-top: calc(92px + var(--safe-top));
   border-bottom: 1px solid var(--line);
 }
 
@@ -1454,6 +1486,7 @@ html:not([lang="en"]) .hero h1 span {
 
 .site-footer {
   padding-block: 42px;
+  padding-bottom: max(42px, calc(24px + var(--safe-bottom)));
   border-top: 1px solid var(--line-strong);
   background: #03050b;
 }
@@ -1528,10 +1561,13 @@ html:not([lang="en"]) .hero h1 span {
 
   .layer-rail {
     overflow-x: auto;
+    scroll-snap-type: x proximity;
+    overscroll-behavior-inline: contain;
   }
 
   .layer-rail li {
     min-width: 126px;
+    scroll-snap-align: start;
   }
 
   .paths-section {
@@ -1551,6 +1587,10 @@ html:not([lang="en"]) .hero h1 span {
 @media (max-width: 920px) {
   :root {
     --shell: min(100% - 32px, 760px);
+  }
+
+  body.nav-open {
+    overflow: hidden;
   }
 
   .nav-shell {
@@ -1575,6 +1615,9 @@ html:not([lang="en"]) .hero h1 span {
     border-top: 0;
     border-radius: 0 0 10px 10px;
     background: rgba(5, 8, 17, 0.98);
+    max-height: calc(100dvh - 72px - var(--safe-top));
+    overflow-y: auto;
+    overscroll-behavior: contain;
   }
 
   .nav-links.is-open {
@@ -1582,7 +1625,9 @@ html:not([lang="en"]) .hero h1 span {
   }
 
   .nav-links > a {
+    min-height: 48px;
     padding: 10px;
+    align-items: center;
   }
 
   .language-picker {
@@ -1592,6 +1637,7 @@ html:not([lang="en"]) .hero h1 span {
 
   .language-picker select {
     width: 100%;
+    min-height: 48px;
   }
 
   .github-link {
@@ -1737,6 +1783,47 @@ html:not([lang="en"]) .hero h1 span {
     line-height: 1.2;
   }
 
+  .brand {
+    min-height: 44px;
+  }
+
+  .nav-links > a {
+    display: flex;
+  }
+
+  .language-picker {
+    display: grid;
+    min-height: 0;
+    padding: 8px 10px 10px;
+    gap: 6px;
+  }
+
+  .language-picker::before {
+    display: none;
+  }
+
+  .language-picker-label.sr-only {
+    position: static;
+    width: auto;
+    height: auto;
+    margin: 0;
+    overflow: visible;
+    clip: auto;
+    white-space: normal;
+    color: var(--muted-2);
+    font-family: var(--mono);
+    font-size: 10px;
+    font-weight: 700;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+  }
+
+  .language-picker select {
+    height: 48px;
+    padding-left: 13px;
+    font-size: 16px;
+  }
+
   .hero-copy {
     padding-top: 64px;
   }
@@ -1769,6 +1856,19 @@ html:not([lang="en"]) .hero h1 span {
     display: grid;
   }
 
+  .hero-proof a {
+    min-height: 44px;
+    padding: 7px 11px;
+  }
+
+  .collision-note a,
+  .definition-note a,
+  .translation-note a {
+    display: inline-flex;
+    min-height: 44px;
+    align-items: center;
+  }
+
   .hero-visual {
     min-height: 340px;
   }
@@ -1779,7 +1879,7 @@ html:not([lang="en"]) .hero h1 span {
     left: 14px;
     justify-content: center;
     gap: 11px;
-    font-size: 9px;
+    font-size: 10px;
   }
 
   .primitives,
@@ -1818,21 +1918,56 @@ html:not([lang="en"]) .hero h1 span {
   }
 
   .graph-toolbar {
+    top: 12px;
     right: 12px;
     left: 12px;
+    display: grid;
+    padding: 8px;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 8px;
+    overflow: visible;
   }
 
   .orbit-hint {
     display: none;
   }
 
+  .graph-mode {
+    min-height: 44px;
+    padding: 0 10px;
+    border: 1px solid var(--line);
+    border-radius: 6px;
+  }
+
+  .graph-zoom-controls {
+    display: grid;
+    min-height: 44px;
+    grid-column: 1 / -1;
+    grid-template-columns: 44px minmax(80px, 1fr) 44px;
+    border: 0;
+    gap: 8px;
+  }
+
+  .graph-zoom-controls button {
+    min-width: 44px;
+    min-height: 44px;
+    padding: 0 10px;
+    border: 1px solid var(--line);
+    border-radius: 6px;
+  }
+
+  .graph-zoom-controls button:first-child {
+    border-left: 1px solid var(--line);
+  }
+
   #model-graph {
-    min-height: 460px;
+    min-height: 500px;
   }
 
   .graph-legend {
     grid-template-columns: 1fr;
     gap: 10px;
+    font-size: 11px;
   }
 
   .decision-flow,
@@ -1876,6 +2011,48 @@ html:not([lang="en"]) .hero h1 span {
     grid-template-columns: 1fr;
   }
 
+  .atlas-controls input,
+  .atlas-controls select {
+    font-size: 16px;
+  }
+
+  .filter-toggle {
+    display: flex;
+    min-height: 48px;
+    padding: 0 14px;
+    align-items: center;
+    justify-content: space-between;
+    gap: 12px;
+    border: 1px solid var(--line-strong);
+    border-radius: 7px;
+    background: var(--surface);
+    color: var(--text);
+    cursor: pointer;
+    font-weight: 750;
+  }
+
+  .filter-toggle[aria-expanded="true"] > span:last-child {
+    transform: rotate(180deg);
+  }
+
+  .filter-count {
+    margin-left: auto;
+    color: var(--cyan);
+    font-family: var(--mono);
+    font-size: 11px;
+    font-weight: 650;
+  }
+
+  .atlas-filter-fields {
+    display: none;
+    grid-template-columns: 1fr;
+    gap: 14px;
+  }
+
+  .atlas-filter-fields.is-open {
+    display: grid;
+  }
+
   .search-field,
   .atlas-controls label:last-child {
     grid-column: auto;
@@ -1893,13 +2070,28 @@ html:not([lang="en"]) .hero h1 span {
   .resource-row {
     padding-inline: 4px;
     grid-template-columns: 1fr;
-    gap: 10px;
+    gap: 8px;
   }
 
   .resource-meta,
   .resource-layer,
   .resource-evidence {
-    padding-left: 44px;
+    display: inline-flex;
+    width: fit-content;
+    max-width: calc(100% - 44px);
+    min-height: 28px;
+    margin-left: 44px;
+    padding: 4px 8px;
+    align-items: center;
+    border: 1px solid var(--line);
+    border-radius: 999px;
+  }
+
+  .resource-row[aria-expanded="false"] .resource-title small {
+    display: -webkit-box;
+    overflow: hidden;
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: 2;
   }
 
   .resource-evidence {
@@ -1918,6 +2110,11 @@ html:not([lang="en"]) .hero h1 span {
     justify-content: flex-start;
   }
 
+  .atlas-actions button {
+    min-height: 44px;
+    padding: 0 10px;
+  }
+
   .resource-details {
     margin: 0 0 18px;
     grid-template-columns: 1fr;
@@ -1926,6 +2123,15 @@ html:not([lang="en"]) .hero h1 span {
   .resource-detail-actions {
     align-items: flex-start;
     flex-direction: column;
+    gap: 4px;
+  }
+
+  .resource-details a,
+  .resource-permalink {
+    display: inline-flex;
+    min-height: 44px;
+    padding: 0 4px;
+    align-items: center;
   }
 
   .data-top {
@@ -1955,8 +2161,61 @@ html:not([lang="en"]) .hero h1 span {
     flex-wrap: wrap;
   }
 
+  .footer-links a {
+    display: inline-flex;
+    min-height: 44px;
+    align-items: center;
+  }
+
   .footer-meta {
     grid-column: auto;
+  }
+}
+
+@media (max-width: 920px) and (max-height: 500px) and (orientation: landscape) {
+  html {
+    scroll-padding-top: calc(76px + var(--safe-top));
+  }
+
+  .nav-shell {
+    min-height: 60px;
+  }
+
+  .nav-links {
+    max-height: calc(100dvh - 60px - var(--safe-top));
+  }
+
+  .hero-copy {
+    padding-top: 38px;
+    padding-bottom: 24px;
+  }
+
+  .hero h1 {
+    font-size: clamp(42px, 8vw, 58px);
+  }
+
+  .hero-lede {
+    margin-top: 20px;
+    font-size: 16px;
+  }
+
+  .hero-actions,
+  .hero-proof {
+    margin-top: 22px;
+  }
+
+  .hero-visual {
+    min-height: 320px;
+  }
+
+  .primitives,
+  .layers-section,
+  .paths-section,
+  .model-section,
+  .decision-section,
+  .atlas-section,
+  .data-section {
+    padding-block: 64px;
   }
 }
 

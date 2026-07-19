@@ -1,5 +1,5 @@
-import { GraphScene } from "./graph-scene.js?v=20260720-3";
-import { setupLocalization } from "./i18n.js?v=20260720-3";
+import { GraphScene } from "./graph-scene.js?v=20260720-4";
+import { setupLocalization } from "./i18n.js?v=20260720-4";
 
 const repoUrl = "https://github.com/ChaoYue0307/awesome-graph-engineering";
 const layerOrder = [
@@ -69,10 +69,12 @@ function setupNavigation() {
   const links = document.getElementById("nav-links");
   if (!toggle || !links) return;
 
-  const close = () => {
+  const close = ({ returnFocus = false } = {}) => {
     links.classList.remove("is-open");
     toggle.setAttribute("aria-expanded", "false");
     toggle.querySelector(".sr-only").textContent = "Open navigation";
+    document.body.classList.remove("nav-open");
+    if (returnFocus) toggle.focus({ preventScroll: true });
   };
 
   toggle.addEventListener("click", () => {
@@ -80,6 +82,7 @@ function setupNavigation() {
     links.classList.toggle("is-open", open);
     toggle.setAttribute("aria-expanded", String(open));
     toggle.querySelector(".sr-only").textContent = open ? "Close navigation" : "Open navigation";
+    document.body.classList.toggle("nav-open", open);
   });
 
   links.addEventListener("click", (event) => {
@@ -87,7 +90,13 @@ function setupNavigation() {
   });
 
   document.addEventListener("keydown", (event) => {
-    if (event.key === "Escape") close();
+    if (event.key === "Escape" && links.classList.contains("is-open")) close({ returnFocus: true });
+  });
+
+  document.addEventListener("pointerdown", (event) => {
+    if (!links.classList.contains("is-open")) return;
+    if (links.contains(event.target) || toggle.contains(event.target)) return;
+    close();
   });
 }
 
@@ -163,6 +172,9 @@ function setupAtlas(data) {
   const copyView = document.getElementById("copy-view");
   const shareView = document.getElementById("share-view");
   const shareStatus = document.getElementById("share-status");
+  const filterToggle = document.getElementById("filter-toggle");
+  const filterFields = document.getElementById("atlas-filter-fields");
+  const filterCount = document.getElementById("filter-count");
 
   if (!query || !layer || !type || !evidence || !results || !count || !clear || !showMore || !empty) return;
 
@@ -178,7 +190,29 @@ function setupAtlas(data) {
   type.value = params.get("type") || "";
   evidence.value = params.get("evidence") || "";
 
-  const state = { shown: 12, rows: [] };
+  const anchorId = location.hash ? decodeURIComponent(location.hash.slice(1)) : "";
+  const anchorIndex = anchorId ? data.findIndex((row) => row.id === anchorId) : -1;
+  const state = { shown: anchorIndex >= 0 ? Math.ceil((anchorIndex + 1) / 12) * 12 : 12, rows: [] };
+  let anchorHandled = false;
+
+  function setFiltersOpen(open) {
+    if (!filterToggle || !filterFields) return;
+    filterFields.classList.toggle("is-open", open);
+    filterToggle.setAttribute("aria-expanded", String(open));
+  }
+
+  function updateFilterDisclosure() {
+    const active = [layer.value, type.value, evidence.value].filter(Boolean).length;
+    if (filterCount) {
+      filterCount.hidden = active === 0;
+      filterCount.textContent = `${active} active`;
+    }
+    if (active > 0 && matchMedia("(max-width: 620px)").matches) setFiltersOpen(true);
+  }
+
+  filterToggle?.addEventListener("click", () => {
+    setFiltersOpen(filterToggle.getAttribute("aria-expanded") !== "true");
+  });
 
   function match(row) {
     if (layer.value && row.layer !== layer.value) return false;
@@ -289,6 +323,10 @@ function setupAtlas(data) {
   function render({ reset = false } = {}) {
     if (reset) state.shown = 12;
     state.rows = data.filter(match);
+    if (!anchorHandled && anchorId) {
+      const filteredAnchorIndex = state.rows.findIndex((row) => row.id === anchorId);
+      if (filteredAnchorIndex >= state.shown) state.shown = Math.ceil((filteredAnchorIndex + 1) / 12) * 12;
+    }
     const visible = state.rows.slice(0, state.shown);
     results.replaceChildren(...visible.map(createResource));
     const filtersActive = Boolean(query.value.trim() || layer.value || type.value || evidence.value);
@@ -296,6 +334,7 @@ function setupAtlas(data) {
     empty.hidden = state.rows.length !== 0;
     showMore.hidden = state.rows.length <= state.shown;
     clear.hidden = !filtersActive;
+    updateFilterDisclosure();
     updateUrl();
 
     const anchored = location.hash ? document.getElementById(location.hash.slice(1)) : null;
@@ -305,6 +344,10 @@ function setupAtlas(data) {
       if (anchoredButton && anchoredDetails) {
         anchoredButton.setAttribute("aria-expanded", "true");
         anchoredDetails.hidden = false;
+        if (!anchorHandled) {
+          anchorHandled = true;
+          requestAnimationFrame(() => anchored.scrollIntoView({ block: "start", behavior: "auto" }));
+        }
       }
     }
   }
@@ -320,6 +363,7 @@ function setupAtlas(data) {
     layer.value = "";
     type.value = "";
     evidence.value = "";
+    setFiltersOpen(false);
     render({ reset: true });
     query.focus();
   });

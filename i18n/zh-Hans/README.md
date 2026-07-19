@@ -1,5 +1,5 @@
 <p align="center">
-  <a href="https://chaoyue0307.github.io/awesome-graph-engineering/">
+  <a href="https://chaoyue0307.github.io/awesome-graph-engineering/?lang=zh-Hans">
     <img src="../../assets/logo.svg" width="112" alt="Awesome Graph Engineering 标志">
   </a>
 </p>
@@ -13,7 +13,7 @@
 
 <p align="center">
   <a href="../../README.md">English</a> ·
-  <a href="README.md">简体中文</a> ·
+  <strong><a href="README.md">简体中文</a></strong> ·
   <a href="../es/README.md">Español</a> ·
   <a href="../fr/README.md">Français</a> ·
   <a href="../de/README.md">Deutsch</a> ·
@@ -73,7 +73,7 @@
 
 ## 从这里开始
 
-- 🌐 [探索交互式 Resource Atlas](https://chaoyue0307.github.io/awesome-graph-engineering/)：查看动态组织图、九个工程层与可筛选资源。
+- 🌐 [探索交互式 Resource Atlas](https://chaoyue0307.github.io/awesome-graph-engineering/?lang=zh-Hans)：查看动态组织图、九个工程层与可筛选资源。
 - 🤗 [使用 Hugging Face 数据集](https://huggingface.co/datasets/cy0307/awesome-graph-engineering)：浏览或加载结构化资源记录。
 - 🧭 [阅读完整定义与证据图](../../DEFINITION.md)：核查每个边界声明及其独立来源。
 - 🧱 [查看分类体系](../../TAXONOMY.md)与[对比指南](../../COMPARISON.md)：区分图、循环、工作流和相关领域。

@@ -1,5 +1,5 @@
 <p align="center">
-  <a href="https://chaoyue0307.github.io/awesome-graph-engineering/">
+  <a href="https://chaoyue0307.github.io/awesome-graph-engineering/?lang=de">
     <img src="../../assets/logo.svg" width="112" alt="Logo von Awesome Graph Engineering">
   </a>
 </p>
@@ -69,7 +69,7 @@ Der Organisationsgraph beschreibt Befugnisse und erlaubte Beziehungen; der Ausf�
 
 ## Erkunden und mitwirken
 
-- 🧭 [Interaktiver Atlas und Systemvisualisierung](https://chaoyue0307.github.io/awesome-graph-engineering/)
+- 🧭 [Interaktiver Atlas und Systemvisualisierung](https://chaoyue0307.github.io/awesome-graph-engineering/?lang=de)
 - 🤗 [Datensatz auf Hugging Face](https://huggingface.co/datasets/cy0307/awesome-graph-engineering)
 - 🔬 [Vollständige Definition und Evidenzübersicht](../../DEFINITION.md)
 - 🧱 [Taxonomie der neun Ebenen](../../TAXONOMY.md) und [Begriffsvergleich](../../COMPARISON.md)

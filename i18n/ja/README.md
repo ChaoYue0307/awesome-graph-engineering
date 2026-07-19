@@ -1,5 +1,5 @@
 <p align="center">
-  <a href="https://chaoyue0307.github.io/awesome-graph-engineering/">
+  <a href="https://chaoyue0307.github.io/awesome-graph-engineering/?lang=ja">
     <img src="../../assets/logo.svg" width="112" alt="Awesome Graph Engineering ロゴ">
   </a>
 </p>
@@ -17,7 +17,7 @@
   <a href="../es/README.md">Español</a> ·
   <a href="../fr/README.md">Français</a> ·
   <a href="../de/README.md">Deutsch</a> ·
-  <a href="README.md">日本語</a> ·
+  <strong><a href="README.md">日本語</a></strong> ·
   <a href="../ko/README.md">한국어</a> ·
   <a href="../pt-BR/README.md">Português (Brasil)</a>
 </p>
@@ -73,7 +73,7 @@
 
 ## まず見る場所
 
-- 🌐 [インタラクティブな Resource Atlas](https://chaoyue0307.github.io/awesome-graph-engineering/)：動的な組織図、九つの工学レイヤー、検索可能な資料を探索します。
+- 🌐 [インタラクティブな Resource Atlas](https://chaoyue0307.github.io/awesome-graph-engineering/?lang=ja)：動的な組織図、九つの工学レイヤー、検索可能な資料を探索します。
 - 🤗 [Hugging Face データセット](https://huggingface.co/datasets/cy0307/awesome-graph-engineering)：構造化された資料レコードを閲覧・ロードします。
 - 🧭 [完全な定義とエビデンスマップ](../../DEFINITION.md)：各境界主張と独立した根拠を確認します。
 - 🧱 [分類体系](../../TAXONOMY.md)と[比較ガイド](../../COMPARISON.md)：グラフ、ループ、ワークフロー、隣接領域を区別します。

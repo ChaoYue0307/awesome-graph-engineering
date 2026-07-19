@@ -1,5 +1,5 @@
 <p align="center">
-  <a href="https://chaoyue0307.github.io/awesome-graph-engineering/">
+  <a href="https://chaoyue0307.github.io/awesome-graph-engineering/?lang=ko">
     <img src="../../assets/logo.svg" width="112" alt="Awesome Graph Engineering 로고">
   </a>
 </p>
@@ -18,7 +18,7 @@
   <a href="../fr/README.md">Français</a> ·
   <a href="../de/README.md">Deutsch</a> ·
   <a href="../ja/README.md">日本語</a> ·
-  <a href="README.md">한국어</a> ·
+  <strong><a href="README.md">한국어</a></strong> ·
   <a href="../pt-BR/README.md">Português (Brasil)</a>
 </p>
 
@@ -73,7 +73,7 @@
 
 ## 시작 경로
 
-- 🌐 [인터랙티브 Resource Atlas](https://chaoyue0307.github.io/awesome-graph-engineering/)에서 동적 조직 그래프, 아홉 개 엔지니어링 계층, 검색 가능한 자료를 살펴보세요.
+- 🌐 [인터랙티브 Resource Atlas](https://chaoyue0307.github.io/awesome-graph-engineering/?lang=ko)에서 동적 조직 그래프, 아홉 개 엔지니어링 계층, 검색 가능한 자료를 살펴보세요.
 - 🤗 [Hugging Face 데이터셋](https://huggingface.co/datasets/cy0307/awesome-graph-engineering)에서 구조화된 자료 레코드를 탐색하거나 불러오세요.
 - 🧭 [전체 정의와 근거 지도](../../DEFINITION.md)에서 각 경계 주장과 독립 출처를 검토하세요.
 - 🧱 [분류 체계](../../TAXONOMY.md)와 [비교 가이드](../../COMPARISON.md)에서 그래프, 루프, 워크플로, 인접 분야를 구분하세요.

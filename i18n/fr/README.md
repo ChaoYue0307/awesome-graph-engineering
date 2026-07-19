@@ -1,5 +1,5 @@
 <p align="center">
-  <a href="https://chaoyue0307.github.io/awesome-graph-engineering/">
+  <a href="https://chaoyue0307.github.io/awesome-graph-engineering/?lang=fr">
     <img src="../../assets/logo.svg" width="112" alt="Logo d’Awesome Graph Engineering">
   </a>
 </p>
@@ -69,7 +69,7 @@ Le graphe organisationnel décrit l’autorité et les relations permises ; le g
 
 ## Explorer et contribuer
 
-- 🧭 [Atlas interactif et visualisation du système](https://chaoyue0307.github.io/awesome-graph-engineering/)
+- 🧭 [Atlas interactif et visualisation du système](https://chaoyue0307.github.io/awesome-graph-engineering/?lang=fr)
 - 🤗 [Jeu de données sur Hugging Face](https://huggingface.co/datasets/cy0307/awesome-graph-engineering)
 - 🔬 [Définition complète et carte des preuves](../../DEFINITION.md)
 - 🧱 [Taxonomie en neuf couches](../../TAXONOMY.md) et [comparaison des concepts](../../COMPARISON.md)
