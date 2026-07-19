@@ -19,7 +19,7 @@
   <a href="https://github.com/ChaoYue0307/awesome-graph-engineering/actions/workflows/quality.yml"><img alt="Quality checks" src="https://img.shields.io/github/actions/workflow/status/ChaoYue0307/awesome-graph-engineering/quality.yml?branch=main&style=flat-square&label=quality"></a>
   <a href="https://huggingface.co/datasets/cy0307/awesome-graph-engineering"><img alt="Hugging Face dataset" src="https://img.shields.io/badge/%F0%9F%A4%97-dataset-FFD21E?style=flat-square"></a>
   <a href="LICENSE"><img alt="CC0 1.0 license" src="https://img.shields.io/badge/license-CC0--1.0-b8f24a?style=flat-square"></a>
-  <a href="https://github.com/ChaoYue0307/awesome-graph-engineering/stargazers"><img alt="GitHub stars" src="https://img.shields.io/github/stars/ChaoYue0307/awesome-graph-engineering?style=flat-square&logo=github&label=stars"></a>
+  <a href="https://github.com/ChaoYue0307/awesome-graph-engineering"><img alt="GitHub stars" src="https://img.shields.io/github/stars/ChaoYue0307/awesome-graph-engineering?style=flat-square&logo=github&label=stars"></a>
   <a href="https://github.com/ChaoYue0307/awesome-graph-engineering/pulls"><img alt="Pull requests welcome" src="https://img.shields.io/badge/PRs-welcome-2ea44f?style=flat-square"></a>
 </p>
 
@@ -46,7 +46,7 @@
 </p>
 
 <p align="center">
-  ⭐ <strong>Star it to find it again</strong> ·
+  ⭐ <a href="https://github.com/ChaoYue0307/awesome-graph-engineering"><strong>Star it to find it again</strong></a> ·
   🔀 <a href="https://github.com/ChaoYue0307/awesome-graph-engineering/fork">Fork the field guide and dataset</a> ·
   💬 <a href="https://github.com/ChaoYue0307/awesome-graph-engineering/discussions">Join the discussion</a> ·
   🔔 <a href="https://github.com/ChaoYue0307/awesome-graph-engineering/releases">Watch releases</a>
