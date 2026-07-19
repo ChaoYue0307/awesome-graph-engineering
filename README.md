@@ -1,6 +1,6 @@
 <p align="center">
   <a href="https://chaoyue0307.github.io/awesome-graph-engineering/">
-    <img src="assets/logo.svg" width="112" alt="Awesome Graph Engineering logo">
+    <img src="assets/logo.svg" width="128" alt="Awesome Graph Engineering logo">
   </a>
 </p>
 
@@ -12,21 +12,54 @@
 </p>
 
 <p align="center">
+  <a href="https://awesome.re"><img alt="Awesome" src="https://awesome.re/badge-flat2.svg"></a>
   <a href="https://chaoyue0307.github.io/awesome-graph-engineering/"><img alt="Explore the atlas" src="https://img.shields.io/badge/explore-interactive_atlas-61e4ff?style=flat-square"></a>
-  <img alt="51 curated resources" src="https://img.shields.io/badge/resources-51-9d7dff?style=flat-square">
+  <a href="#resource-directory"><img alt="51 curated resources" src="https://img.shields.io/badge/resources-51-9d7dff?style=flat-square"></a>
+  <a href="#the-nine-engineering-layers"><img alt="9 engineering layers" src="https://img.shields.io/badge/layers-9-9d7dff?style=flat-square"></a>
   <a href="https://github.com/ChaoYue0307/awesome-graph-engineering/actions/workflows/quality.yml"><img alt="Quality checks" src="https://img.shields.io/github/actions/workflow/status/ChaoYue0307/awesome-graph-engineering/quality.yml?branch=main&style=flat-square&label=quality"></a>
   <a href="https://huggingface.co/datasets/cy0307/awesome-graph-engineering"><img alt="Hugging Face dataset" src="https://img.shields.io/badge/%F0%9F%A4%97-dataset-FFD21E?style=flat-square"></a>
   <a href="LICENSE"><img alt="CC0 1.0 license" src="https://img.shields.io/badge/license-CC0--1.0-b8f24a?style=flat-square"></a>
+  <a href="https://github.com/ChaoYue0307/awesome-graph-engineering/stargazers"><img alt="GitHub stars" src="https://img.shields.io/github/stars/ChaoYue0307/awesome-graph-engineering?style=flat-square&logo=github&label=stars"></a>
+  <a href="https://github.com/ChaoYue0307/awesome-graph-engineering/pulls"><img alt="Pull requests welcome" src="https://img.shields.io/badge/PRs-welcome-2ea44f?style=flat-square"></a>
 </p>
 
-> [!IMPORTANT]
-> This repository uses **graph engineering** in the AI-agent-systems sense. It is **not** a guide to graph databases, knowledge graphs, graph ETL, or graph neural networks.
+<p align="center">
+  🧭 <a href="#working-definition"><strong>Definition</strong></a> ·
+  🧱 <a href="TAXONOMY.md"><strong>Taxonomy</strong></a> ·
+  ⚖️ <a href="COMPARISON.md"><strong>Boundaries</strong></a> ·
+  🌐 <a href="https://chaoyue0307.github.io/awesome-graph-engineering/"><strong>Website</strong></a> ·
+  🤗 <a href="https://huggingface.co/datasets/cy0307/awesome-graph-engineering"><strong>Dataset</strong></a> ·
+  🧾 <a href="#citation-and-license"><strong>Cite</strong></a>
+</p>
+
+<p align="center">
+  🌍 <strong>Languages:</strong>
+  <strong>English</strong> ·
+  <a href="i18n/zh-Hans/README.md">简体中文</a> ·
+  <a href="i18n/es/README.md">Español</a> ·
+  <a href="i18n/fr/README.md">Français</a> ·
+  <a href="i18n/de/README.md">Deutsch</a> ·
+  <a href="i18n/ja/README.md">日本語</a> ·
+  <a href="i18n/ko/README.md">한국어</a> ·
+  <a href="i18n/pt-BR/README.md">Português (Brasil)</a> ·
+  <a href="i18n/README.md">Help translate</a>
+</p>
+
+<p align="center">
+  ⭐ <strong>Star it to find it again</strong> ·
+  🔀 <a href="https://github.com/ChaoYue0307/awesome-graph-engineering/fork">Fork the field guide and dataset</a> ·
+  💬 <a href="https://github.com/ChaoYue0307/awesome-graph-engineering/discussions">Join the discussion</a> ·
+  🔔 <a href="https://github.com/ChaoYue0307/awesome-graph-engineering/releases">Watch releases</a>
+</p>
 
 <p align="center">
   <a href="https://chaoyue0307.github.io/awesome-graph-engineering/">
     <img src="assets/social-card.png" alt="Awesome Graph Engineering — engineer the organization, not just the agent" width="900">
   </a>
 </p>
+
+> [!IMPORTANT]
+> Here, **graph engineering** means engineering graph-structured **AI-agent systems**. It is not a guide to graph databases, knowledge graphs, graph ETL, GraphRAG, or graph neural networks. Start with the [boundary guide](COMPARISON.md#not-graph-data-engineering-the-name-collision) if that name collision brought you here.
 
 ## Working definition
 
@@ -289,6 +322,10 @@ Machine-readable metadata is available in [CITATION.cff](CITATION.cff). The cura
 ## Acknowledgements
 
 This project builds on the multi-agent-systems, distributed-systems, workflow, and AI-agent communities—and on the maintainers who publish enough implementation detail for others to learn from their successes and failures. The name follows the useful convention established by [awesome lists](https://github.com/sindresorhus/awesome).
+
+To share or remix the project, use the ready-to-post multilingual copy in
+[LAUNCH-KIT.md](LAUNCH-KIT.md) and the logos, colors, alt text, and attribution rules
+in [BRAND.md](BRAND.md).
 
 <p align="center">
   <strong>One agent can execute a loop. An engineered graph can coordinate an organization.</strong>

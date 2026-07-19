@@ -40,9 +40,14 @@ jobs:
       - name: Validate dataset and generated views
         run: python3 scripts/validate.py
 
+      - name: Validate translations and launch assets
+        run: python3 scripts/validate_i18n.py
+
       - name: Verify generated site is nonempty
         run: |
           test -s docs/index.html
+          test -s docs/site.webmanifest
+          test -s docs/assets/social-card.png
           grep -q '"id":"age-' docs/index.html
 
   links:
@@ -67,5 +72,6 @@ jobs:
             --cache
             --max-cache-age 1d
             README.md DEFINITION.md METHODOLOGY.md TAXONOMY.md COMPARISON.md
-            ANTI-PATTERNS.md CONTRIBUTING.md data/README.md huggingface/README.md
+            ANTI-PATTERNS.md CONTRIBUTING.md BRAND.md LAUNCH-KIT.md
+            i18n/README.md i18n/*/README.md data/README.md huggingface/README.md
           fail: true

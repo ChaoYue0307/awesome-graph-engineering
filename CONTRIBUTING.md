@@ -62,6 +62,20 @@ The `evidence` value describes **what kind of source it is**. It is not a qualit
 
 For prose fixes outside generated resource tables, edit the relevant Markdown file directly. Open an issue or discussion before proposing a new section or changing the schema.
 
+## Translating the field guide
+
+We use localized introductions with one canonical English resource catalog. Start at
+the [translation hub](i18n/README.md), check the controlled terminology in
+[`i18n/glossary.yml`](i18n/glossary.yml), and open a
+[translation issue](https://github.com/ChaoYue0307/awesome-graph-engineering/issues/new?template=translation.yml)
+before claiming a new locale.
+
+- Keep the emerging-term qualification, three-part minimum test, and scope boundaries intact.
+- Keep He Chaoyue, citation keys, URLs, code, dataset IDs, and original paper or project titles unchanged.
+- Do not copy the generated resource tables into a localized README. Link to the canonical atlas instead.
+- Label an unreviewed page as an initial editorial translation. Native-language and agent-systems review are both welcome.
+- Prefer a short, accurate translation over a complete one that changes the technical meaning.
+
 ### Pull-request checklist
 
 - [ ] The resource directly fits the minimum inclusion test or clearly serves its foundations, substrate, measurement, or critique.

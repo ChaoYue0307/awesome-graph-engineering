@@ -1,4 +1,5 @@
-import { GraphScene } from "./graph-scene.js";
+import { GraphScene } from "./graph-scene.js?v=20260720-3";
+import { setupLocalization } from "./i18n.js?v=20260720-3";
 
 const repoUrl = "https://github.com/ChaoYue0307/awesome-graph-engineering";
 const layerOrder = [
@@ -134,6 +135,17 @@ function setupGraphScenes() {
     });
   });
 
+  document.querySelectorAll("[data-graph-zoom]").forEach((button) => {
+    button.addEventListener("click", () => {
+      if (!modelScene) return;
+      const action = button.dataset.graphZoom;
+      if (action === "in") modelScene.setZoom(modelScene.targetZoom + 0.1);
+      if (action === "out") modelScene.setZoom(modelScene.targetZoom - 0.1);
+      if (action === "reset") modelScene.resetView();
+      modelCanvas?.focus({ preventScroll: true });
+    });
+  });
+
   return { heroScene, modelScene };
 }
 
@@ -148,6 +160,9 @@ function setupAtlas(data) {
   const showMore = document.getElementById("show-more");
   const empty = document.getElementById("atlas-empty");
   const resourceStat = document.getElementById("resource-stat");
+  const copyView = document.getElementById("copy-view");
+  const shareView = document.getElementById("share-view");
+  const shareStatus = document.getElementById("share-status");
 
   if (!query || !layer || !type || !evidence || !results || !count || !clear || !showMore || !empty) return;
 
@@ -180,6 +195,8 @@ function setupAtlas(data) {
 
   function updateUrl() {
     const next = new URLSearchParams();
+    const locale = new URLSearchParams(location.search).get("lang");
+    if (locale && locale !== "en") next.set("lang", locale);
     if (query.value.trim()) next.set("q", query.value.trim());
     if (layer.value) next.set("layer", layer.value);
     if (type.value) next.set("type", type.value);
@@ -191,6 +208,7 @@ function setupAtlas(data) {
   function createResource(row, index) {
     const item = document.createElement("article");
     item.className = "resource-item";
+    item.id = row.id || `resource-${index}`;
 
     const button = document.createElement("button");
     button.type = "button";
@@ -236,7 +254,27 @@ function setupAtlas(data) {
     link.target = "_blank";
     link.rel = "noopener noreferrer";
     link.textContent = "Open primary source ↗";
-    details.append(why, link);
+    const permalink = document.createElement("button");
+    permalink.type = "button";
+    permalink.className = "resource-permalink";
+    permalink.textContent = "Copy permalink";
+    permalink.addEventListener("click", async () => {
+      const url = new URL(location.href);
+      url.hash = item.id;
+      try {
+        await navigator.clipboard.writeText(url.href);
+        if (shareStatus) shareStatus.textContent = `Copied permalink for ${row.title}.`;
+        permalink.textContent = "Copied ✓";
+        setTimeout(() => { permalink.textContent = "Copy permalink"; }, 1600);
+      } catch {
+        location.hash = item.id;
+        if (shareStatus) shareStatus.textContent = "The permalink is now in the address bar.";
+      }
+    });
+    const detailActions = document.createElement("div");
+    detailActions.className = "resource-detail-actions";
+    detailActions.append(link, permalink);
+    details.append(why, detailActions);
 
     button.addEventListener("click", () => {
       const expanded = button.getAttribute("aria-expanded") === "true";
@@ -259,6 +297,16 @@ function setupAtlas(data) {
     showMore.hidden = state.rows.length <= state.shown;
     clear.hidden = !filtersActive;
     updateUrl();
+
+    const anchored = location.hash ? document.getElementById(location.hash.slice(1)) : null;
+    if (anchored?.classList.contains("resource-item")) {
+      const anchoredButton = anchored.querySelector(".resource-row");
+      const anchoredDetails = anchored.querySelector(".resource-details");
+      if (anchoredButton && anchoredDetails) {
+        anchoredButton.setAttribute("aria-expanded", "true");
+        anchoredDetails.hidden = false;
+      }
+    }
   }
 
   let inputTimer;
@@ -284,7 +332,8 @@ function setupAtlas(data) {
     button.addEventListener("click", () => {
       layer.value = button.dataset.layer;
       render({ reset: true });
-      document.getElementById("atlas")?.scrollIntoView({ behavior: "smooth" });
+      const reducedMotion = matchMedia("(prefers-reduced-motion: reduce)").matches;
+      document.getElementById("atlas")?.scrollIntoView({ behavior: reducedMotion ? "auto" : "smooth" });
     });
   });
   document.querySelectorAll("[data-query]").forEach((link) => {
@@ -306,9 +355,49 @@ function setupAtlas(data) {
     });
   });
 
+  const announce = (message) => {
+    if (shareStatus) shareStatus.textContent = message;
+  };
+
+  copyView?.addEventListener("click", async () => {
+    updateUrl();
+    try {
+      await navigator.clipboard.writeText(location.href);
+      announce("Filtered atlas link copied.");
+      copyView.textContent = "Copied ✓";
+      setTimeout(() => { copyView.textContent = "Copy filtered view"; }, 1600);
+    } catch {
+      announce("Copy was unavailable. The filtered link is in the address bar.");
+    }
+  });
+
+  shareView?.addEventListener("click", async () => {
+    updateUrl();
+    if (navigator.share) {
+      try {
+        await navigator.share({
+          title: "Awesome Graph Engineering",
+          text: "Explore this filtered view of the graph engineering atlas.",
+          url: location.href,
+        });
+        announce("Share sheet opened.");
+        return;
+      } catch (error) {
+        if (error?.name === "AbortError") return;
+      }
+    }
+    try {
+      await navigator.clipboard.writeText(location.href);
+      announce("Share link copied.");
+    } catch {
+      announce("The share link is ready in the address bar.");
+    }
+  });
+
   render({ reset: true });
 }
 
+setupLocalization();
 setupNavigation();
 setupGraphScenes();
 setupAtlas(parseData());

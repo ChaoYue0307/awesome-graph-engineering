@@ -1,25 +1,12 @@
-name: Add a resource
-description: Suggest a primary source, tool, standard, dataset, or critique for the atlas
-title: "[Add] "
+name: Suggest a resource
+description: Share a primary source, tool, standard, dataset, case study, or critique for the atlas
+title: "[Resource] "
 labels: ["resource-suggestion"]
 body:
   - type: markdown
     attributes:
       value: |
-        Thanks for contributing. Directly in-scope systems have multiple independently scoped agent nodes, explicit coordination semantics, and a load-bearing inspectable graph artifact. Relevant foundations, substrates, measurements, and critiques are also welcome. Maintainers assign the stable `age-NNNN` ID.
-
-  - type: dropdown
-    id: scope_relationship
-    attributes:
-      label: Scope relationship
-      description: How does this resource relate to the repository's working definition?
-      options:
-        - "Direct: qualifying AI-agent organization"
-        - "Foundation or overlap (for example, classical multi-agent systems)"
-        - "Substrate or protocol used by qualifying agent graphs"
-        - "Benchmark, evaluation, case study, or critique"
-    validations:
-      required: true
+        Thanks for helping improve the atlas. You only need to identify the source and explain why it matters; maintainers will normalize the structured record and assign its stable `age-NNNN` ID.
 
   - type: input
     id: resource_title
@@ -33,125 +20,37 @@ body:
     id: url
     attributes:
       label: Canonical URL
-      description: Use the DOI or publisher page for peer-reviewed papers, arXiv abstract for preprints, and official docs or repository for software.
+      description: Prefer the DOI or publisher page for papers and first-party documentation or repository for software.
     validations:
       required: true
 
   - type: dropdown
-    id: rtype
+    id: scope_relationship
     attributes:
-      label: Resource type
-      description: Exact `rtype` display label.
+      label: How does it relate to graph engineering?
       options:
-        - Paper
-        - Blog
-        - Docs
-        - Tool
-        - Benchmark
-        - Dataset
-        - Book
-        - Course
-        - Video
-        - List
-        - Standard
-        - Critique
-    validations:
-      required: true
-
-  - type: dropdown
-    id: section
-    attributes:
-      label: Section
-      description: Exact `section` display label.
-      options:
-        - Start Here
-        - Research Foundations
-        - Frameworks & SDKs
-        - Protocols & Handoffs
-        - State, Memory & Artifacts
-        - Verification & Evals
-        - Reliability & Durable Execution
-        - Observability & Cost
-        - Benchmarks & Datasets
-        - Production Case Studies
-        - Critiques & Limits
-    validations:
-      required: true
-
-  - type: input
-    id: subcategory
-    attributes:
-      label: Subcategory
-      description: A concise, sentence-case discovery label within the section.
-      placeholder: Orchestration framework
-    validations:
-      required: true
-
-  - type: input
-    id: venue
-    attributes:
-      label: Venue or publisher
-      description: The publisher, conference, documentation site, or repository host shown to readers.
-    validations:
-      required: true
-
-  - type: input
-    id: year
-    attributes:
-      label: Publication year
-      description: Four-digit year of publication or the cited major release.
-      placeholder: "2026"
-    validations:
-      required: true
-
-  - type: input
-    id: authors
-    attributes:
-      label: Authors or maintainer
-      description: Separate multiple named authors with semicolons; an organization name is acceptable.
-    validations:
-      required: true
-
-  - type: textarea
-    id: description
-    attributes:
-      label: Proposed description
-      description: One or two concrete sentences explaining what the resource contributes. Avoid marketing language.
+        - Directly qualifying AI-agent organization
+        - Foundation or overlap, such as classical multi-agent systems
+        - Runtime, protocol, or substrate used by agent graphs
+        - Benchmark, evaluation, production case study, or critique
+        - Unsure — please help classify it
     validations:
       required: true
 
   - type: textarea
     id: why
     attributes:
-      label: Why it matters
-      description: State the distinct practitioner value or why it matters as foundation, substrate, evidence, or critique. Do not repeat the description.
-    validations:
-      required: true
-
-  - type: dropdown
-    id: evidence
-    attributes:
-      label: Source/evidence label
-      description: This classifies publication form; it is not a quality score or endorsement.
-      options:
-        - Peer-reviewed research
-        - Research preprint
-        - Practitioner analysis
-        - Official documentation
-        - Maintained OSS project
-        - Industry standard
-        - Benchmark/dataset
-        - Book/course
-        - Community resource
+      label: Why should a graph engineer read or use it?
+      description: Two or three concrete sentences are enough. Mention the decision, implementation detail, evidence, or limitation it clarifies.
     validations:
       required: true
 
   - type: dropdown
     id: layer
     attributes:
-      label: Primary design layer
-      description: Choose the single most useful discovery lens, even when the resource spans several.
+      label: Most relevant layer (optional)
       options:
+        - Not sure
         - Roles
         - Topology
         - Handoffs
@@ -161,17 +60,19 @@ body:
         - Reliability
         - Observability & cost
         - Evolution
-    validations:
-      required: true
+
+  - type: textarea
+    id: notes
+    attributes:
+      label: Useful context (optional)
+      description: Publication status, maintainers, project status, related entries, or caveats.
 
   - type: checkboxes
     id: checks
     attributes:
-      label: Submission checks
+      label: Quick checks
       options:
-        - label: I checked for an existing entry by title and canonical URL.
+        - label: I searched the README for the title or URL and did not find a duplicate.
           required: true
-        - label: This is not solely graph-data engineering or single-agent tool use.
-          required: true
-        - label: I understand the source/evidence label describes source type rather than scoring quality.
+        - label: This is not solely graph-data engineering or single-agent tool use, unless it clearly supports an in-scope agent graph.
           required: true

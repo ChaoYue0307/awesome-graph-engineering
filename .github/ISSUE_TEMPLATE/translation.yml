@@ -1,0 +1,57 @@
+name: Translation or language review
+description: Start a translation, review technical terminology, or report a localization issue
+title: "[i18n] "
+labels: ["translation"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Thanks for helping the field guide travel. We publish localized introductions while keeping one canonical English research catalog. Please read the [translation hub](https://github.com/ChaoYue0307/awesome-graph-engineering/blob/main/i18n/README.md) and glossary before starting.
+
+  - type: dropdown
+    id: contribution
+    attributes:
+      label: Contribution type
+      options:
+        - Start a new language
+        - Review an existing translation as a native speaker
+        - Review graph-engineering terminology
+        - Correct a mistranslation
+        - Improve website localization
+    validations:
+      required: true
+
+  - type: input
+    id: locale
+    attributes:
+      label: Language and locale
+      description: Use a BCP 47 locale where possible, such as zh-Hant, ar, hi, or it.
+      placeholder: Language name (locale)
+    validations:
+      required: true
+
+  - type: textarea
+    id: scope
+    attributes:
+      label: What will you translate or review?
+      description: Name the sections, terms, or files you plan to cover.
+    validations:
+      required: true
+
+  - type: textarea
+    id: terminology
+    attributes:
+      label: Terminology notes
+      description: Flag terms such as graph engineering, load-bearing, org graph, run/work graph, evidence gate, or handoff that need discussion.
+
+  - type: checkboxes
+    id: checks
+    attributes:
+      label: Translation principles
+      options:
+        - label: I will preserve the “emerging working term, not a settled standard” qualification.
+          required: true
+        - label: I will keep He Chaoyue, citation keys, URLs, code, dataset IDs, and original project titles unchanged.
+          required: true
+        - label: I understand that the canonical resource catalog remains English and should not be copied into the localized introduction.
+          required: true

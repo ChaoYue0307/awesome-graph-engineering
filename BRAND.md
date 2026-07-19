@@ -1,0 +1,78 @@
+# Brand and media guide
+
+Awesome Graph Engineering should feel like an **open technical field guide for
+programmable agent organizations**: rigorous enough to trust, visual enough to make
+an emerging systems idea legible, and open enough to invite correction.
+
+## Core message
+
+> **Engineer the organization, not just the agent.**
+
+One-sentence description:
+
+> A field guide, open dataset, and interactive atlas for specifying, executing,
+> observing, and evolving graph-structured AI-agent systems.
+
+The project must always retain two qualifications:
+
+- **Graph engineering is an emerging working term**, not a settled academic field or
+  accepted industry standard.
+- Here, graph nodes are primarily **AI agents**, not graph-database entities,
+  knowledge-graph facts, GNN vertices, or chart marks.
+
+## Assets
+
+| Asset | Use | Source |
+| --- | --- | --- |
+| Primary logo | Repository, website, avatars, presentations | [`assets/logo.svg`](assets/logo.svg) |
+| 512 px logo | Raster contexts and app icons | [`assets/brand/logo-512.png`](assets/brand/logo-512.png) |
+| Social preview | X, LinkedIn, Slack, Discord, iMessage, and link unfurls | [`assets/social-card.png`](assets/social-card.png) |
+| GitHub social preview | Repository settings upload; 1280×640 and under 1 MB | [`assets/share/github-social-preview.jpg`](assets/share/github-social-preview.jpg) |
+| Nine-layer lifecycle | Talks, documentation, and explainers | [`assets/lifecycle-dark.svg`](assets/lifecycle-dark.svg), [`assets/lifecycle-light.svg`](assets/lifecycle-light.svg) |
+
+Do not redraw the logo with emoji, text glyphs, or approximate node diagrams. Keep
+clear space equal to at least one quarter of the mark width. On dark surfaces, use
+the primary artwork without recoloring it. **Do not place personal names in figure,
+diagram, or social-preview artwork.** Keep creator attribution in surrounding prose
+and citation metadata instead.
+
+## Visual tokens
+
+| Role | Hex | Meaning |
+| --- | --- | --- |
+| Ink | `#050811` | Primary background |
+| Surface | `#0B1220` | Panels and controls |
+| Cyan | `#61E4FF` | Agent nodes, navigation, primary action |
+| Violet | `#9D7DFF` | Work nodes, evolution, secondary emphasis |
+| Lime | `#B8F24A` | Evidence gates, verified state, success |
+| Paper | `#F6F8FC` | Primary text |
+| Muted | `#A1ADBF` | Supporting text |
+
+Use cyan, violet, and lime semantically rather than as decoration: agents and
+communication, adaptive work, and evidence or verification respectively.
+
+## Approved alt text
+
+Logo:
+
+> Awesome Graph Engineering logo: a central node connected to five surrounding
+> nodes on a dark indigo square.
+
+Social preview:
+
+> Awesome Graph Engineering social preview: four connected agent nodes surround a
+> lime evidence gate on a dark blueprint grid, beside the message “Engineer the
+> organization, not just the agent.”
+
+Lifecycle diagram:
+
+> Nine graph engineering layers: roles, topology, handoffs, work graphs, state,
+> gates, reliability, observability and cost, and evolution.
+
+## Attribution
+
+Preferred credit: **Awesome Graph Engineering by He Chaoyue**.
+
+The repository’s original curation, schema, summaries, and brand assets are released
+under [CC0-1.0](LICENSE). Linked research and external projects retain their own
+licenses. Use the machine-readable citation in [CITATION.cff](CITATION.cff).

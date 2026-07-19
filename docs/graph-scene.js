@@ -88,6 +88,8 @@ export class GraphScene {
     this.targetRotationY = this.rotationY;
     this.zoom = options.zoom ?? 1;
     this.targetZoom = this.zoom;
+    this.canvas.dataset.zoom = this.zoom.toFixed(2);
+    this.canvas.dataset.graphMode = this.mode;
     this.pointer = null;
     this.lastTime = 0;
     this.raf = 0;
@@ -96,7 +98,8 @@ export class GraphScene {
     this.bind();
     this.resize();
     this.renderFrame = this.renderFrame.bind(this);
-    this.raf = requestAnimationFrame(this.renderFrame);
+    if (this.reducedMotion) this.draw(performance.now());
+    else this.raf = requestAnimationFrame(this.renderFrame);
   }
 
   get graph() {
@@ -108,15 +111,41 @@ export class GraphScene {
   setMode(mode) {
     if (!['org', 'work', 'hero'].includes(mode)) return;
     this.mode = mode;
+    this.canvas.dataset.graphMode = mode;
     this.rotationY = mode === "work" ? -0.08 : -0.34;
     this.targetRotationY = this.rotationY;
     this.targetZoom = mode === "work" ? 0.9 : 1;
     this.draw(performance.now());
   }
 
+  setZoom(value) {
+    this.autoRotate = false;
+    this.targetZoom = Math.max(0.72, Math.min(1.28, value));
+    this.canvas.dataset.zoom = this.targetZoom.toFixed(2);
+    if (this.reducedMotion) {
+      this.zoom = this.targetZoom;
+      this.draw(performance.now());
+    }
+  }
+
+  resetView() {
+    this.autoRotate = false;
+    this.targetRotationX = this.mode === "hero" ? -0.21 : -0.12;
+    this.targetRotationY = this.mode === "work" ? -0.08 : this.mode === "hero" ? -0.46 : -0.32;
+    this.targetZoom = this.mode === "work" ? 0.9 : 1;
+    this.canvas.dataset.zoom = this.targetZoom.toFixed(2);
+    if (this.reducedMotion) {
+      this.rotationX = this.targetRotationX;
+      this.rotationY = this.targetRotationY;
+      this.zoom = this.targetZoom;
+      this.draw(performance.now());
+    }
+  }
+
   bind() {
     if (!this.interactive) return;
     this.onPointerDown = (event) => {
+      this.canvas.focus({ preventScroll: true });
       this.pointer = { id: event.pointerId, x: event.clientX, y: event.clientY };
       this.canvas.setPointerCapture?.(event.pointerId);
       this.autoRotate = false;
@@ -129,20 +158,48 @@ export class GraphScene {
       this.targetRotationX = Math.max(-0.8, Math.min(0.45, this.targetRotationX + dy * 0.006));
       this.pointer.x = event.clientX;
       this.pointer.y = event.clientY;
+      if (this.reducedMotion) {
+        this.rotationX = this.targetRotationX;
+        this.rotationY = this.targetRotationY;
+        this.draw(performance.now());
+      }
     };
     this.onPointerUp = (event) => {
       if (this.pointer?.id === event.pointerId) this.pointer = null;
     };
     this.onWheel = (event) => {
+      if (!this.canvas.matches(":focus") || !event.altKey) return;
+      event.preventDefault();
+      this.setZoom(this.targetZoom - event.deltaY * 0.0008);
+    };
+    this.onKeyDown = (event) => {
+      const actions = {
+        ArrowLeft: () => { this.targetRotationY -= 0.12; },
+        ArrowRight: () => { this.targetRotationY += 0.12; },
+        ArrowUp: () => { this.targetRotationX = Math.max(-0.8, this.targetRotationX - 0.1); },
+        ArrowDown: () => { this.targetRotationX = Math.min(0.45, this.targetRotationX + 0.1); },
+        "+": () => this.setZoom(this.targetZoom + 0.1),
+        "=": () => this.setZoom(this.targetZoom + 0.1),
+        "-": () => this.setZoom(this.targetZoom - 0.1),
+        "0": () => this.resetView(),
+      };
+      const action = actions[event.key];
+      if (!action) return;
       event.preventDefault();
       this.autoRotate = false;
-      this.targetZoom = Math.max(0.72, Math.min(1.28, this.targetZoom - event.deltaY * 0.0008));
+      action();
+      if (this.reducedMotion) {
+        this.rotationX = this.targetRotationX;
+        this.rotationY = this.targetRotationY;
+        this.draw(performance.now());
+      }
     };
     this.canvas.addEventListener("pointerdown", this.onPointerDown);
     this.canvas.addEventListener("pointermove", this.onPointerMove);
     this.canvas.addEventListener("pointerup", this.onPointerUp);
     this.canvas.addEventListener("pointercancel", this.onPointerUp);
     this.canvas.addEventListener("wheel", this.onWheel, { passive: false });
+    this.canvas.addEventListener("keydown", this.onKeyDown);
   }
 
   resize() {

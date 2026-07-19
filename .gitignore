@@ -8,3 +8,4 @@ venv/
 .vscode/
 *.log
 .lychee-cache
+.design/

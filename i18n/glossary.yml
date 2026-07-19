@@ -1,0 +1,101 @@
+schema_version: 1
+notes:
+  - Preserve Graph Engineering in English on first use when the local term could collide with graph data engineering.
+  - Translate load-bearing by meaning: the graph materially constrains execution.
+  - Original paper, framework, protocol, and project titles remain unchanged.
+terms:
+  graph_engineering:
+    canonical: Graph engineering
+    meaning: Engineering graph-structured AI-agent systems as inspectable, controllable wholes.
+    zh-Hans: 图工程（Graph Engineering）
+    es: ingeniería de grafos para sistemas de agentes
+    fr: ingénierie de graphes pour systèmes d’agents
+    de: Graph Engineering für Agentensysteme
+    ja: Graph Engineering（エージェントシステムのグラフ設計）
+    ko: Graph Engineering(에이전트 시스템 그래프 엔지니어링)
+    pt-BR: engenharia de grafos para sistemas de agentes
+  agent_node:
+    canonical: agent node
+    zh-Hans: 智能体节点
+    es: nodo de agente
+    fr: nœud agent
+    de: Agentenknoten
+    ja: エージェントノード
+    ko: 에이전트 노드
+    pt-BR: nó de agente
+  typed_edge:
+    canonical: typed edge
+    zh-Hans: 类型化边
+    es: arista tipada
+    fr: arête typée
+    de: typisierte Kante
+    ja: 型付きエッジ
+    ko: 타입이 지정된 엣지
+    pt-BR: aresta tipada
+  org_graph:
+    canonical: org graph
+    meaning: Reusable roles, authority, permissions, and allowed relationships; not an organization chart.
+    zh-Hans: 组织图
+    es: grafo organizativo
+    fr: graphe d’organisation
+    de: Organisationsgraph
+    ja: 組織グラフ
+    ko: 조직 그래프
+    pt-BR: grafo organizacional
+  run_work_graph:
+    canonical: run/work graph
+    meaning: Task instances, dependencies, branches, gates, and evidence for one run.
+    zh-Hans: 运行／工作图
+    es: grafo de ejecución o trabajo
+    fr: graphe d’exécution ou de travail
+    de: Ausführungs- oder Arbeitsgraph
+    ja: 実行／作業グラフ
+    ko: 실행/작업 그래프
+    pt-BR: grafo de execução ou trabalho
+  evidence_gate:
+    canonical: evidence gate
+    zh-Hans: 证据门
+    es: puerta de evidencia
+    fr: porte de preuve
+    de: Evidenz-Gate
+    ja: エビデンスゲート
+    ko: 근거 게이트
+    pt-BR: porta de evidência
+  state_boundary:
+    canonical: state boundary
+    zh-Hans: 状态边界
+    es: límite de estado
+    fr: frontière d’état
+    de: Zustandsgrenze
+    ja: 状態境界
+    ko: 상태 경계
+    pt-BR: limite de estado
+  graph_policy:
+    canonical: graph policy
+    zh-Hans: 图策略
+    es: política del grafo
+    fr: politique du graphe
+    de: Graph-Policy
+    ja: グラフポリシー
+    ko: 그래프 정책
+    pt-BR: política do grafo
+  load_bearing:
+    canonical: load-bearing
+    meaning: Materially constrains execution; never translate as merely visually important.
+    zh-Hans: 实质性约束执行（承重）
+    es: operativo y materialmente vinculante
+    fr: contraignant réellement l’exécution
+    de: die Ausführung tatsächlich einschränkend
+    ja: 実行を実質的に制約する
+    ko: 실행을 실질적으로 제약하는
+    pt-BR: que restringe materialmente a execução
+  loop_engineering:
+    canonical: loop engineering
+    meaning: Engineering temporal feedback and repeated progress within or across runs; not a software event loop.
+    zh-Hans: 循环工程（Loop Engineering）
+    es: ingeniería de bucles
+    fr: ingénierie des boucles
+    de: Loop Engineering
+    ja: Loop Engineering（ループ設計）
+    ko: Loop Engineering(루프 엔지니어링)
+    pt-BR: engenharia de loops
