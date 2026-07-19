@@ -1,0 +1,28 @@
+# Link checker configuration.
+# Sites that block CI crawlers are accepted on 403/429 rather than failed;
+# the weekly scheduled run plus manual audits catch true rot.
+
+max_redirects = 8
+max_retries = 2
+timeout = 25
+accept = ["200..299", "403", "405", "429"]
+scheme = ["https", "http"]
+
+exclude = [
+  # Bot-hostile domains: block all non-browser traffic outright.
+  "^https://x\\.com",
+  "^https://twitter\\.com",
+  "^https://www\\.linkedin\\.com",
+  "^https://linkedin\\.com",
+  "^https://openai\\.com",
+  "^https://platform\\.openai\\.com",
+  "^https://www\\.reddit\\.com",
+  "^https://doi\\.org",
+  "^https://dl\\.acm\\.org",
+  "^https://ieeexplore\\.ieee\\.org",
+  "^https://www\\.sciencedirect\\.com",
+  "^https://link\\.springer\\.com",
+  "^https://www\\.gartner\\.com",
+]
+
+exclude_path = ["node_modules", "docs"]

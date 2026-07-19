@@ -1,0 +1,32 @@
+name: Correction
+description: Report a broken link, wrong description, or outdated project status
+title: "[Fix] "
+labels: ["correction"]
+body:
+  - type: input
+    id: entry
+    attributes:
+      label: Which entry?
+      description: Resource name or URL as it appears in the list.
+    validations:
+      required: true
+  - type: dropdown
+    id: kind
+    attributes:
+      label: What is wrong?
+      options:
+        - Link is dead or redirects somewhere wrong
+        - Description is inaccurate
+        - Project status changed (archived, renamed, acquired, discontinued)
+        - Miscategorized (wrong section or type marker)
+        - Duplicate entry
+        - Other
+    validations:
+      required: true
+  - type: textarea
+    id: details
+    attributes:
+      label: Details and evidence
+      description: What should it say instead, and how do you know?
+    validations:
+      required: true

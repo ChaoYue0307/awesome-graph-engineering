@@ -1,0 +1,419 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Awesome Graph Engineering — the field guide to graph systems</title>
+<meta name="description" content="A curated field guide to graph engineering: graph databases, query languages, processing engines, graph ML, knowledge graphs, GraphRAG, visualization, benchmarks, and production practice — with an interactive resource atlas.">
+<link rel="icon" type="image/svg+xml" href="assets/logo.svg">
+<link rel="canonical" href="https://chaoyue0307.github.io/awesome-graph-engineering/">
+<meta property="og:title" content="Awesome Graph Engineering">
+<meta property="og:description" content="The curated field guide to graph engineering — databases, query languages, processing, graph ML, knowledge graphs, GraphRAG, and an interactive resource atlas.">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://chaoyue0307.github.io/awesome-graph-engineering/">
+<meta property="og:image" content="https://chaoyue0307.github.io/awesome-graph-engineering/assets/social-card.png">
+<meta name="twitter:card" content="summary_large_image">
+<style>
+  :root {
+    --bg: #0b1020;
+    --bg-soft: #0f1630;
+    --panel: #121a38;
+    --panel-2: #17204a;
+    --line: #253156;
+    --text: #e2e8f0;
+    --muted: #93a1bd;
+    --sky: #38bdf8;
+    --indigo: #818cf8;
+    --purple: #c084fc;
+    --green: #34d399;
+    --amber: #fbbf24;
+    --chip: #1a2450;
+    --radius: 14px;
+    color-scheme: dark;
+  }
+  html.light {
+    --bg: #f6f8fc;
+    --bg-soft: #eef2fa;
+    --panel: #ffffff;
+    --panel-2: #f2f5fd;
+    --line: #d9e0ef;
+    --text: #17203a;
+    --muted: #5a6a8c;
+    --chip: #e8edf9;
+    color-scheme: light;
+  }
+  * { box-sizing: border-box; }
+  html { scroll-behavior: smooth; }
+  body {
+    margin: 0;
+    background: var(--bg);
+    color: var(--text);
+    font: 16px/1.6 -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+    -webkit-font-smoothing: antialiased;
+  }
+  a { color: var(--sky); text-decoration: none; }
+  a:hover { text-decoration: underline; }
+  .wrap { max-width: 1080px; margin: 0 auto; padding: 0 20px; }
+
+  /* ---------- nav ---------- */
+  nav {
+    position: sticky; top: 0; z-index: 50;
+    background: color-mix(in srgb, var(--bg) 86%, transparent);
+    backdrop-filter: blur(10px);
+    border-bottom: 1px solid var(--line);
+  }
+  .nav-inner { display: flex; align-items: center; gap: 18px; padding: 10px 20px; max-width: 1080px; margin: 0 auto; }
+  .nav-inner img { width: 30px; height: 30px; border-radius: 8px; }
+  .nav-title { font-weight: 700; font-size: 15px; letter-spacing: .2px; }
+  .nav-links { margin-left: auto; display: flex; gap: 16px; align-items: center; font-size: 14px; }
+  .nav-links a { color: var(--muted); }
+  .nav-links a:hover { color: var(--text); text-decoration: none; }
+  #theme-toggle {
+    background: var(--chip); color: var(--muted); border: 1px solid var(--line);
+    border-radius: 8px; padding: 4px 10px; cursor: pointer; font-size: 13px;
+  }
+
+  /* ---------- hero ---------- */
+  header.hero { position: relative; overflow: hidden; border-bottom: 1px solid var(--line); }
+  #net { position: absolute; inset: 0; width: 100%; height: 100%; }
+  .hero-inner { position: relative; z-index: 1; text-align: center; padding: 84px 20px 72px; }
+  .hero-inner img.logo { width: 108px; height: 108px; border-radius: 26px; box-shadow: 0 18px 60px rgba(56,189,248,.25); }
+  h1 { font-size: clamp(32px, 5.4vw, 52px); margin: 22px 0 10px; letter-spacing: -.5px; }
+  h1 .grad {
+    background: linear-gradient(90deg, var(--sky), var(--indigo), var(--purple));
+    -webkit-background-clip: text; background-clip: text; color: transparent;
+  }
+  .tagline { max-width: 640px; margin: 0 auto; color: var(--muted); font-size: 18px; }
+  .stats { display: flex; flex-wrap: wrap; gap: 10px; justify-content: center; margin: 28px 0 6px; }
+  .stat {
+    background: var(--chip); border: 1px solid var(--line); border-radius: 999px;
+    padding: 6px 14px; font-size: 13.5px; color: var(--muted);
+  }
+  .stat b { color: var(--text); font-variant-numeric: tabular-nums; }
+  .ctas { display: flex; flex-wrap: wrap; gap: 12px; justify-content: center; margin-top: 26px; }
+  .btn {
+    display: inline-block; padding: 11px 22px; border-radius: 10px; font-weight: 600; font-size: 15px;
+    border: 1px solid var(--line); color: var(--text); background: var(--panel);
+  }
+  .btn:hover { text-decoration: none; border-color: var(--indigo); }
+  .btn.primary {
+    background: linear-gradient(90deg, #2563eb, #4f46e5); border: none; color: #fff;
+    box-shadow: 0 10px 30px rgba(79,70,229,.35);
+  }
+  .btn.primary:hover { filter: brightness(1.1); }
+
+  /* ---------- sections ---------- */
+  section { padding: 64px 0; }
+  section + section { border-top: 1px solid var(--line); }
+  .kicker { text-transform: uppercase; letter-spacing: .14em; font-size: 12.5px; color: var(--sky); font-weight: 700; }
+  h2 { font-size: clamp(24px, 3.4vw, 34px); margin: 8px 0 12px; letter-spacing: -.3px; }
+  .lede { color: var(--muted); max-width: 760px; font-size: 17px; }
+
+  .cards { display: grid; grid-template-columns: repeat(auto-fill, minmax(240px, 1fr)); gap: 14px; margin-top: 28px; }
+  .card {
+    background: var(--panel); border: 1px solid var(--line); border-radius: var(--radius);
+    padding: 18px 18px 16px; transition: border-color .15s, transform .15s;
+  }
+  .card:hover { border-color: var(--indigo); transform: translateY(-2px); }
+  .card .em { font-size: 22px; }
+  .card h3 { margin: 8px 0 6px; font-size: 16.5px; }
+  .card p { margin: 0; color: var(--muted); font-size: 14px; line-height: 1.55; }
+
+  .paths { display: grid; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); gap: 14px; margin-top: 28px; }
+  .path { background: var(--panel); border: 1px solid var(--line); border-radius: var(--radius); padding: 20px; }
+  .path h3 { margin: 0 0 6px; font-size: 17px; }
+  .path .who { color: var(--sky); font-size: 13px; font-weight: 600; letter-spacing: .04em; text-transform: uppercase; }
+  .path p { color: var(--muted); font-size: 14.5px; margin: 8px 0 0; }
+
+  /* ---------- atlas ---------- */
+  #atlas .toolbar { margin-top: 26px; display: flex; flex-direction: column; gap: 14px; }
+  #q {
+    width: 100%; padding: 13px 16px; font-size: 16px; border-radius: 12px;
+    border: 1px solid var(--line); background: var(--panel); color: var(--text); outline: none;
+  }
+  #q:focus { border-color: var(--indigo); }
+  .filter-group { display: flex; flex-wrap: wrap; gap: 8px; align-items: center; }
+  .filter-label { font-size: 12.5px; color: var(--muted); text-transform: uppercase; letter-spacing: .1em; margin-right: 4px; min-width: 72px; }
+  .chip {
+    background: var(--chip); border: 1px solid var(--line); color: var(--muted);
+    border-radius: 999px; padding: 5px 13px; font-size: 13.5px; cursor: pointer; user-select: none;
+  }
+  .chip.on { color: #fff; background: linear-gradient(90deg, #2563eb, #4f46e5); border-color: transparent; }
+  html.light .chip.on { color: #fff; }
+  #count { color: var(--muted); font-size: 14px; margin-top: 18px; }
+  #results { margin-top: 12px; display: flex; flex-direction: column; gap: 10px; }
+  .res {
+    background: var(--panel); border: 1px solid var(--line); border-radius: 12px; padding: 14px 16px;
+  }
+  .res:hover { border-color: var(--indigo); }
+  .res .top { display: flex; gap: 10px; align-items: baseline; flex-wrap: wrap; }
+  .res .title { font-weight: 650; font-size: 15.5px; }
+  .res .venue { color: var(--muted); font-size: 13px; }
+  .res .desc { color: var(--muted); font-size: 14px; margin: 6px 0 8px; line-height: 1.55; }
+  .res .meta { display: flex; gap: 8px; flex-wrap: wrap; }
+  .tag {
+    font-size: 12px; border-radius: 6px; padding: 2px 8px;
+    background: var(--chip); border: 1px solid var(--line); color: var(--muted);
+  }
+  .tag.ev { color: var(--green); }
+  .tag.sec { color: var(--indigo); }
+  #more-wrap { text-align: center; margin-top: 18px; }
+
+  /* ---------- data / footer ---------- */
+  .data-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); gap: 14px; margin-top: 28px; }
+  pre.cite {
+    background: var(--bg-soft); border: 1px solid var(--line); border-radius: 10px;
+    padding: 14px; font-size: 12.5px; overflow-x: auto; color: var(--muted);
+  }
+  footer { border-top: 1px solid var(--line); padding: 36px 0 48px; color: var(--muted); font-size: 14px; }
+  footer .cols { display: flex; flex-wrap: wrap; gap: 24px; justify-content: space-between; align-items: center; }
+  @media (prefers-reduced-motion: reduce) { #net { display: none; } html { scroll-behavior: auto; } }
+</style>
+</head>
+<body>
+
+<nav>
+  <div class="nav-inner">
+    <img src="assets/logo.svg" alt="">
+    <span class="nav-title">Awesome Graph Engineering</span>
+    <div class="nav-links">
+      <a href="#discipline">Discipline</a>
+      <a href="#start">Start</a>
+      <a href="#atlas">Atlas</a>
+      <a href="#data">Data</a>
+      <a href="https://github.com/ChaoYue0307/awesome-graph-engineering">GitHub</a>
+      <button id="theme-toggle" aria-label="Toggle color theme">◐</button>
+    </div>
+  </div>
+</nav>
+
+<header class="hero">
+  <canvas id="net" aria-hidden="true"></canvas>
+  <div class="hero-inner">
+    <img class="logo" src="assets/logo.svg" alt="Awesome Graph Engineering logo">
+    <h1>Awesome <span class="grad">Graph Engineering</span></h1>
+    <p class="tagline">The curated field guide to building systems on connected data — from graph databases and query standards to graph ML, knowledge graphs, and GraphRAG.</p>
+    <div class="stats" id="hero-stats">
+      <span class="stat"><b id="stat-resources">—</b> curated resources</span>
+      <span class="stat"><b id="stat-sections">—</b> sections</span>
+      <span class="stat"><b>12</b> resource types</span>
+      <span class="stat"><b>CC0</b> licensed</span>
+    </div>
+    <div class="ctas">
+      <a class="btn primary" href="#atlas">Explore the Resource Atlas</a>
+      <a class="btn" href="https://github.com/ChaoYue0307/awesome-graph-engineering">Read the list on GitHub</a>
+    </div>
+  </div>
+</header>
+
+<section id="discipline">
+  <div class="wrap">
+    <div class="kicker">The discipline</div>
+    <h2>Graphs are how real systems are shaped</h2>
+    <p class="lede">Fraud rings, supply chains, molecules, social feeds, attack paths, agent memory — the world's hardest data problems are relationship problems. Graph engineering is the discipline of designing, storing, querying, processing, learning from, and operating graph-shaped data systems. This project maps the whole lifecycle:</p>
+    <div class="cards" id="layer-cards">
+      <!-- LAYERS -->
+    </div>
+  </div>
+</section>
+
+<section id="start">
+  <div class="wrap">
+    <div class="kicker">Start here</div>
+    <h2>Pick your path</h2>
+    <p class="lede">Four guided entry points, matched to what you are trying to do. Each one maps to sections of the list.</p>
+    <div class="paths" id="path-cards">
+      <!-- PATHS -->
+    </div>
+  </div>
+</section>
+
+<section id="atlas">
+  <div class="wrap">
+    <div class="kicker">Resource atlas</div>
+    <h2>Every resource, filterable</h2>
+    <p class="lede">Search and filter the full dataset by section, resource type, and evidence class. The same data ships as CSV and JSONL in the repository.</p>
+    <div class="toolbar">
+      <input id="q" type="search" placeholder="Search titles, descriptions, venues… (e.g. “Cypher”, “GNN”, “fraud”)" aria-label="Search resources">
+      <div class="filter-group" id="f-section"><span class="filter-label">Section</span></div>
+      <div class="filter-group" id="f-type"><span class="filter-label">Type</span></div>
+      <div class="filter-group" id="f-evidence"><span class="filter-label">Evidence</span></div>
+    </div>
+    <div id="count"></div>
+    <div id="results"></div>
+    <div id="more-wrap"><button class="btn" id="more" hidden>Show more</button></div>
+  </div>
+</section>
+
+<section id="data">
+  <div class="wrap">
+    <div class="kicker">Use the data</div>
+    <h2>A dataset, not just a list</h2>
+    <p class="lede">Every entry is structured: section, type, venue, year, description, and evidence class. Load it in one line of pandas, or cite the project in your work.</p>
+    <div class="data-grid">
+      <div class="card">
+        <div class="em">🗃️</div>
+        <h3>Structured data</h3>
+        <p><a href="https://github.com/ChaoYue0307/awesome-graph-engineering/blob/main/data/resources.csv">resources.csv</a> · <a href="https://github.com/ChaoYue0307/awesome-graph-engineering/blob/main/data/resources.jsonl">resources.jsonl</a> — validated in CI against the README on every commit.</p>
+      </div>
+      <div class="card">
+        <div class="em">🤝</div>
+        <h3>Contribute</h3>
+        <p>Additions, corrections, and removals all welcome. The <a href="https://github.com/ChaoYue0307/awesome-graph-engineering/blob/main/CONTRIBUTING.md">contribution guide</a> defines the entry format and quality bar.</p>
+      </div>
+      <div class="card">
+        <div class="em">📖</div>
+        <h3>Cite it</h3>
+        <p>Use the repository's <a href="https://github.com/ChaoYue0307/awesome-graph-engineering/blob/main/CITATION.cff">CITATION.cff</a>, or the BibTeX below.</p>
+      </div>
+    </div>
+    <pre class="cite">@misc{awesome-graph-engineering,
+  author = {He, Chaoyue},
+  title  = {Awesome Graph Engineering: a curated field guide to graph systems},
+  year   = {2026},
+  url    = {https://github.com/ChaoYue0307/awesome-graph-engineering}
+}</pre>
+  </div>
+</section>
+
+<footer>
+  <div class="wrap cols">
+    <span>Released under <a href="https://github.com/ChaoYue0307/awesome-graph-engineering/blob/main/LICENSE">CC0-1.0</a>. Descriptions are original; every linked work belongs to its authors.</span>
+    <span><a href="https://github.com/ChaoYue0307/awesome-graph-engineering">github.com/ChaoYue0307/awesome-graph-engineering</a></span>
+  </div>
+</footer>
+
+<script id="atlas-data" type="application/json">
+[]
+</script>
+
+<script>
+// ---------- theme ----------
+const root = document.documentElement;
+const saved = localStorage.getItem('age-theme');
+if (saved === 'light' || (!saved && matchMedia('(prefers-color-scheme: light)').matches)) root.classList.add('light');
+document.getElementById('theme-toggle').addEventListener('click', () => {
+  root.classList.toggle('light');
+  localStorage.setItem('age-theme', root.classList.contains('light') ? 'light' : 'dark');
+});
+
+// ---------- hero network animation ----------
+(() => {
+  const cv = document.getElementById('net');
+  if (!cv || matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+  const ctx = cv.getContext('2d');
+  let w, h, nodes;
+  const N = 70, R = 130;
+  function resize() {
+    w = cv.width = cv.offsetWidth * devicePixelRatio;
+    h = cv.height = cv.offsetHeight * devicePixelRatio;
+  }
+  function init() {
+    nodes = Array.from({ length: N }, () => ({
+      x: Math.random() * w, y: Math.random() * h,
+      vx: (Math.random() - .5) * .18 * devicePixelRatio,
+      vy: (Math.random() - .5) * .18 * devicePixelRatio,
+      r: (Math.random() * 1.6 + .8) * devicePixelRatio,
+    }));
+  }
+  function tick() {
+    ctx.clearRect(0, 0, w, h);
+    const light = root.classList.contains('light');
+    const rr = R * devicePixelRatio;
+    for (const n of nodes) {
+      n.x += n.vx; n.y += n.vy;
+      if (n.x < 0 || n.x > w) n.vx *= -1;
+      if (n.y < 0 || n.y > h) n.vy *= -1;
+    }
+    for (let i = 0; i < N; i++) for (let j = i + 1; j < N; j++) {
+      const a = nodes[i], b = nodes[j];
+      const dx = a.x - b.x, dy = a.y - b.y, d = Math.hypot(dx, dy);
+      if (d < rr) {
+        ctx.strokeStyle = light
+          ? `rgba(79,70,229,${.14 * (1 - d / rr)})`
+          : `rgba(129,140,248,${.22 * (1 - d / rr)})`;
+        ctx.lineWidth = devicePixelRatio * .7;
+        ctx.beginPath(); ctx.moveTo(a.x, a.y); ctx.lineTo(b.x, b.y); ctx.stroke();
+      }
+    }
+    for (const n of nodes) {
+      ctx.fillStyle = light ? 'rgba(37,99,235,.5)' : 'rgba(56,189,248,.75)';
+      ctx.beginPath(); ctx.arc(n.x, n.y, n.r, 0, 7); ctx.fill();
+    }
+    requestAnimationFrame(tick);
+  }
+  resize(); init(); tick();
+  addEventListener('resize', () => { resize(); init(); });
+})();
+
+// ---------- atlas ----------
+const DATA = JSON.parse(document.getElementById('atlas-data').textContent);
+const MARK = { Paper:'📄', Blog:'📝', Docs:'📚', Tool:'🧰', Benchmark:'🧪', Dataset:'🗃️', Book:'📕', Course:'🎓', Video:'🎬', List:'🧭', Standard:'📐', Critique:'⚠️' };
+const state = { q: '', section: new Set(), type: new Set(), evidence: new Set(), shown: 60 };
+
+const uniq = key => [...new Set(DATA.map(r => r[key]))].filter(Boolean);
+function chips(elId, key, values) {
+  const el = document.getElementById(elId);
+  for (const v of values) {
+    const c = document.createElement('span');
+    c.className = 'chip'; c.textContent = key === 'rtype' ? `${MARK[v] || ''} ${v}` : v;
+    c.onclick = () => {
+      const set = state[key === 'rtype' ? 'type' : key];
+      set.has(v) ? set.delete(v) : set.add(v);
+      c.classList.toggle('on');
+      state.shown = 60; render();
+    };
+    el.appendChild(c);
+  }
+}
+
+function matches(r) {
+  if (state.section.size && !state.section.has(r.section)) return false;
+  if (state.type.size && !state.type.has(r.rtype)) return false;
+  if (state.evidence.size && !state.evidence.has(r.evidence)) return false;
+  if (state.q) {
+    const hay = `${r.title} ${r.description} ${r.venue} ${r.authors || ''} ${r.subcategory || ''}`.toLowerCase();
+    return state.q.toLowerCase().split(/\s+/).every(t => hay.includes(t));
+  }
+  return true;
+}
+
+function esc(s) { const d = document.createElement('div'); d.textContent = s || ''; return d.innerHTML; }
+
+function render() {
+  const hits = DATA.filter(matches);
+  document.getElementById('count').textContent =
+    `${hits.length} of ${DATA.length} resources` + (hits.length !== DATA.length ? ' match' : '');
+  const slice = hits.slice(0, state.shown);
+  document.getElementById('results').innerHTML = slice.map(r => `
+    <div class="res">
+      <div class="top">
+        <span>${MARK[r.rtype] || '•'}</span>
+        <a class="title" href="${esc(r.url)}" target="_blank" rel="noopener">${esc(r.title)}</a>
+        <span class="venue">${esc(r.venue)}${r.year ? ' · ' + esc(r.year) : ''}${r.authors ? ' · ' + esc(r.authors) : ''}</span>
+      </div>
+      <div class="desc">${esc(r.description)}</div>
+      <div class="meta">
+        <span class="tag sec">${esc(r.section)}</span>
+        <span class="tag">${esc(r.rtype)}</span>
+        <span class="tag ev">${esc(r.evidence)}</span>
+      </div>
+    </div>`).join('');
+  const more = document.getElementById('more');
+  more.hidden = hits.length <= state.shown;
+}
+
+document.getElementById('q').addEventListener('input', e => { state.q = e.target.value; state.shown = 60; render(); });
+document.getElementById('more').addEventListener('click', () => { state.shown += 60; render(); });
+
+if (DATA.length) {
+  chips('f-section', 'section', uniq('section'));
+  chips('f-type', 'rtype', uniq('rtype'));
+  chips('f-evidence', 'evidence', uniq('evidence'));
+  document.getElementById('stat-resources').textContent = DATA.length;
+  document.getElementById('stat-sections').textContent = uniq('section').length;
+  render();
+}
+</script>
+</body>
+</html>

@@ -1,0 +1,18 @@
+cff-version: 1.2.0
+message: "If you use this curated list or its dataset, please cite it as below."
+title: "Awesome Graph Engineering"
+type: dataset
+authors:
+  - family-names: "He"
+    given-names: "Chaoyue"
+repository-code: "https://github.com/ChaoYue0307/awesome-graph-engineering"
+url: "https://chaoyue0307.github.io/awesome-graph-engineering/"
+license: CC0-1.0
+abstract: "A curated field guide to graph engineering: graph databases, query languages and standards, processing engines, algorithms, graph machine learning, knowledge graphs, GraphRAG, visualization, benchmarks, and production practice — with a structured dataset and interactive resource atlas."
+keywords:
+  - graph-engineering
+  - graph-databases
+  - knowledge-graphs
+  - graph-ml
+  - graphrag
+  - awesome-list

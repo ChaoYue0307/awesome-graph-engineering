@@ -1,0 +1,51 @@
+name: Add a resource
+description: Suggest a resource for the list
+title: "[Add] "
+labels: ["resource-suggestion"]
+body:
+  - type: input
+    id: url
+    attributes:
+      label: Canonical URL
+      description: arXiv abstract page for papers, official docs/repo for tools, publisher page for books.
+    validations:
+      required: true
+  - type: dropdown
+    id: rtype
+    attributes:
+      label: Resource type
+      options:
+        - "📄 Paper"
+        - "📝 Blog"
+        - "📚 Docs"
+        - "🧰 Tool"
+        - "🧪 Benchmark"
+        - "🗃️ Dataset"
+        - "📕 Book"
+        - "🎓 Course"
+        - "🎬 Video"
+        - "🧭 List"
+        - "📐 Standard"
+        - "⚠️ Critique"
+    validations:
+      required: true
+  - type: input
+    id: section
+    attributes:
+      label: README section it belongs in
+    validations:
+      required: true
+  - type: textarea
+    id: description
+    attributes:
+      label: Proposed description
+      description: 1–2 sentences. Concrete contribution, no marketing fluff.
+    validations:
+      required: true
+  - type: textarea
+    id: why
+    attributes:
+      label: Why a practitioner would thank us for it
+      description: What does this add that existing entries do not?
+    validations:
+      required: true

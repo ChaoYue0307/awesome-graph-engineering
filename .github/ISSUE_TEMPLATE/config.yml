@@ -1,0 +1,5 @@
+blank_issues_enabled: true
+contact_links:
+  - name: Question or discussion
+    url: https://github.com/ChaoYue0307/awesome-graph-engineering/discussions
+    about: Questions, feedback, and resource ideas you want to discuss before proposing.
