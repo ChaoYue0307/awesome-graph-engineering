@@ -1,57 +1,83 @@
 # Contributing
 
-Thanks for helping make this the most useful map of graph engineering. Contributions of every size are welcome — a fixed typo, a corrected project status, or a new resource.
+Thanks for helping make this a useful, evidence-led map of graph engineering. Contributions of every size are welcome — a fixed typo, a corrected project status, or a well-sourced new resource.
 
 ## What belongs here
 
-A resource qualifies when it helps someone **design, run, verify, or understand AI-agent organizations as graphs** — the discipline above loop engineering. That includes orchestration frameworks and SDKs, topology and coordination research, org design and role patterns, handoff protocols (MCP, A2A), work-graph planning, shared state and memory, verification gates, failure and reliability engineering, observability and cost, benchmarks, production case studies, the classic multi-agent and distributed-systems foundations, and serious critiques of all of the above.
+This repository uses **graph engineering** as a working term for designing, implementing, and operating AI-agent organizations as explicit, observable graphs. A system directly in scope has all three of these properties:
 
-A resource does not qualify when it is:
+1. **Multiple independently scoped agent nodes** — reusable roles or runtime instances with distinct goals, context, authority, or responsibility.
+2. **Explicit coordination semantics** — typed delegation, context or artifact transfer, verification, escalation, or other defined relationships.
+3. **An inspectable graph artifact** — the topology, or the policy that generates it, is load-bearing and can be versioned, traced, or otherwise examined.
 
-- **Graph data engineering** — graph databases, GNNs, knowledge-graph construction, or GraphRAG-as-document-retrieval; that is a different field sharing the name (see [COMPARISON.md](COMPARISON.md)). Exception: graph-shaped memory infrastructure serving agent organizations.
-- Single-agent content with no organizational angle (belongs in [awesome-loop-engineering](https://github.com/ChaoYue0307/awesome-loop-engineering))
-- Marketing copy with no technical substance, or a thin listicle rewrite of primary sources
-- A deterministic workflow tool with no agency at the nodes, unless it serves as an agent-graph substrate
-- Abandoned software with no historical significance
+A resource qualifies when it helps someone design, implement, operate, evaluate, or understand those systems. The list also includes relevant foundations, substrates, measurements, and critiques: classical multi-agent systems, deterministic durable execution under agent nodes, communication protocols, evaluation methods, and evidence about when multi-agent designs fail.
 
-Quality bar: **every entry must be something a practitioner would thank you for.** Prefer primary sources (official docs, the original paper, the first-party engineering blog) over aggregators.
+A resource does not qualify when it is only:
 
-## Entry format
+- **Graph data engineering** — graph databases, GNNs, knowledge-graph construction, or GraphRAG-as-document-retrieval. That established data practice shares the name but is outside this repository's working scope. An exception is graph-shaped state infrastructure used directly by an agent organization.
+- **Single-agent tool use** with no independently scoped peer, worker, supervisor, or judge. A task graph internal to one agent and graph/tree-of-thought prompting are also outside the core scope.
+- Marketing copy with no technical substance, or a thin listicle rewrite of primary sources.
+- A deterministic workflow with no genuine agent nodes, unless the resource is useful as agent-graph substrate or comparison.
+- Abandoned software with no historical significance.
 
-Resources live in `README.md` tables and in `data/resources.csv` + `data/resources.jsonl`. A README row looks like:
+Classical multi-agent systems are a foundation and area of overlap, not a blanket nonexample. See [COMPARISON.md](COMPARISON.md) for the detailed boundaries.
 
-```markdown
-| 🧰 **[Resource Name](https://example.com/)**<br><sub>Tool</sub> | **example.com**<br><sub>Author or Org</sub> | One to two sentences stating the concrete contribution — what it does, why it matters, distinctive facts. No marketing fluff. | **Maintained OSS project**<br><sub>Check repository activity and license</sub> |
-```
+Quality bar: **every entry must be something a practitioner would thank you for.** Prefer primary sources — official documentation, the original paper, a standard, or a first-party engineering report — over aggregators.
 
-Rules:
+## Canonical entry format
 
-1. **Type marker** — pick one: 📄 Paper · 📝 Blog · 📚 Docs · 🧰 Tool · 🧪 Benchmark · 🗃️ Dataset · 📕 Book · 🎓 Course · 🎬 Video · 🧭 List · 📐 Standard · ⚠️ Critique
-2. **Canonical URL** — arXiv abstract page for papers, official docs or repo for tools, publisher page for books. No trackers, no affiliate links, no paywalled mirrors when an open canonical version exists.
-3. **Description** — 1–2 sentences, concrete and specific. State what it is and what makes it distinctive (scale numbers, dates, architectural approach). Write in plain language.
-4. **Evidence label** — one of: Peer-reviewed research · Research preprint · Practitioner analysis · Official documentation · Maintained OSS project · Industry standard · Benchmark/dataset · Book/course · Community resource
-5. **Status honesty** — if a project is archived, discontinued, or absorbed, say so in the description. Only include dead projects when they are historically seminal.
+[`data/resources.jsonl`](data/resources.jsonl) is the only hand-edited resource list. Each line is one JSON object with exactly these 13 fields, in this order:
+
+`id`, `section`, `subcategory`, `rtype`, `title`, `url`, `venue`, `year`, `authors`, `description`, `why`, `evidence`, `layer`.
+
+The generated README tables, `data/resources.csv`, and website atlas must not be edited by hand. Run `python3 scripts/sync.py` after changing the JSONL source. Full field semantics are documented in [`data/README.md`](data/README.md).
+
+### Controlled display labels
+
+Use these values exactly, including capitalization and punctuation:
+
+- **Resource type (`rtype`)**: `Paper`, `Blog`, `Docs`, `Tool`, `Benchmark`, `Dataset`, `Book`, `Course`, `Video`, `List`, `Standard`, `Critique`.
+- **Section (`section`)**: `Start Here`, `Research Foundations`, `Frameworks & SDKs`, `Protocols & Handoffs`, `State, Memory & Artifacts`, `Verification & Evals`, `Reliability & Durable Execution`, `Observability & Cost`, `Benchmarks & Datasets`, `Production Case Studies`, `Critiques & Limits`.
+- **Primary layer (`layer`)**: `Roles`, `Topology`, `Handoffs`, `Work graphs`, `State`, `Gates`, `Reliability`, `Observability & cost`, `Evolution`.
+- **Source/evidence label (`evidence`)**: `Peer-reviewed research`, `Research preprint`, `Practitioner analysis`, `Official documentation`, `Maintained OSS project`, `Industry standard`, `Benchmark/dataset`, `Book/course`, `Community resource`.
+
+The `evidence` value describes **what kind of source it is**. It is not a quality score, endorsement, or certainty grade. Evaluate rigor from the work itself. Use `why` to state the resource's specific practical value; do not repeat the description.
+
+## Writing rules
+
+1. **Canonical URL** — use the DOI or publisher page for peer-reviewed papers, arXiv abstract for preprints, official docs or repository for tools, and the publisher page for books. Do not add trackers, affiliate links, or avoidable mirrors.
+2. **Description** — write one or two concrete sentences explaining what the resource contributes. Prefer architectural details, study design, scale, and limitations over marketing claims.
+3. **Why** — state why this particular item helps a graph engineer or why it matters as foundation, substrate, evidence, or critique.
+4. **Evidence honesty** — select the source/evidence label by publication form, not by perceived prestige. A polished company article remains `Practitioner analysis`; first-party product reference material is `Official documentation`.
+5. **Status honesty** — if a project is archived, discontinued, or absorbed, say so in the description. Include inactive projects only when historically important.
+6. **One primary layer** — choose the most useful discovery lens, even when the resource crosses several.
 
 ## How to contribute
 
-1. **Small fix** (typo, dead link, status change): edit `README.md` directly and open a PR.
-2. **New resource**: add the row to the right README section **and** append a matching record to `data/resources.csv` and `data/resources.jsonl`, then run `python3 scripts/validate.py` locally. One resource per PR is easiest to review; batches are fine if they are all in one section.
-3. **New section or structural change**: open an issue or discussion first so we can agree on the shape.
+1. **Small resource fix**: edit the matching JSON object in `data/resources.jsonl`.
+2. **New resource**: append one complete 13-field object. Use the next unused `age-NNNN` identifier; identifiers are never recycled.
+3. Run `python3 scripts/sync.py` to regenerate the CSV, README tables, and website atlas.
+4. Run `python3 scripts/validate.py` and then `python3 scripts/sync.py --check`.
+5. Open a pull request explaining the addition or correction. One resource per PR is easiest to review; coherent batches are welcome.
 
-### PR checklist
+For prose fixes outside generated resource tables, edit the relevant Markdown file directly. Open an issue or discussion before proposing a new section or changing the schema.
 
-- [ ] The entry follows the format above (marker, canonical URL, concrete description, evidence label)
-- [ ] The URL loads and is the canonical source
-- [ ] `data/resources.csv` and `data/resources.jsonl` updated for added/removed resources
-- [ ] `python3 scripts/validate.py` passes
-- [ ] No duplicate of an existing entry (search the README first)
+### Pull-request checklist
 
-CI runs markdownlint, data validation, and a link check on every PR.
+- [ ] The resource directly fits the minimum inclusion test or clearly serves its foundations, substrate, measurement, or critique.
+- [ ] All 13 fields are present and controlled labels match the documented display values exactly.
+- [ ] The URL is canonical and loads.
+- [ ] The description is concrete; `why` adds a distinct practitioner rationale.
+- [ ] The source/evidence label describes source type rather than scoring quality.
+- [ ] No duplicate exists by ID, normalized URL, or title.
+- [ ] `python3 scripts/sync.py`, `python3 scripts/validate.py`, and `python3 scripts/sync.py --check` pass.
+
+CI checks Markdown, schema and vocabulary validity, generated-file parity, and links on every pull request.
 
 ## Removing resources
 
-Removal PRs are as valuable as addition PRs. Grounds for removal: link rot with no canonical replacement, the project died without historical significance, or the content aged into being misleading. State the reason in the PR description.
+Removal PRs are as valuable as additions. Grounds include link rot with no canonical replacement, an inactive project without historical significance, duplication, or material that has become misleading. Explain the reason and, where possible, provide a canonical successor.
 
 ## License
 
-By contributing, you agree that your contributions are released under [CC0-1.0](LICENSE), the same license as the rest of the repository.
+By contributing, you agree that your contributions are released under [CC0-1.0](LICENSE), the same license as the repository's original metadata and descriptions. Linked works remain under their authors' licenses.

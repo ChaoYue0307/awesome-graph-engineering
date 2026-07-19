@@ -7,7 +7,7 @@ Fourteen recurring ways agent organizations fail, each with the symptom that rev
 ### 1. Org-chart cosplay
 
 **Symptom:** nodes named "CEO agent," "CTO agent," "engineer agent" — with identical prompts, identical tools, and no capability boundaries. The titles do nothing.
-**Move:** a role earns its node through three things: a distinct capability boundary (what only it may do), dedicated context (what only it accumulates), and edges with real contracts. No boundary, no node.
+**Move:** a role earns its node through independent scope — a distinct goal, responsibility, context boundary, or authority — plus explicit relationships to other nodes. Not every dimension must differ, but a title alone is not scope. Record the roles and edge policy in an inspectable artifact rather than leaving the organization implicit in prompts.
 
 ### 2. Multi-agent when one context would win
 
@@ -46,7 +46,7 @@ Fourteen recurring ways agent organizations fail, each with the symptom that rev
 ### 8. Static plan, dynamic world
 
 **Symptom:** the work graph was fixed at kickoff; halfway through, evidence shows the decomposition was wrong, and agents keep executing the obsolete plan to completion.
-**Move:** re-planning is a first-class node. Cheap checkpoints ("does the plan still fit the evidence?") gate each phase; the orchestrator may cancel, respawn, and rewire — within budget.
+**Move:** make re-planning a first-class operation. Cheap checkpoints ("does the plan still fit the evidence?") gate each phase; the orchestrator may cancel, respawn, and rewire the run/work graph within enforced budgets. That authority does not imply permission to rewrite standing org roles or access policy.
 
 ### 9. Unbounded spawning
 
@@ -63,7 +63,7 @@ Fourteen recurring ways agent organizations fail, each with the symptom that rev
 ### 11. The rumor mill
 
 **Symptom:** no evidence gates anywhere; each node trusts its upstream completely; one early hallucination compounds through every downstream hop and ships with confidence.
-**Move:** gates at the edges that matter most: deterministic oracles (tests, builds, schema checks) where possible, judge nodes where not, and quorum where a single judge would be gamed. A graph without gates propagates errors at machine speed.
+**Move:** add gates at the edges that matter most: deterministic oracles (tests, builds, schema checks) where possible, agent judges where judgment is required, human approval where stakes demand it, and quorum where a single judge would be gamed. Gates do not all need to be agents. A graph without verification propagates errors at machine speed.
 
 ### 12. Consensus theater
 
@@ -80,4 +80,4 @@ Fourteen recurring ways agent organizations fail, each with the symptom that rev
 ### 14. Cascade-blind failure handling
 
 **Symptom:** one node times out; its dependents receive nothing, hallucinate a substitute, and the graph "completes successfully" with fabricated inputs in its lineage.
-**Move:** partial failure is the default case, not the exception: explicit failure shapes on every edge, dependents that block or degrade deliberately, resumable checkpoints, and human escalation wired as a real node with a real pager.
+**Move:** partial failure is the default case, not the exception: explicit failure shapes on every edge, dependents that block or degrade deliberately, resumable checkpoints, and human escalation wired as an explicit, reachable control path with a real pager.

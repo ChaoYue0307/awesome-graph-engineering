@@ -34,8 +34,16 @@ jobs:
         with:
           globs: "**/*.md"
 
-      - name: Validate dataset against README
+      - name: Check generated artifacts are in sync
+        run: python3 scripts/sync.py --check
+
+      - name: Validate dataset and generated views
         run: python3 scripts/validate.py
+
+      - name: Verify generated site is nonempty
+        run: |
+          test -s docs/index.html
+          grep -q '"id":"age-' docs/index.html
 
   links:
     name: Link audit
@@ -58,5 +66,6 @@ jobs:
             --config lychee.toml
             --cache
             --max-cache-age 1d
-            README.md DEFINITION.md TAXONOMY.md COMPARISON.md ANTI-PATTERNS.md CONTRIBUTING.md
+            README.md DEFINITION.md METHODOLOGY.md TAXONOMY.md COMPARISON.md
+            ANTI-PATTERNS.md CONTRIBUTING.md data/README.md huggingface/README.md
           fail: true

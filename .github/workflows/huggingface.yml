@@ -1,0 +1,55 @@
+name: Sync Hugging Face dataset
+
+on:
+  push:
+    branches:
+      - main
+    paths:
+      - "data/resources.jsonl"
+      - "data/resources.csv"
+      - "huggingface/**"
+      - "scripts/publish_huggingface.sh"
+      - "scripts/sync.py"
+      - "scripts/validate.py"
+      - ".github/workflows/huggingface.yml"
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: hugging-face-dataset
+  cancel-in-progress: true
+
+jobs:
+  publish:
+    name: Publish canonical dataset mirror
+    runs-on: ubuntu-latest
+    env:
+      HF_TOKEN: ${{ secrets.HF_TOKEN }}
+      HF_DATASET_REPO: cy0307/awesome-graph-engineering
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.x"
+
+      - name: Validate generated views
+        run: |
+          python3 scripts/sync.py --check
+          python3 scripts/validate.py
+
+      - name: Install the Hugging Face CLI
+        if: ${{ env.HF_TOKEN != '' }}
+        run: python -m pip install --upgrade huggingface_hub
+
+      - name: Validate and publish the dataset
+        if: ${{ env.HF_TOKEN != '' }}
+        run: bash scripts/publish_huggingface.sh
+
+      - name: Explain inactive publishing
+        if: ${{ env.HF_TOKEN == '' }}
+        run: echo "::notice::Add the HF_TOKEN repository secret to activate automatic Hugging Face publishing."

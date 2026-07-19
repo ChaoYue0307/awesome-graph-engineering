@@ -4,8 +4,8 @@
 
 ## Checklist
 
-- [ ] Entry follows the format in [CONTRIBUTING.md](../CONTRIBUTING.md) (type marker, canonical URL, concrete 1–2 sentence description, evidence label)
+- [ ] Entry follows [CONTRIBUTING.md](../CONTRIBUTING.md) (canonical URL, concrete summary, `why`, source/evidence label, primary layer)
 - [ ] URL loads and is the canonical source
-- [ ] `data/resources.csv` and `data/resources.jsonl` updated for added/removed resources
-- [ ] `python3 scripts/validate.py` passes locally
+- [ ] Canonical `data/resources.jsonl` updated for added/removed resources
+- [ ] `python3 scripts/sync.py` and `python3 scripts/validate.py` pass locally
 - [ ] Not a duplicate (searched the README)

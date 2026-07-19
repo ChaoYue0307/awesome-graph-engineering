@@ -1,39 +1,144 @@
-# Dataset
+# Resource dataset
 
-The full resource list as structured data, kept in lockstep with `README.md` by `scripts/validate.py` in CI.
+The Resource Atlas is published as structured, CC0 metadata. [`resources.jsonl`](resources.jsonl) is the canonical, hand-edited source; the README tables, website atlas, and `resources.csv` are generated views.
 
-## Files
+## Files and generation
 
-- `resources.csv` — one row per resource, UTF-8, header row, comma-separated.
-- `resources.jsonl` — the same records, one JSON object per line. This file also feeds the website's Resource Atlas (`python3 scripts/build_site.py` re-embeds it).
+- `resources.jsonl` — one UTF-8 JSON object per line, in curated display order. Edit this file.
+- `resources.csv` — the same records and field order with a header row. Generated; do not edit it directly.
+- `../README.md` resource tables — generated between the `RESOURCE_TABLES_START` and `RESOURCE_TABLES_END` markers.
+- `../docs/index.html` atlas data — generated inside the `atlas-data` JSON script island.
+- [Hugging Face mirror](https://huggingface.co/datasets/cy0307/awesome-graph-engineering) — published from the validated JSONL and CSV with `../huggingface/README.md` as its dataset card.
 
-## Fields
+After editing the JSONL source, run:
 
-| Field | Meaning |
-| --- | --- |
-| `id` | Stable identifier, `age-NNNN`. Never reused after deletion. |
-| `section` | README section the resource lives in. |
-| `subcategory` | Finer-grained label inside the section (free text). |
-| `rtype` | One of: Paper, Blog, Docs, Tool, Benchmark, Dataset, Book, Course, Video, List, Standard, Critique. |
-| `title` | Resource title as shown in the README. |
-| `url` | Canonical URL (arXiv abstract page for papers, official docs/repo for tools). |
-| `venue` | Publishing platform or venue (arXiv, VLDB, neo4j.com, GitHub, …). |
-| `year` | Publication or last-major-update year; empty for evergreen resources. |
-| `authors` | Authors or maintainers; empty when institutional. |
-| `description` | The list's original 1–2 sentence contribution summary. |
-| `evidence` | One of: Peer-reviewed research, Research preprint, Practitioner analysis, Official documentation, Maintained OSS project, Industry standard, Benchmark/dataset, Book/course, Community resource. |
-| `layer` | Primary design layer from [TAXONOMY.md](../TAXONOMY.md): `roles`, `topology`, `handoffs`, `workgraph`, `state`, `gates`, `reliability`, `observability`, `evolution`, or `cross-layer`. |
+```bash
+python3 scripts/sync.py
+python3 scripts/validate.py
+python3 scripts/sync.py --check
+```
 
-## Load it
+The final command is read-only and fails when any generated view has drifted from the canonical data.
+
+To publish the validated mirror manually:
+
+```bash
+bash scripts/publish_huggingface.sh
+```
+
+The GitHub workflow uses the same script and an `HF_TOKEN` repository secret. Synchronization is one-way: edit the canonical GitHub JSONL, never the Hub copy.
+
+## Schema: exactly 13 fields
+
+Every JSONL object must contain exactly the fields below. The generator emits CSV columns in this same order.
+
+| # | Field | JSON type | Meaning |
+| ---: | --- | --- | --- |
+| 1 | `id` | string | Stable identifier matching `age-NNNN`. Assign the next unused value and never recycle an ID. |
+| 2 | `section` | string | Controlled README/Atlas section display label. |
+| 3 | `subcategory` | string | Specific discovery label within the section; free text, sentence case. |
+| 4 | `rtype` | string | Controlled resource-type display label. |
+| 5 | `title` | string | Canonical human-readable resource title. |
+| 6 | `url` | string | Canonical absolute `https://` URL, or canonical `http://` only when no HTTPS endpoint exists. |
+| 7 | `venue` | string | Publisher, venue, documentation site, or repository host shown to readers. |
+| 8 | `year` | integer | Four-digit publication year or year of the cited major release. |
+| 9 | `authors` | string | Author(s) or maintaining organization; separate multiple named authors with semicolons. |
+| 10 | `description` | string | Original one- or two-sentence summary of the resource's concrete contribution. |
+| 11 | `why` | string | Distinct practitioner rationale: why the item matters to this scope or what decision it improves. |
+| 12 | `evidence` | string | Controlled **source/evidence display label** describing publication form. It is not a quality score. |
+| 13 | `layer` | string | Controlled primary design-layer display label from [the taxonomy](../TAXONOMY.md). |
+
+All string fields are required and non-empty. Keep each object on one physical line; ordinary JSON escaping rules apply.
+
+## Controlled display-label vocabularies
+
+Values are case-sensitive and must match exactly. These are reader-facing labels, not lowercase keys or slugs.
+
+### `section`
+
+- `Start Here`
+- `Research Foundations`
+- `Frameworks & SDKs`
+- `Protocols & Handoffs`
+- `State, Memory & Artifacts`
+- `Verification & Evals`
+- `Reliability & Durable Execution`
+- `Observability & Cost`
+- `Benchmarks & Datasets`
+- `Production Case Studies`
+- `Critiques & Limits`
+
+### `rtype`
+
+- `Paper`
+- `Blog`
+- `Docs`
+- `Tool`
+- `Benchmark`
+- `Dataset`
+- `Book`
+- `Course`
+- `Video`
+- `List`
+- `Standard`
+- `Critique`
+
+### `evidence`
+
+- `Peer-reviewed research`
+- `Research preprint`
+- `Practitioner analysis`
+- `Official documentation`
+- `Maintained OSS project`
+- `Industry standard`
+- `Benchmark/dataset`
+- `Book/course`
+- `Community resource`
+
+This label records the kind of source. It does not rank rigor, guarantee correctness, or imply endorsement. For example, use `Official documentation` for a framework's reference docs and `Practitioner analysis` for a first-party engineering argument.
+
+### `layer`
+
+- `Roles`
+- `Topology`
+- `Handoffs`
+- `Work graphs`
+- `State`
+- `Gates`
+- `Reliability`
+- `Observability & cost`
+- `Evolution`
+
+Org graph and run/work graph are analytical views used by this repository, not standardized industry object types. `Work graphs` is the dataset label for resources centered on run-scoped decomposition, dependencies, and lineage.
+
+## Load the data
+
+Read the line-delimited canonical source without third-party packages:
+
+```python
+import json
+from urllib.request import urlopen
+
+url = "https://raw.githubusercontent.com/ChaoYue0307/awesome-graph-engineering/main/data/resources.jsonl"
+with urlopen(url) as response:
+    resources = [json.loads(line) for line in response if line.strip()]
+
+print(len(resources), resources[0]["title"])
+```
+
+Or load the generated CSV with pandas:
 
 ```python
 import pandas as pd
-df = pd.read_csv(
+
+resources = pd.read_csv(
     "https://raw.githubusercontent.com/ChaoYue0307/awesome-graph-engineering/main/data/resources.csv"
 )
-df.groupby("section").size().sort_values(ascending=False)
+print(resources.groupby("section").size().sort_values(ascending=False))
 ```
 
-## License
+## Scope and licensing
 
-CC0-1.0, same as the repository. Descriptions are original to this project; the linked works belong to their authors.
+Dataset membership follows the working definition and inclusion test in [`DEFINITION.md`](../DEFINITION.md). Plain graph-data engineering and single-agent tool use are outside the core scope; classical multi-agent systems remain an important foundation and area of overlap.
+
+The metadata and original descriptions are released under [CC0-1.0](../LICENSE). Linked resources remain under their respective authors' and publishers' licenses.

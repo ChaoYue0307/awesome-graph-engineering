@@ -1,56 +1,62 @@
 # Graph Engineering vs. Its Neighbors
 
-The word "graph" is badly overloaded, and the discipline sits on top of four older ones. These are the boundaries that cause real confusion, with honest guidance on when the neighbor is the right choice.
+The word "graph" is badly overloaded. **Graph engineering** is also an emerging, non-standard label in the AI-agent context, so this page documents the working scope used by this repository rather than claiming a settled field boundary. It connects several established disciplines; the comparisons below explain when a neighboring frame is the more precise one.
 
-## The engineering stack: prompt → context → harness → loop → graph
+## Five interacting engineering dimensions
 
-Five layers, each governing a larger unit of behavior. You climb them in order — a graph built on weak loops fails at every edge.
+Prompt, context, harness, loop, and graph engineering govern different concerns. They often interact and nest, but they are **not** a strict maturity sequence: a team can improve an edge contract without operating a persistent loop, or use a durable loop around one node inside a larger graph.
 
 | Layer | Governs | You have a problem at this layer when… |
 | --- | --- | --- |
 | **Prompt engineering** | One model response | The model misunderstands the instruction |
 | **Context engineering** | What the model can see | The model lacks (or drowns in) information |
 | **Harness engineering** | One run's tools, permissions, isolation, checks | The agent can't act safely or verify locally |
-| **Loop engineering** | One agent across runs: trigger → act → verify → retry → persist | Work recurs and single runs don't finish it |
-| **Graph engineering** | Many agents as one organization | One loop can't hold the whole job — or you're paying frontier prices for work a cheaper specialist could own |
+| **Loop engineering** | A temporal control cycle: trigger → act → verify → retry or persist | Work recurs, needs feedback, or cannot finish reliably in one pass |
+| **Graph engineering** | Relationships among multiple independently scoped agent nodes | Coordination, isolation, specialization, or parallel work must be explicit and inspectable |
 
-Loops made agent behavior programmable. Graphs make agent *organizations* programmable. The loop layer has its own field guide: [awesome-loop-engineering](https://github.com/ChaoYue0307/awesome-loop-engineering).
+A loop is principally a temporal view; a graph is principally a relational view. A node may run a loop, but graph membership does not require every node to own one. The complementary loop field guide is [awesome-loop-engineering](https://github.com/ChaoYue0307/awesome-loop-engineering).
+
+Under this repository's working definition, a system is in scope only when all three conditions hold:
+
+1. It has multiple independently scoped agent roles or runtime instances.
+2. Their coordination semantics are explicit — for example typed delegation, context or artifact transfer, verification, or escalation relationships.
+3. The topology or policy that generates it is a load-bearing, inspectable system artifact.
 
 ## Not graph data engineering (the name collision)
 
-There is an established discipline also called graph engineering: **building systems on graph-shaped data** — graph databases (Neo4j, Neptune), query languages (Cypher, GQL, SPARQL), graph analytics, GNNs, knowledge graphs, and GraphRAG. That is a *data* discipline; this list covers an *organizational* one. The overlap is real but narrow: a knowledge graph can serve an agent org as shared memory (Graphiti, Zep), and an agent team can build knowledge graphs. The test: if the nodes are *data entities*, you're in graph data engineering; if the nodes are *agents doing work*, you're here. (And GraphQL is neither — it's an API query protocol.)
+There is an established practice also called graph engineering: **building systems on graph-shaped data** — graph databases (Neo4j, Neptune), query languages (Cypher, GQL, SPARQL), graph analytics, GNNs, knowledge graphs, and GraphRAG. That is a *data* concern; this list scopes the term to agent organization. The overlap is real but narrow: a knowledge graph can serve an agent organization as shared state, and an agent team can build knowledge graphs. The test is the principal meaning of the nodes and edges: if they represent data entities and relationships, plain graph data engineering is outside this repository; if multiple independently scoped agents and their coordination are the load-bearing graph, it may be in scope. (GraphQL is neither — it is an API query language.)
 
-## Org graph vs. work graph
+## Org graph vs. run/work graph
 
-The two graphs inside every serious system, running on different timescales:
+This repository uses two **analytical views** to reason about different timescales. The labels are not claimed as universal standards, and an implementation may store both views in one runtime structure.
 
-| | Org graph | Work graph |
+| | Org graph view | Run/work graph view |
 | --- | --- | --- |
-| Lifetime | Months — survives across jobs | Minutes to hours — one job |
-| Nodes | Stable roles with accumulated context ("Security owns auth") | Task instances, spawned and cancelled at runtime |
-| Edges | Standing dependencies and ownership boundaries | This job's actual data flow — splits, merges, reorders |
+| Typical lifetime | Survives across runs | Scoped to one run or objective |
+| Nodes | Reusable roles or services with standing scope ("Security owns auth") | Agent/task instances created, joined, or cancelled during execution |
+| Edges | Persistent delegation, permission, and ownership policy | The run's actual dependencies, transfers, gates, and lineage |
 | Changes when | The team learns something about the *domain* | Evidence arrives about the *task* |
 | Answers | Who? | What, right now? |
 
-Conflating them is the root of several anti-patterns: redesigning stable roles every run, or freezing a task plan that should have adapted. See [ANTI-PATTERNS.md](ANTI-PATTERNS.md).
+Separating the views can expose two failure modes: redesigning standing roles and permissions on every run, or freezing a task plan that should adapt to evidence. A planner may rewrite the run/work graph within enforced budgets without thereby gaining authority to rewrite the org graph. See [ANTI-PATTERNS.md](ANTI-PATTERNS.md).
 
 ## Not workflow orchestration (Airflow, Temporal, BPMN)
 
-Classical orchestrators run DAGs of deterministic steps; they are superb at scheduling, retries, and durable state, and terrible at judgment. The difference is **agency at the nodes**: an agent node can interpret its task, act, check its own work, and retry with a different approach — a workflow step just executes. The two compose rather than compete: durable-execution runtimes (Temporal, Inngest, Restate) increasingly serve as the *substrate* under agent graphs, handling replay and persistence while agents handle judgment. If every node in your design is deterministic, you want an orchestrator, not an agent org — it will be faster, cheaper, and debuggable.
+Classical orchestrators run graphs of predefined steps; they are strong at scheduling, retries, and durable state. The distinction is not the graph-shaped diagram but **genuine agent scope at multiple nodes**: an agent node can interpret bounded goals and choose actions, while an ordinary workflow step executes predefined behavior. A deterministic DAG by itself is workflow orchestration, not an agent organization. The two compose well: deterministic tools, tests, human approvals, and durable-execution runtimes can be nodes or gates inside an otherwise qualifying agent graph. No rule requires every agent node to run its own retry loop.
 
-## Not classical multi-agent systems (the academic field)
+## Classical multi-agent systems: foundation and overlap
 
-MAS research — actor model, BDI architectures, FIPA protocols, game-theoretic coordination — worked out much of the theory decades ago, and the best of it transfers (supervision trees, blackboard architectures, communication cost models). What changed is the node: an LLM agent is a general-purpose worker you *staff* rather than an algorithm you specify, which moves the discipline's center of gravity from protocol theory to organization design — roles, handoffs, verification, and cost. The classics are in [Research Foundations](README.md#research-foundations); skipping them means rediscovering their failure modes at token prices.
+Multi-agent-systems (MAS) research — agent-oriented programming, BDI architectures, blackboards, FIPA protocols, game-theoretic coordination, and learned communication — is a direct foundation and substantial overlap, not a blanket nonexample. LLM-based agents add unusually general and language-mediated nodes, but do not erase that lineage. This repository emphasizes engineering roles, handoffs, verification, reliability, and cost while including relevant MAS work in [Research Foundations](README.md#research-foundations).
 
 ## One agent vs. a graph
 
-The most important comparison, because the honest answer is often *one agent*. A single agent with a long context window shares everything with itself for free — no handoff loss, no coordination overhead, no multiplied token bill. Cognition's "Don't Build Multi-Agents" makes this case well, and it wins whenever the task fits one context and one competence.
+The most important comparison, because the honest answer is often *one agent*. A single agent avoids explicit inter-agent handoff loss and coordination overhead, and it may be cheaper and easier to debug when the task fits one context and one competence. Single-agent tool use, a task dependency graph internal to one agent, and graph/tree-of-thought prompting do not meet this repository's minimum inclusion test by themselves.
 
 A graph earns its overhead when at least one of these is true:
 
 - **The work parallelizes** — independent subtasks that would serialize inside one context (research sweeps, per-file migrations, review panels).
 - **Contexts must be isolated** — a judge that shouldn't see the draft's reasoning, a red team that shouldn't share the blue team's state, untrusted input quarantined at one node.
 - **Specialization pays** — stable roles accumulate domain context that a generalist re-derives every run, or cheaper models handle worker nodes while a frontier model orchestrates.
-- **The job outlives any context** — long-horizon work where the graph's state, not any single window, is the system of record.
+- **The job outlives any context** — long-horizon work where shared artifacts and run lineage, not any single context window, are the system of record.
 
 If none apply, build a better loop instead — and if you do build the graph, put evidence gates on its edges, because a graph without verification is error propagation at machine speed.
