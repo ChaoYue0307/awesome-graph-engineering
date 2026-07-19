@@ -22,7 +22,7 @@ The full resource list as structured data, kept in lockstep with `README.md` by 
 | `authors` | Authors or maintainers; empty when institutional. |
 | `description` | The list's original 1–2 sentence contribution summary. |
 | `evidence` | One of: Peer-reviewed research, Research preprint, Practitioner analysis, Official documentation, Maintained OSS project, Industry standard, Benchmark/dataset, Book/course, Community resource. |
-| `layer` | Primary lifecycle layer from [TAXONOMY.md](../TAXONOMY.md) (1–9 slug, e.g. `store`, `learn`). |
+| `layer` | Primary design layer from [TAXONOMY.md](../TAXONOMY.md): `roles`, `topology`, `handoffs`, `workgraph`, `state`, `gates`, `reliability`, `observability`, `evolution`, or `cross-layer`. |
 
 ## Load it
 

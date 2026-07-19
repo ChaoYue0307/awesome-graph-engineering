@@ -3,12 +3,12 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Awesome Graph Engineering — the field guide to graph systems</title>
-<meta name="description" content="A curated field guide to graph engineering: graph databases, query languages, processing engines, graph ML, knowledge graphs, GraphRAG, visualization, benchmarks, and production practice — with an interactive resource atlas.">
+<title>Awesome Graph Engineering — the field guide to AI-agent organizations</title>
+<meta name="description" content="A curated field guide to graph engineering: designing multi-agent organizations as programmable structures — org graphs, work graphs, handoffs, verification gates, and the frameworks that run them. With an interactive resource atlas.">
 <link rel="icon" type="image/svg+xml" href="assets/logo.svg">
 <link rel="canonical" href="https://chaoyue0307.github.io/awesome-graph-engineering/">
 <meta property="og:title" content="Awesome Graph Engineering">
-<meta property="og:description" content="The curated field guide to graph engineering — databases, query languages, processing, graph ML, knowledge graphs, GraphRAG, and an interactive resource atlas.">
+<meta property="og:description" content="The curated field guide to graph engineering — designing AI-agent organizations: topologies, handoffs, work graphs, verification gates, and the systems that run them.">
 <meta property="og:type" content="website">
 <meta property="og:url" content="https://chaoyue0307.github.io/awesome-graph-engineering/">
 <meta property="og:image" content="https://chaoyue0307.github.io/awesome-graph-engineering/assets/social-card.png">
@@ -28,6 +28,9 @@
     --green: #34d399;
     --amber: #fbbf24;
     --chip: #1a2450;
+    --g1: #38bdf8;
+    --g2: #818cf8;
+    --g3: #c084fc;
     --radius: 14px;
     color-scheme: dark;
   }
@@ -39,7 +42,13 @@
     --line: #d9e0ef;
     --text: #17203a;
     --muted: #5a6a8c;
+    --green: #059669;
+    --indigo: #4f46e5;
+    --sky: #0369a1;
     --chip: #e8edf9;
+    --g1: #0284c7;
+    --g2: #4f46e5;
+    --g3: #9333ea;
     color-scheme: light;
   }
   * { box-sizing: border-box; }
@@ -62,12 +71,16 @@
     backdrop-filter: blur(10px);
     border-bottom: 1px solid var(--line);
   }
-  .nav-inner { display: flex; align-items: center; gap: 18px; padding: 10px 20px; max-width: 1080px; margin: 0 auto; }
-  .nav-inner img { width: 30px; height: 30px; border-radius: 8px; }
-  .nav-title { font-weight: 700; font-size: 15px; letter-spacing: .2px; }
+  .nav-inner { display: flex; align-items: center; gap: 12px; padding: 10px 20px; max-width: 1080px; margin: 0 auto; }
+  .nav-inner img { width: 30px; height: 30px; border-radius: 8px; flex: none; }
+  .nav-title { font-weight: 700; font-size: 15px; letter-spacing: .2px; white-space: nowrap; }
   .nav-links { margin-left: auto; display: flex; gap: 16px; align-items: center; font-size: 14px; }
-  .nav-links a { color: var(--muted); }
+  .nav-links a { color: var(--muted); white-space: nowrap; }
   .nav-links a:hover { color: var(--text); text-decoration: none; }
+  @media (max-width: 720px) {
+    .nav-links a:not(.keep) { display: none; }
+    .nav-title { font-size: 14px; }
+  }
   #theme-toggle {
     background: var(--chip); color: var(--muted); border: 1px solid var(--line);
     border-radius: 8px; padding: 4px 10px; cursor: pointer; font-size: 13px;
@@ -77,12 +90,19 @@
   header.hero { position: relative; overflow: hidden; border-bottom: 1px solid var(--line); }
   #net { position: absolute; inset: 0; width: 100%; height: 100%; }
   .hero-inner { position: relative; z-index: 1; text-align: center; padding: 84px 20px 72px; }
-  .hero-inner img.logo { width: 108px; height: 108px; border-radius: 26px; box-shadow: 0 18px 60px rgba(56,189,248,.25); }
-  h1 { font-size: clamp(32px, 5.4vw, 52px); margin: 22px 0 10px; letter-spacing: -.5px; }
-  h1 .grad {
-    background: linear-gradient(90deg, var(--sky), var(--indigo), var(--purple));
-    -webkit-background-clip: text; background-clip: text; color: transparent;
+  .hero-inner::before {
+    content: ""; position: absolute; inset: 0; z-index: -1;
+    background: radial-gradient(ellipse 62% 55% at 50% 46%, var(--bg) 0%, color-mix(in srgb, var(--bg) 72%, transparent) 55%, transparent 100%);
   }
+  .hero-inner img.logo { width: 108px; height: 108px; border-radius: 26px; box-shadow: 0 18px 60px rgba(56,189,248,.25); }
+  h1 { font-size: clamp(34px, 5.4vw, 54px); margin: 22px 0 10px; letter-spacing: -.5px; line-height: 1.12; }
+  h1 .awesome { display: block; font-size: .44em; font-weight: 650; letter-spacing: .32em; text-transform: uppercase; color: var(--muted); margin-bottom: 10px; }
+  h1 .grad {
+    background: linear-gradient(90deg, var(--g1), var(--g2), var(--g3));
+    -webkit-background-clip: text; background-clip: text; color: transparent;
+    white-space: nowrap;
+  }
+  @media (max-width: 430px) { h1 .grad { white-space: normal; } }
   .tagline { max-width: 640px; margin: 0 auto; color: var(--muted); font-size: 18px; }
   .stats { display: flex; flex-wrap: wrap; gap: 10px; justify-content: center; margin: 28px 0 6px; }
   .stat {
@@ -109,7 +129,7 @@
   h2 { font-size: clamp(24px, 3.4vw, 34px); margin: 8px 0 12px; letter-spacing: -.3px; }
   .lede { color: var(--muted); max-width: 760px; font-size: 17px; }
 
-  .cards { display: grid; grid-template-columns: repeat(auto-fill, minmax(240px, 1fr)); gap: 14px; margin-top: 28px; }
+  .cards { display: grid; grid-template-columns: repeat(auto-fill, minmax(290px, 1fr)); gap: 14px; margin-top: 28px; }
   .card {
     background: var(--panel); border: 1px solid var(--line); border-radius: var(--radius);
     padding: 18px 18px 16px; transition: border-color .15s, transform .15s;
@@ -119,11 +139,13 @@
   .card h3 { margin: 8px 0 6px; font-size: 16.5px; }
   .card p { margin: 0; color: var(--muted); font-size: 14px; line-height: 1.55; }
 
-  .paths { display: grid; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); gap: 14px; margin-top: 28px; }
+  .paths { display: grid; grid-template-columns: repeat(auto-fill, minmax(380px, 1fr)); gap: 14px; margin-top: 28px; }
+  @media (max-width: 470px) { .paths { grid-template-columns: 1fr; } }
   .path { background: var(--panel); border: 1px solid var(--line); border-radius: var(--radius); padding: 20px; }
   .path h3 { margin: 0 0 6px; font-size: 17px; }
   .path .who { color: var(--sky); font-size: 13px; font-weight: 600; letter-spacing: .04em; text-transform: uppercase; }
   .path p { color: var(--muted); font-size: 14.5px; margin: 8px 0 0; }
+  .path .path-link { margin-top: 12px; font-size: 14px; }
 
   /* ---------- atlas ---------- */
   #atlas .toolbar { margin-top: 26px; display: flex; flex-direction: column; gap: 14px; }
@@ -181,7 +203,7 @@
       <a href="#start">Start</a>
       <a href="#atlas">Atlas</a>
       <a href="#data">Data</a>
-      <a href="https://github.com/ChaoYue0307/awesome-graph-engineering">GitHub</a>
+      <a class="keep" href="https://github.com/ChaoYue0307/awesome-graph-engineering">GitHub</a>
       <button id="theme-toggle" aria-label="Toggle color theme">◐</button>
     </div>
   </div>
@@ -191,8 +213,8 @@
   <canvas id="net" aria-hidden="true"></canvas>
   <div class="hero-inner">
     <img class="logo" src="assets/logo.svg" alt="Awesome Graph Engineering logo">
-    <h1>Awesome <span class="grad">Graph Engineering</span></h1>
-    <p class="tagline">The curated field guide to building systems on connected data — from graph databases and query standards to graph ML, knowledge graphs, and GraphRAG.</p>
+    <h1><span class="awesome">Awesome</span><span class="grad">Graph Engineering</span></h1>
+    <p class="tagline">The curated field guide to designing AI-agent organizations — topologies, handoffs, work graphs, verification gates, and the systems that run them.</p>
     <div class="stats" id="hero-stats">
       <span class="stat"><b id="stat-resources">—</b> curated resources</span>
       <span class="stat"><b id="stat-sections">—</b> sections</span>
@@ -209,10 +231,18 @@
 <section id="discipline">
   <div class="wrap">
     <div class="kicker">The discipline</div>
-    <h2>Graphs are how real systems are shaped</h2>
-    <p class="lede">Fraud rings, supply chains, molecules, social feeds, attack paths, agent memory — the world's hardest data problems are relationship problems. Graph engineering is the discipline of designing, storing, querying, processing, learning from, and operating graph-shaped data systems. This project maps the whole lifecycle:</p>
+    <h2>Loops made agents programmable.<br>Graphs make organizations programmable.</h2>
+    <p class="lede">One agent running a loop can find work, act, verify, and retry. Graph engineering is the layer above: designing many agents as one system — stable roles with real boundaries (the org graph), ephemeral task structures generated per job (the work graph), and evidence gates on every edge that matters. Nine design layers cover the practice:</p>
     <div class="cards" id="layer-cards">
-      <!-- LAYERS -->
+      <div class="card"><div class="em">🎭</div><h3>1 · Roles</h3><p>Who exists and what each owns: capability boundaries, dedicated context, model-tier staffing — frontier orchestrators, cheaper workers.</p></div>
+      <div class="card"><div class="em">🕸️</div><h3>2 · Topology</h3><p>How roles are arranged: pipelines, orchestrator–worker, councils and debate, hierarchies, meshes — shape matched to task.</p></div>
+      <div class="card"><div class="em">🤝</div><h3>3 · Handoffs</h3><p>What crosses each edge, in what shape: contracts, structured outputs, artifacts vs messages, MCP and A2A.</p></div>
+      <div class="card"><div class="em">🧩</div><h3>4 · Work graphs</h3><p>The structure this job needs right now: decomposition, DAG generation, routers, fan-out, dynamic spawning.</p></div>
+      <div class="card"><div class="em">🗄️</div><h3>5 · State</h3><p>What nodes share and what stays isolated: blackboards, artifact stores, checkpoints, worktrees, write conflicts.</p></div>
+      <div class="card"><div class="em">🛡️</div><h3>6 · Gates</h3><p>Where evidence decides: judge nodes, quorum votes, anti-groupthink checks, tests and CI as oracles between stages.</p></div>
+      <div class="card"><div class="em">🚨</div><h3>7 · Reliability</h3><p>When a node fails mid-graph: cascades, retries, budgets, resume and replay, kill switches, human escalation.</p></div>
+      <div class="card"><div class="em">📈</div><h3>8 · Observability &amp; cost</h3><p>Seeing and affording the graph: trace views, token economics per node, critical-path latency, cost per outcome.</p></div>
+      <div class="card"><div class="em">🧬</div><h3>9 · Evolution</h3><p>Graphs that redesign themselves: dynamic agent orgs, topology search, learned communication structures.</p></div>
     </div>
   </div>
 </section>
@@ -223,7 +253,10 @@
     <h2>Pick your path</h2>
     <p class="lede">Four guided entry points, matched to what you are trying to do. Each one maps to sections of the list.</p>
     <div class="paths" id="path-cards">
-      <!-- PATHS -->
+      <div class="path"><div class="who">Loop builder</div><h3>“I have one agent that works. Now what?”</h3><p>When a second role earns its place, how to draw the first edge, and the one-agent-vs-graph test that says whether you need a graph at all.</p><p class="path-link"><a href="https://github.com/ChaoYue0307/awesome-graph-engineering/blob/main/COMPARISON.md">Take the one-agent-vs-graph test →</a></p></div>
+      <div class="path"><div class="who">Architect</div><h3>“Which topology and framework?”</h3><p>Orchestrator–worker, councils, pipelines, meshes — matched to the task's shape — and the frameworks that wire them: LangGraph, CrewAI, agent SDKs, durable runtimes.</p><p class="path-link"><a href="#atlas" data-q="framework">Browse frameworks →</a></p></div>
+      <div class="path"><div class="who">Operator</div><h3>“Make the graph survivable”</h3><p>Error cascades, evidence gates, budgets and kill switches, tracing the graph as a graph, and the token economics of staffing nodes with the right model tier.</p><p class="path-link"><a href="#atlas" data-q="failure">Browse reliability resources →</a></p></div>
+      <div class="path"><div class="who">Researcher</div><h3>“What does the evidence say?”</h3><p>Topology-optimization papers, multi-agent benchmarks, failure taxonomies — and the critiques arguing a single long-context agent beats your committee.</p><p class="path-link"><a href="#atlas" data-q="topology">Browse the research →</a></p></div>
     </div>
   </div>
 </section>
@@ -234,7 +267,7 @@
     <h2>Every resource, filterable</h2>
     <p class="lede">Search and filter the full dataset by section, resource type, and evidence class. The same data ships as CSV and JSONL in the repository.</p>
     <div class="toolbar">
-      <input id="q" type="search" placeholder="Search titles, descriptions, venues… (e.g. “Cypher”, “GNN”, “fraud”)" aria-label="Search resources">
+      <input id="q" type="search" placeholder="Search titles, descriptions, venues… (e.g. “LangGraph”, “handoff”, “judge”)" aria-label="Search resources">
       <div class="filter-group" id="f-section"><span class="filter-label">Section</span></div>
       <div class="filter-group" id="f-type"><span class="filter-label">Type</span></div>
       <div class="filter-group" id="f-evidence"><span class="filter-label">Evidence</span></div>
@@ -269,7 +302,7 @@
     </div>
     <pre class="cite">@misc{awesome-graph-engineering,
   author = {He, Chaoyue},
-  title  = {Awesome Graph Engineering: a curated field guide to graph systems},
+  title  = {Awesome Graph Engineering: a curated field guide to AI-agent organizations},
   year   = {2026},
   url    = {https://github.com/ChaoYue0307/awesome-graph-engineering}
 }</pre>
@@ -303,7 +336,7 @@ document.getElementById('theme-toggle').addEventListener('click', () => {
   if (!cv || matchMedia('(prefers-reduced-motion: reduce)').matches) return;
   const ctx = cv.getContext('2d');
   let w, h, nodes;
-  const N = 70, R = 130;
+  const N = innerWidth < 700 ? 42 : 64, R = 130;
   function resize() {
     w = cv.width = cv.offsetWidth * devicePixelRatio;
     h = cv.height = cv.offsetHeight * devicePixelRatio;
@@ -405,6 +438,10 @@ function render() {
 
 document.getElementById('q').addEventListener('input', e => { state.q = e.target.value; state.shown = 60; render(); });
 document.getElementById('more').addEventListener('click', () => { state.shown += 60; render(); });
+document.querySelectorAll('[data-q]').forEach(a => a.addEventListener('click', () => {
+  const q = document.getElementById('q');
+  q.value = a.dataset.q; state.q = a.dataset.q; state.shown = 60; render();
+}));
 
 if (DATA.length) {
   chips('f-section', 'section', uniq('section'));

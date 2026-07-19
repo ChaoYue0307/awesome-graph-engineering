@@ -5,7 +5,7 @@
 max_redirects = 8
 max_retries = 2
 timeout = 25
-accept = ["200..299", "403", "405", "429"]
+accept = ["200..299", "403", "405", "406", "429"]
 scheme = ["https", "http"]
 
 exclude = [

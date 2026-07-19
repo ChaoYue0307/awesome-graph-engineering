@@ -1,49 +1,56 @@
 # Graph Engineering vs. Its Neighbors
 
-The word "graph" is overloaded. This guide draws the boundaries that cause the most real-world confusion, and states when the neighbor is the right choice.
+The word "graph" is badly overloaded, and the discipline sits on top of four older ones. These are the boundaries that cause real confusion, with honest guidance on when the neighbor is the right choice.
 
-## GraphQL is not graph engineering
+## The engineering stack: prompt → context → harness → loop → graph
 
-**GraphQL** is an API query protocol: clients select fields from an application object model over HTTP. Its "graph" is the shape of your API types, not a stored network you traverse or analyze. No multi-hop analytics, no graph algorithms, no graph storage are involved.
+Five layers, each governing a larger unit of behavior. You climb them in order — a graph built on weak loops fails at every edge.
 
-They meet only at the edges: a GraphQL API can be *backed by* a graph database (e.g. Neo4j's GraphQL library, Dgraph's native GraphQL). If your need is "flexible API for frontend teams", you want GraphQL. If your need is "find every account within four transfers of a sanctioned entity", you want graph engineering.
-
-## Labeled property graphs (LPG) vs. RDF
-
-The two dominant data models, and the field's longest-running argument.
-
-| | LPG (Cypher/GQL/Gremlin world) | RDF (SPARQL/W3C world) |
+| Layer | Governs | You have a problem at this layer when… |
 | --- | --- | --- |
-| Atom | Nodes and edges, both with key-value properties | Triples: subject–predicate–object |
-| Identity | Local IDs per database | Global IRIs by design |
-| Schema | Optional, database-enforced | Ontologies (RDFS/OWL), SHACL validation |
-| Strengths | Developer ergonomics, path queries, OLTP workloads | Interoperability, federation, standards, reasoning |
-| Typical home | Product backends, fraud, recommendations | Knowledge graphs, life sciences, government/linked data |
+| **Prompt engineering** | One model response | The model misunderstands the instruction |
+| **Context engineering** | What the model can see | The model lacks (or drowns in) information |
+| **Harness engineering** | One run's tools, permissions, isolation, checks | The agent can't act safely or verify locally |
+| **Loop engineering** | One agent across runs: trigger → act → verify → retry → persist | Work recurs and single runs don't finish it |
+| **Graph engineering** | Many agents as one organization | One loop can't hold the whole job — or you're paying frontier prices for work a cheaper specialist could own |
 
-Rules of thumb: **integrating data across organizations or publishing it → RDF's global identifiers pay off. Building one product's connected backend → LPG ergonomics win.** The border is softening: RDF 1.2 (RDF-star) adds statement-level annotation that mimics edge properties, and interop efforts aim to map between the models — but teams still pick one as primary.
+Loops made agent behavior programmable. Graphs make agent *organizations* programmable. The loop layer has its own field guide: [awesome-loop-engineering](https://github.com/ChaoYue0307/awesome-loop-engineering).
 
-## Graph database vs. relational database
+## Not graph data engineering (the name collision)
 
-You do not need a graph database to do graph engineering — and knowing when you don't is a core skill.
+There is an established discipline also called graph engineering: **building systems on graph-shaped data** — graph databases (Neo4j, Neptune), query languages (Cypher, GQL, SPARQL), graph analytics, GNNs, knowledge graphs, and GraphRAG. That is a *data* discipline; this list covers an *organizational* one. The overlap is real but narrow: a knowledge graph can serve an agent org as shared memory (Graphiti, Zep), and an agent team can build knowledge graphs. The test: if the nodes are *data entities*, you're in graph data engineering; if the nodes are *agents doing work*, you're here. (And GraphQL is neither — it's an API query protocol.)
 
-Relational is enough when: traversals are bounded and shallow (1–2 hops), known in advance, and joinable on indexed keys; recursive CTEs cover the occasional hierarchy; **SQL/PGQ** (standardized in SQL:2023) gives you property-graph pattern matching over tables you already operate.
+## Org graph vs. work graph
 
-A dedicated graph system earns its operational cost when: hop depth is variable or unbounded (path finding, ring detection); queries are structural patterns rather than key lookups; relationship-heavy workloads make join fan-out the bottleneck; or you need graph algorithms (centrality, communities) close to transactional data.
+The two graphs inside every serious system, running on different timescales:
 
-The honest framing: this is an **access-pattern and operations decision, not an ideology**. Benchmarks from vendors on either side should be read as marketing until independently reproduced (see the benchmark resources in the [README](README.md)).
+| | Org graph | Work graph |
+| --- | --- | --- |
+| Lifetime | Months — survives across jobs | Minutes to hours — one job |
+| Nodes | Stable roles with accumulated context ("Security owns auth") | Task instances, spawned and cancelled at runtime |
+| Edges | Standing dependencies and ownership boundaries | This job's actual data flow — splits, merges, reorders |
+| Changes when | The team learns something about the *domain* | Evidence arrives about the *task* |
+| Answers | Who? | What, right now? |
 
-## Network science vs. graph engineering
+Conflating them is the root of several anti-patterns: redesigning stable roles every run, or freezing a task plan that should have adapted. See [ANTI-PATTERNS.md](ANTI-PATTERNS.md).
 
-Network science is the *study* of networks — degree distributions, small worlds, spreading dynamics. Graph engineering is the *construction* of systems that hold networks. Network science supplies the mental models and algorithms; engineering supplies scale, freshness, and reliability. A network scientist's notebook becomes graph engineering the day it has a pipeline, an SLA, and a second user.
+## Not workflow orchestration (Airflow, Temporal, BPMN)
 
-## Graph ML vs. classic graph algorithms
+Classical orchestrators run DAGs of deterministic steps; they are superb at scheduling, retries, and durable state, and terrible at judgment. The difference is **agency at the nodes**: an agent node can interpret its task, act, check its own work, and retry with a different approach — a workflow step just executes. The two compose rather than compete: durable-execution runtimes (Temporal, Inngest, Restate) increasingly serve as the *substrate* under agent graphs, handling replay and persistence while agents handle judgment. If every node in your design is deterministic, you want an orchestrator, not an agent org — it will be faster, cheaper, and debuggable.
 
-Classic algorithms (PageRank, Louvain/Leiden, shortest paths) are deterministic, explainable, cheap, and often embarrassingly strong baselines. GNNs and embeddings learn task-specific signal from structure plus features, at the price of training pipelines, drift, and opacity. The pragmatic ordering: **exhaust classic algorithms and simple features first; reach for GNNs when the baseline demonstrably saturates.** Recent literature (see the graph ML section of the README) repeatedly finds tuned simple baselines matching GNNs on common benchmarks — treat that as calibration, not as a verdict against graph ML.
+## Not classical multi-agent systems (the academic field)
 
-## Knowledge graph vs. "a graph"
+MAS research — actor model, BDI architectures, FIPA protocols, game-theoretic coordination — worked out much of the theory decades ago, and the best of it transfers (supervision trees, blackboard architectures, communication cost models). What changed is the node: an LLM agent is a general-purpose worker you *staff* rather than an algorithm you specify, which moves the discipline's center of gravity from protocol theory to organization design — roles, handoffs, verification, and cost. The classics are in [Research Foundations](README.md#research-foundations); skipping them means rediscovering their failure modes at token prices.
 
-Every knowledge graph is a graph; not every graph is a knowledge graph. A knowledge graph adds **shared semantics**: curated entity identity, a schema or ontology someone maintains, and an ambition to serve many use cases. A fraud graph tuned for one detection workload is graph engineering without being a knowledge graph — and that's fine. Call it a knowledge graph only when meaning, not just structure, is managed.
+## One agent vs. a graph
 
-## GraphRAG vs. vector RAG
+The most important comparison, because the honest answer is often *one agent*. A single agent with a long context window shares everything with itself for free — no handoff loss, no coordination overhead, no multiplied token bill. Cognition's "Don't Build Multi-Agents" makes this case well, and it wins whenever the task fits one context and one competence.
 
-Vector RAG retrieves by embedding similarity: cheap to build and strong for local "which chunk says this" questions. GraphRAG builds an entity-relationship structure over the corpus and retrieves through it, which helps when answers require **connecting information across documents** — multi-hop questions, global "summarize the themes" questions, or auditability of why a fact was retrieved. The costs are real: extraction pipelines, index build spend, and quality that depends on extraction accuracy. Current practice (see the GraphRAG section of the README) is hybrid: vectors for local recall, graph structure for multi-hop and global queries, with evaluation before commitment.
+A graph earns its overhead when at least one of these is true:
+
+- **The work parallelizes** — independent subtasks that would serialize inside one context (research sweeps, per-file migrations, review panels).
+- **Contexts must be isolated** — a judge that shouldn't see the draft's reasoning, a red team that shouldn't share the blue team's state, untrusted input quarantined at one node.
+- **Specialization pays** — stable roles accumulate domain context that a generalist re-derives every run, or cheaper models handle worker nodes while a frontier model orchestrates.
+- **The job outlives any context** — long-horizon work where the graph's state, not any single window, is the system of record.
+
+If none apply, build a better loop instead — and if you do build the graph, put evidence gates on its edges, because a graph without verification is error propagation at machine speed.

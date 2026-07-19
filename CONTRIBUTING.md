@@ -4,14 +4,14 @@ Thanks for helping make this the most useful map of graph engineering. Contribut
 
 ## What belongs here
 
-A resource qualifies when it helps someone **design, store, query, process, learn from, visualize, or operate graph-shaped data systems**. That includes graph databases, query languages and standards, processing engines, algorithm libraries, graph ML, knowledge graphs, GraphRAG, visualization, benchmarks, datasets, books, courses, papers, and production case studies.
+A resource qualifies when it helps someone **design, run, verify, or understand AI-agent organizations as graphs** — the discipline above loop engineering. That includes orchestration frameworks and SDKs, topology and coordination research, org design and role patterns, handoff protocols (MCP, A2A), work-graph planning, shared state and memory, verification gates, failure and reliability engineering, observability and cost, benchmarks, production case studies, the classic multi-agent and distributed-systems foundations, and serious critiques of all of the above.
 
 A resource does not qualify when it is:
 
-- Marketing copy with no technical substance
-- A thin listicle or SEO farm rewrite of primary sources
-- Chart/diagram tooling with no network-data angle (flowchart makers, BI charts)
-- GraphQL-the-API-protocol content with no graph-data connection (a common confusion — see [COMPARISON.md](COMPARISON.md))
+- **Graph data engineering** — graph databases, GNNs, knowledge-graph construction, or GraphRAG-as-document-retrieval; that is a different field sharing the name (see [COMPARISON.md](COMPARISON.md)). Exception: graph-shaped memory infrastructure serving agent organizations.
+- Single-agent content with no organizational angle (belongs in [awesome-loop-engineering](https://github.com/ChaoYue0307/awesome-loop-engineering))
+- Marketing copy with no technical substance, or a thin listicle rewrite of primary sources
+- A deterministic workflow tool with no agency at the nodes, unless it serves as an agent-graph substrate
 - Abandoned software with no historical significance
 
 Quality bar: **every entry must be something a practitioner would thank you for.** Prefer primary sources (official docs, the original paper, the first-party engineering blog) over aggregators.

@@ -1,29 +1,42 @@
 # Graph Engineering: Working Definition
 
-**Graph engineering is the discipline of building production systems whose core data model is a graph** — designing how entities and relationships are modeled, ingested, stored, queried, processed, learned from, served, visualized, and operated over time.
+**Graph engineering is the discipline of designing AI-agent organizations as programmable structures.** Where loop engineering makes one agent's behavior programmable — trigger, act, verify, retry, persist — graph engineering makes the *organization of agents* programmable: which agents exist, what each is for, how work and context flow between them, where results get verified, and how the structure itself changes as evidence arrives.
 
-The unit of value in graph engineering is the **relationship**. Rows tell you what things are; edges tell you how things affect each other. Graph engineering exists because a growing class of production problems — fraud rings, supply chains, attack paths, recommendations, molecule interactions, agent memory, enterprise knowledge — is defined by multi-hop structure that relational access patterns handle poorly and that pure ML pipelines flatten away.
+The primitives:
+
+- **Nodes are agents, and every serious node runs its own loop.** A graph is not an alternative to loops; it is what you build once you have loops worth coordinating.
+- **Edges are designed dependencies** — handoffs, data flows, verification gates, escalations. An edge is a contract: what crosses it, in what shape, and what must be true before it fires.
+- **Two graphs run at once.** The **org graph** is stable and long-lived: named roles with capability boundaries and accumulated context — it answers *who*. The **work graph** is ephemeral: the task structure generated for this job, whose edges split, merge, reorder, and disappear at runtime — it answers *what, right now*.
+- **A dynamic agent org** is the far end of the practice: a system that rewrites its own work graph — spawning, cancelling, and rewiring nodes — based on evidence rather than a fixed plan.
+
+## Where it sits
+
+Each layer of the stack governs a larger unit of behavior:
+
+| Layer | Governs | Unit |
+| --- | --- | --- |
+| Prompt engineering | One model response | The instruction |
+| Context engineering | What the model can see | The window |
+| Harness engineering | One run's tools, permissions, checks | The run |
+| Loop engineering | One agent across runs | The loop |
+| **Graph engineering** | **Many agents as one system** | **The organization** |
 
 ## The minimal test
 
 A system is a graph engineering system when all four hold:
 
-1. **Relationships are first-class data**, not foreign keys reconstructed at query time — the model names edge types and the workload traverses them.
-2. **Multi-hop structure carries the signal.** The questions that matter need paths, neighborhoods, or global structure (communities, centrality, connectivity), not just single-row lookups or aggregations.
-3. **It is engineered**: explicit data model, defined ingestion, a query or processing layer, and someone operating it — not a one-off network diagram or a notebook experiment.
-4. **It lives in production time**: the graph changes, and correctness, latency, and cost are managed across those changes.
+1. **Multiple agent nodes with distinct roles and contexts** — not one agent with many tools, and not the same prompt copy-pasted N times.
+2. **Explicit, designed edges.** Who hands off to whom, in what format, under what condition, is decided by an engineer (or an engineered generator) — not left to an open group chat.
+3. **Nodes run loops.** Each node can act, check its work, and retry within its own budget; the graph coordinates loops rather than replacing them.
+4. **The structure is an artifact.** The topology can be reviewed, versioned, observed in traces, and changed deliberately — including by the system itself, if you have earned that.
 
 ## What it is not
 
-- **Not GraphQL.** GraphQL is an API query protocol; its "graph" is your application object model. See [COMPARISON.md](COMPARISON.md).
-- **Not only graph databases.** A graph database is one storage choice among several; graph engineering includes processing engines, algorithm libraries, graph ML, and knowledge graph pipelines that may never touch a dedicated graph store.
-- **Not only graph theory.** Theory supplies the algorithms; engineering supplies the data model, the pipeline, the latency budget, and the on-call rotation.
-- **Not a mandate.** A core graph engineering skill is knowing when a join table, a recursive CTE, or SQL/PGQ over your relational warehouse is the better system. See [ANTI-PATTERNS.md](ANTI-PATTERNS.md).
+- **Not graph data engineering.** Graph databases, GNNs, knowledge graphs, and GraphRAG belong to a different discipline that shares the name — see [COMPARISON.md](COMPARISON.md) for the full disambiguation. A knowledge graph may *serve* an agent org as memory, but storing connected data is not organizing agents.
+- **Not a workflow DAG with model calls in it.** A pipeline whose steps cannot act, verify, or retry on their own is orchestration, not an organization. The difference is agency at the nodes.
+- **Not an org chart of personas.** Naming nodes "CEO agent" and "engineer agent" does nothing. Roles earn their place through capability boundaries, dedicated context, and edges that carry real contracts.
+- **Not always the answer.** A single agent with one long context beats a badly designed committee, and the token bill for a graph can run many times a solo run. The critiques are collected in the [README](README.md#critiques-and-limits) — read them before you build.
 
-## Positioning
+## Lineage
 
-Graph engineering sits at the intersection of three older disciplines and inherits from each: **database systems** (storage, query optimization, transactions), **network science** (structure, algorithms, dynamics), and **knowledge representation** (ontologies, semantics, reasoning). Since roughly 2023 a fourth force — **LLMs** — pulled the field into a new serving role: graphs as the structured, verifiable memory and retrieval substrate for AI systems (GraphRAG, agent memory, text-to-query interfaces).
-
-## Citing this definition
-
-See [CITATION.cff](CITATION.cff). The taxonomy that operationalizes this definition lives in [TAXONOMY.md](TAXONOMY.md).
+None of the mechanics are new — supervisors and workers, blackboard systems, and the actor model predate the label by decades, and practitioners were wiring sub-agents together well before July 2026. What changed is the accessibility layer: models reliable enough to run as autonomous nodes, frameworks mature enough to wire them together, and a shared vocabulary — org graph, work graph, dynamic agent org — for the layer above the loop. The taxonomy that operationalizes this definition is in [TAXONOMY.md](TAXONOMY.md).

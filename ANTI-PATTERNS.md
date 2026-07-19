@@ -1,85 +1,83 @@
 # Graph Engineering Anti-Patterns
 
-Recurring failure modes, each with the symptom that reveals it and the corrective move. Sourced from practitioner post-mortems, vendor-neutral benchmarks, and the critiques collected in the [README](README.md).
+Fourteen recurring ways agent organizations fail, each with the symptom that reveals it and the corrective move.
 
-## Modeling
+## Org design
 
-### 1. "Everything is a graph"
+### 1. Org-chart cosplay
 
-**Symptom:** the graph database was chosen before the queries were written; the workload turns out to be key lookups and aggregations.
-**Move:** write the five most valuable queries first. If none needs variable-depth traversal or structural patterns, use the relational database you already operate (see [COMPARISON.md](COMPARISON.md)).
+**Symptom:** nodes named "CEO agent," "CTO agent," "engineer agent" — with identical prompts, identical tools, and no capability boundaries. The titles do nothing.
+**Move:** a role earns its node through three things: a distinct capability boundary (what only it may do), dedicated context (what only it accumulates), and edges with real contracts. No boundary, no node.
 
-### 2. Properties that should be nodes (and vice versa)
+### 2. Multi-agent when one context would win
 
-**Symptom:** you can't traverse to something you constantly filter on (it's trapped in a property), or the graph is bloated with single-use nodes that are never traversed.
-**Move:** model from access patterns: anything you traverse through or aggregate across is a node; anything you only read off an entity is a property. Expect to refactor once real queries arrive.
+**Symptom:** a committee of five agents relays partial summaries to each other to solve a task that fits comfortably in one model's context window — slower, costlier, and lossier than a single loop.
+**Move:** apply the [one-agent-vs-graph test](COMPARISON.md#one-agent-vs-a-graph) before designing any topology. Parallelism, isolation, specialization, or horizon — no box checked, no graph.
 
-### 3. Schema anarchy
+### 3. Demo-topology worship
 
-**Symptom:** six spellings of the same relationship type, orphan labels, silent semantic drift between teams.
-**Move:** even "schema-optional" stores need a schema someone owns — constraints where the engine supports them, validation (e.g. SHACL in RDF), and migrations treated like any other database migration.
+**Symptom:** the architecture is a diagram someone shipped in a viral post — a council of 18 personas, a "society" of specialists — adopted for its aesthetics, with no argument from the task's shape.
+**Move:** derive topology from the work graph the task actually needs: what parallelizes, what must be isolated, where evidence gates belong. Start with the smallest graph that models the job; grow it when failure modes demand.
 
-## Querying and storage
+### 4. Frontier models on worker tickets
 
-### 4. The supernode ambush
+**Symptom:** every node runs the most expensive model available; the token bill is a multiple of single-agent cost with no quality gain on the routine nodes.
+**Move:** staff nodes like a team: frontier model where judgment concentrates (orchestrator, judge), cheaper models where tasks are well-specified (workers). Measure quality-per-dollar per node, not per system.
 
-**Symptom:** p99 latency collapses when traversals touch celebrity nodes — the account followed by 40 million, the "USA" location node connected to everything.
-**Move:** find hubs before they find you (degree distribution checks in CI), then mitigate: relationship-type partitioning, denormalized counters, capped expansions, or modeling the hub out of hot paths.
+## Edges and handoffs
 
-### 5. Unbounded traversal in the request path
+### 5. Vibes-based handoffs
 
-**Symptom:** a variable-length path query with no depth cap or timeout takes down the OLTP cluster during an incident — exactly when the deep query was interesting.
-**Move:** every online traversal gets a depth bound, a budget, and a kill switch; exploratory deep queries run on replicas or an analytics engine (lifecycle layer 5, not layer 4).
+**Symptom:** nodes pass free-form prose to each other; downstream agents misparse upstream conclusions; nobody can say what a "done" handoff contains.
+**Move:** every edge gets a contract — structured output schema, required evidence fields, and a defined failure shape. Artifacts (files, diffs, reports) beat chat transcripts as edge payloads.
 
-### 6. Analytics on the transactional cluster
+### 6. Context leakage across edges
 
-**Symptom:** nightly PageRank makes the morning's checkout queries time out.
-**Move:** separate OLTP serving from whole-graph computation — projected in-memory graphs, a processing engine, or a read replica. The two workloads have opposite tuning goals.
+**Symptom:** the judge saw the draft's reasoning and rubber-stamps it; the red team inherited the blue team's assumptions; untrusted input from one node's web fetch steers a privileged node downstream.
+**Move:** isolation is a design decision per edge, not a default. Decide deliberately what crosses: conclusions but not reasoning, data but not instructions, evidence but not access.
 
-## Machine learning
+### 7. The telephone-game pipeline
 
-### 7. GNN-first development
+**Symptom:** five sequential summarize-and-forward hops; each loses 20% of the signal; the final node acts on a rumor of the original task.
+**Move:** shorten chains; pass source artifacts alongside summaries so any node can re-ground; let deep nodes read the original brief, not just their predecessor's digest.
 
-**Symptom:** months into a GNN pipeline, nobody has run the label-propagation or degree-feature baseline; when someone does, it ties.
-**Move:** classic algorithms and trivial structural features are the baseline gate — a GNN must beat them by enough to pay for its training pipeline, drift monitoring, and opacity.
+## Work graphs and state
 
-### 8. Leaky graph splits
+### 8. Static plan, dynamic world
 
-**Symptom:** 0.99 AUC in the notebook, coin-flip in production — test edges were visible to message passing, or time travel leaked future structure into training.
-**Move:** split by time for temporal graphs, remove test edges from the message-passing graph, and evaluate against realistic negative sampling.
+**Symptom:** the work graph was fixed at kickoff; halfway through, evidence shows the decomposition was wrong, and agents keep executing the obsolete plan to completion.
+**Move:** re-planning is a first-class node. Cheap checkpoints ("does the plan still fit the evidence?") gate each phase; the orchestrator may cancel, respawn, and rewire — within budget.
 
-## GraphRAG and AI serving
+### 9. Unbounded spawning
 
-### 9. GraphRAG without an eval
+**Symptom:** an orchestrator that can create sub-agents creates sub-agents that create sub-agents; the fleet grows until the budget, the rate limit, or the on-call engineer stops it.
+**Move:** hard caps as infrastructure, not prompt suggestions: max depth, max fan-out, max total nodes, max spend — enforced by the harness with a kill switch a human can reach.
 
-**Symptom:** the team ships an entity-extraction + community-summary pipeline because a demo was impressive; nobody can say whether it beats vector search on their corpus.
-**Move:** stand up the vector baseline and a question set first; adopt graph retrieval where it measurably wins (typically multi-hop and corpus-global questions), keep the hybrid otherwise.
+### 10. Shared-state free-for-all
 
-### 10. Trusting the extractor
+**Symptom:** two agents write the same file; a third reads a half-updated blackboard; the graph's "shared memory" is a race condition with a token bill.
+**Move:** single-writer ownership per artifact, worktree or namespace isolation for parallel workers, and merges as explicit nodes — the same discipline distributed systems learned, at agent granularity.
 
-**Symptom:** the knowledge graph confidently contains entities and relationships the source documents never stated — LLM extraction hallucinated them, and downstream answers cite the graph as ground truth.
-**Move:** provenance on every edge (source span, extractor version, confidence), sampled human audits, and treating the graph as an index over sources rather than a source itself.
+## Verification
 
-## Visualization
+### 11. The rumor mill
 
-### 11. The hairball demo
+**Symptom:** no evidence gates anywhere; each node trusts its upstream completely; one early hallucination compounds through every downstream hop and ships with confidence.
+**Move:** gates at the edges that matter most: deterministic oracles (tests, builds, schema checks) where possible, judge nodes where not, and quorum where a single judge would be gamed. A graph without gates propagates errors at machine speed.
 
-**Symptom:** the "whole graph" force-layout screenshot impresses executives and answers no question anyone has.
-**Move:** visualize questions, not graphs: ego networks, filtered subgraphs, aggregated views. Above a few thousand visible elements, layout is decoration — switch to queries and summaries.
+### 12. Consensus theater
+
+**Symptom:** a council of agents "debates" and converges instantly — same base model, same context, same conclusion, sycophancy compounding into false confidence.
+**Move:** engineered disagreement: distinct lenses per judge (correctness, security, cost), refuter roles with a mandate to kill claims, information withheld asymmetrically, and votes counted only when dissent was possible.
 
 ## Operations
 
-### 12. Benchmarketing-driven procurement
+### 13. The invisible graph
 
-**Symptom:** the database was chosen from a vendor's own benchmark showing it 100× faster than the incumbent — on the vendor's queries, dataset, and tuning.
-**Move:** trust only audited, workload-representative benchmarks (LDBC-style) or your own reproduction on your own queries; treat every unaudited vendor benchmark as an ad.
+**Symptom:** a run fails and nobody can say which node, which edge, or which handoff — the only artifact is a bill and a wrong answer.
+**Move:** trace the graph as a graph: per-node spans, edge payloads recorded, cost and latency per node, and replayable state. If you cannot see the topology in your traces, you do not operate it — it operates you.
 
-### 13. The unversioned graph
+### 14. Cascade-blind failure handling
 
-**Symptom:** an ingestion bug corrupts edges; nobody can say what the graph looked like yesterday, or which pipeline run wrote what.
-**Move:** versioned, idempotent, replayable ingestion (batch IDs, provenance properties, snapshots or time-travel storage) — the graph is a derived artifact you can rebuild, not an accumulating mystery.
-
-### 14. Islands nobody reconciles
-
-**Symptom:** three teams built three graphs with three notions of "customer"; a fourth project starts to unify them and becomes a fifth island.
-**Move:** entity resolution as a first-class, owned service, and shared identifiers before shared platforms. This is an organizational anti-pattern wearing a technical costume.
+**Symptom:** one node times out; its dependents receive nothing, hallucinate a substitute, and the graph "completes successfully" with fabricated inputs in its lineage.
+**Move:** partial failure is the default case, not the exception: explicit failure shapes on every edge, dependents that block or degrade deliberately, resumable checkpoints, and human escalation wired as a real node with a real pager.
