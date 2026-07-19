@@ -9,6 +9,8 @@ accept = ["200..299", "403", "405", "406", "429"]
 scheme = ["https", "http"]
 
 exclude = [
+  # Pages deploys in a parallel workflow; verify the live site after deployment.
+  "^https://chaoyue0307\\.github\\.io/awesome-graph-engineering",
   # Bot-hostile domains: block all non-browser traffic outright.
   "^https://x\\.com",
   "^https://twitter\\.com",

@@ -167,7 +167,7 @@ Use the [interactive Resource Atlas](https://chaoyue0307.github.io/awesome-graph
 | --- | --- | --- | --- |
 | 📚 **[CrewAI Crews](https://docs.crewai.com/en/concepts/crews)**<br><sub>Docs · Role-based teams</sub> | **CrewAI Documentation**<br><sub>CrewAI · 2026</sub> | Documents role-based agent crews, assigned tasks, delegation, and sequential or hierarchical execution processes.<br><sub><strong>Why:</strong> Offers accessible primitives for testing explicit ownership and manager-worker coordination.</sub> | **Official documentation**<br><sub>Roles</sub> |
 | 📚 **[OpenAI Agents SDK: Agent orchestration](https://openai.github.io/openai-agents-python/multi_agent/)**<br><sub>Docs · Agent orchestration</sub> | **OpenAI Agents SDK Documentation**<br><sub>OpenAI · 2026</sub> | Explains manager-style orchestration with agents exposed as tools and decentralized orchestration through handoffs.<br><sub><strong>Why:</strong> Makes the centralized-versus-decentralized topology choice explicit in a production SDK.</sub> | **Official documentation**<br><sub>Topology</sub> |
-| 📚 **[Strands Agents: Multi-Agent Patterns](https://strandsagents.com/latest/documentation/docs/user-guide/concepts/multi-agent/multi-agent-patterns/)**<br><sub>Docs · Pattern catalog</sub> | **Strands Agents Documentation**<br><sub>Strands Agents; AWS · 2026</sub> | Documents several coordination shapes for composing agents, including supervisor, swarm, workflow, and graph-oriented patterns.<br><sub><strong>Why:</strong> Lets builders compare topology choices within one SDK instead of treating one pattern as universal.</sub> | **Official documentation**<br><sub>Topology</sub> |
+| 📚 **[Strands Agents: Multi-Agent Patterns](https://strandsagents.com/docs/user-guide/concepts/multi-agent/multi-agent-patterns/)**<br><sub>Docs · Pattern catalog</sub> | **Strands Agents Documentation**<br><sub>Strands Agents; AWS · 2026</sub> | Documents several coordination shapes for composing agents, including supervisor, swarm, workflow, and graph-oriented patterns.<br><sub><strong>Why:</strong> Lets builders compare topology choices within one SDK instead of treating one pattern as universal.</sub> | **Official documentation**<br><sub>Topology</sub> |
 | 📚 **[Pydantic AI: Multi-Agent Applications](https://pydantic.dev/docs/ai/guides/multi-agent-applications/)**<br><sub>Docs · Typed agents</sub> | **Pydantic AI Documentation**<br><sub>Pydantic · 2026</sub> | Shows delegation, programmatic control flow, and graph-based state machines for composing typed Python agents.<br><sub><strong>Why:</strong> Useful for expressing node inputs, outputs, dependencies, and orchestration boundaries in ordinary application code.</sub> | **Official documentation**<br><sub>Topology</sub> |
 | 📚 **[LlamaIndex: Multi-Agent Patterns](https://developers.llamaindex.ai/python/framework/understanding/agent/multi_agent/)**<br><sub>Docs · Multi-agent orchestration</sub> | **LlamaIndex Documentation**<br><sub>LlamaIndex · 2026</sub> | Covers agent workflow, orchestrator, and planner-oriented approaches for coordinating specialized agents.<br><sub><strong>Why:</strong> Provides implementation patterns for choosing who owns delegation and how results return to the coordinating node.</sub> | **Official documentation**<br><sub>Handoffs</sub> |
 | 📚 **[Google Agent Development Kit: Workflows](https://adk.dev/workflows/)**<br><sub>Docs · Deterministic workflows</sub> | **Google ADK Documentation**<br><sub>Google · 2025</sub> | Documents sequential, parallel, and loop workflow agents that provide deterministic control around model-driven agents.<br><sub><strong>Why:</strong> Supplies composable work-graph operators while keeping deterministic orchestration distinct from model judgment.</sub> | **Official documentation**<br><sub>Work graphs</sub> |
@@ -271,7 +271,20 @@ Ideas, corrections, and boundary debates are welcome in [GitHub Discussions](htt
 
 ## Citation and license
 
-The curation, schema, summaries, and original repository assets are released under [CC0 1.0](LICENSE). Linked works retain their own licenses and copyrights. Citation metadata is available in [CITATION.cff](CITATION.cff).
+Preferred citation: **He Chaoyue (2026), *Awesome Graph Engineering*.**
+
+```bibtex
+@misc{he2026awesomegraphengineering,
+  author       = {He, Chaoyue},
+  title        = {Awesome Graph Engineering: A Field Guide, Dataset, and Interactive Atlas for Programmable AI-Agent Organizations},
+  year         = {2026},
+  publisher    = {GitHub},
+  howpublished = {\url{https://github.com/ChaoYue0307/awesome-graph-engineering}},
+  url          = {https://github.com/ChaoYue0307/awesome-graph-engineering}
+}
+```
+
+Machine-readable metadata is available in [CITATION.cff](CITATION.cff). The curation, schema, summaries, and original repository assets are released under [CC0 1.0](LICENSE). Linked works retain their own licenses and copyrights.
 
 ## Acknowledgements
 

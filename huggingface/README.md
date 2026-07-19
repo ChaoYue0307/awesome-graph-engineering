@@ -109,4 +109,17 @@ Read the full [curation methodology](https://github.com/ChaoYue0307/awesome-grap
 
 ## Citation
 
-Use the project's [`CITATION.cff`](https://github.com/ChaoYue0307/awesome-graph-engineering/blob/main/CITATION.cff) metadata, and cite the original linked works for claims derived from them.
+Preferred citation: **He Chaoyue (2026), *Awesome Graph Engineering*.**
+
+```bibtex
+@misc{he2026awesomegraphengineering,
+  author       = {He, Chaoyue},
+  title        = {Awesome Graph Engineering: A Field Guide, Dataset, and Interactive Atlas for Programmable AI-Agent Organizations},
+  year         = {2026},
+  publisher    = {GitHub},
+  howpublished = {\url{https://github.com/ChaoYue0307/awesome-graph-engineering}},
+  url          = {https://github.com/ChaoYue0307/awesome-graph-engineering}
+}
+```
+
+Machine-readable metadata is available in [`CITATION.cff`](https://github.com/ChaoYue0307/awesome-graph-engineering/blob/main/CITATION.cff). Cite the original linked works for claims derived from them.
