@@ -18,7 +18,6 @@ technical audiences may prefer the
 - **Open data:** synchronized JSONL and CSV on GitHub and Hugging Face.
 - **Status:** an emerging practitioner term grounded in prior multi-agent, distributed
   systems, workflow, protocol, evaluation, and agent-graph research.
-- **Creator:** He Chaoyue.
 
 ## Share-ready visuals
 

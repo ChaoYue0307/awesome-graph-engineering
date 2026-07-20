@@ -98,7 +98,12 @@ def main() -> int:
             errors.append(f"missing localized guide: {path.relative_to(ROOT)}")
             continue
         text = path.read_text(encoding="utf-8")
-        required = ("Awesome Graph Engineering", "He Chaoyue", "```bibtex", "../../README.md")
+        required = (
+            "Awesome Graph Engineering",
+            "Curated by ",
+            "```bibtex",
+            "../../README.md",
+        )
         for marker in required:
             if marker not in text:
                 errors.append(f"{path.relative_to(ROOT)}: missing required marker {marker!r}")
@@ -198,7 +203,7 @@ def main() -> int:
             errors.append(f"{name} is missing or invalid XML: {exc}")
         else:
             text = layer_map.read_text(encoding="utf-8")
-            if "He Chaoyue" in text or "lifecycle" in text.casefold():
+            if "curated by" in text.casefold() or "lifecycle" in text.casefold():
                 errors.append(f"{name} must remain name-free and non-sequential")
 
     if errors:

@@ -81,7 +81,7 @@ Le [r√©pertoire complet des ressources](../../README.md#resource-directory), l‚Ä
 
 ## Citer le projet
 
-Citez le projet comme suit : **He Chaoyue (2026), *Awesome Graph Engineering*.**
+Curated by He Chaoyue.
 
 ```bibtex
 @misc{he2026awesomegraphengineering,

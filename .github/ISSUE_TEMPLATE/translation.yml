@@ -51,7 +51,7 @@ body:
       options:
         - label: I will preserve the “emerging working term, not a settled standard” qualification.
           required: true
-        - label: I will keep He Chaoyue, citation keys, URLs, code, dataset IDs, and original project titles unchanged.
+        - label: I will keep the curator line in the citation section, citation keys, URLs, code, dataset IDs, and original project titles unchanged.
           required: true
         - label: I understand that the canonical resource catalog remains English and should not be copied into the localized introduction.
           required: true

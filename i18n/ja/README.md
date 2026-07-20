@@ -81,7 +81,7 @@
 
 ## 引用
 
-本プロジェクトの引用形式：**He Chaoyue (2026), *Awesome Graph Engineering*.**
+Curated by He Chaoyue.
 
 ```bibtex
 @misc{he2026awesomegraphengineering,

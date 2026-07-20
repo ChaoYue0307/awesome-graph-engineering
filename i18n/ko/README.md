@@ -81,7 +81,7 @@
 
 ## 인용
 
-다음 형식으로 이 프로젝트를 인용하세요: **He Chaoyue (2026), *Awesome Graph Engineering*.**
+Curated by He Chaoyue.
 
 ```bibtex
 @misc{he2026awesomegraphengineering,

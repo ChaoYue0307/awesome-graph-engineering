@@ -35,8 +35,8 @@ Every published introduction must preserve these load-bearing ideas:
    universal standards.
 5. Adding agents is not automatically an improvement; the graph must justify its
    coordination cost against a smaller reliable alternative.
-6. The author name **He Chaoyue**, citation key, URLs, code, dataset identifiers, and
-   original paper or project titles must remain unchanged.
+6. The curator line in the citation section, citation key, URLs, code, dataset
+   identifiers, and original paper or project titles must remain unchanged.
 
 See [`glossary.yml`](glossary.yml) for preferred terminology and
 [`manifest.yml`](manifest.yml) for locale and review status. To add or improve a

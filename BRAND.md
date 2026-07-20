@@ -94,5 +94,5 @@ external projects remain subject to their own terms.
 Scholarly citation metadata is provided in [CITATION.cff](CITATION.cff). Citation is
 appreciated for traceability but is not required by CC0.
 
-When credit is desired, use: **Awesome Graph Engineering by He Chaoyue**. Keep
-personal names out of figures, diagrams, logos, and social-preview artwork.
+Keep creator attribution confined to citation metadata and the ready-to-copy BibTeX.
+Keep personal names out of figures, diagrams, logos, and social-preview artwork.

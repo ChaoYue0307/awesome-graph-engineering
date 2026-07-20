@@ -71,7 +71,7 @@ Localized introductions share one English resource catalog. Start with the
 before adding a locale.
 
 - Keep the emerging-term qualification, three-part minimum test, and scope boundaries intact.
-- Keep He Chaoyue, citation keys, URLs, code, dataset IDs, and original paper or project titles unchanged.
+- Keep citation keys, URLs, code, dataset IDs, and original paper or project titles unchanged.
 - Do not copy the generated resource tables into a localized README. Link to the canonical atlas instead.
 - Record review status in [`i18n/manifest.yml`](i18n/manifest.yml) and request both native-language and agent-systems review.
 - Prefer a short, accurate translation over a complete one that changes the technical meaning.

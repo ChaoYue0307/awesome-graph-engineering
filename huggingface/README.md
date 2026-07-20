@@ -121,7 +121,7 @@ GitHub’s `data/resources.jsonl` is canonical. The CSV, README tables, interact
 
 ## Citation
 
-Preferred citation: **He Chaoyue (2026), *Awesome Graph Engineering*.**
+Curated by He Chaoyue.
 
 ```bibtex
 @misc{he2026awesomegraphengineering,

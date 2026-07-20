@@ -81,7 +81,7 @@ El [directorio completo de recursos](../../README.md#resource-directory), el atl
 
 ## Cómo citar
 
-Cita el proyecto así: **He Chaoyue (2026), *Awesome Graph Engineering*.**
+Curated by He Chaoyue.
 
 ```bibtex
 @misc{he2026awesomegraphengineering,
