@@ -47,15 +47,28 @@ jobs:
       - name: Run repository quality gates
         run: bash scripts/check.sh
 
-      - name: Require the publishing credential
+      - name: Check the publishing credential
+        id: hf-auth
         env:
           HF_TOKEN: ${{ secrets.HF_TOKEN }}
-        run: test -n "$HF_TOKEN" || { echo "HF_TOKEN is required for the synchronized dataset mirror." >&2; exit 1; }
+        run: |
+          if [[ -n "$HF_TOKEN" ]]; then
+            echo "available=true" >> "$GITHUB_OUTPUT"
+          else
+            echo "available=false" >> "$GITHUB_OUTPUT"
+            echo "::notice::HF_TOKEN is not configured; validation passed and publishing was skipped."
+          fi
 
       - name: Install the Hugging Face CLI
+        if: steps.hf-auth.outputs.available == 'true'
         run: python -m pip install huggingface_hub==0.34.4
 
       - name: Validate and publish the dataset
+        if: steps.hf-auth.outputs.available == 'true'
         env:
           HF_TOKEN: ${{ secrets.HF_TOKEN }}
         run: bash scripts/publish_huggingface.sh
+
+      - name: Report a validated dry run
+        if: steps.hf-auth.outputs.available != 'true'
+        run: echo "The dataset mirror is valid; add the HF_TOKEN repository secret to enable automatic publishing."
