@@ -257,6 +257,15 @@ canvas {
   border-bottom: 1px solid var(--line);
 }
 
+.hero > *,
+.split-heading > *,
+.model-grid > *,
+.data-top > *,
+.open-links > *,
+.footer-grid > * {
+  min-width: 0;
+}
+
 .hero::before {
   position: absolute;
   inset: 0;
@@ -418,7 +427,7 @@ canvas {
 
 .hero-visual {
   position: relative;
-  height: 100%;
+  height: min(790px, calc(100svh - 72px));
   min-height: 650px;
   overflow: hidden;
   background:
@@ -436,6 +445,7 @@ canvas {
 }
 
 #hero-graph {
+  display: block;
   width: 100%;
   height: 100%;
   cursor: grab;
@@ -805,8 +815,10 @@ canvas {
 }
 
 #model-graph {
+  display: block;
   width: 100%;
-  min-height: 560px;
+  height: 560px;
+  min-height: 0;
   cursor: grab;
 }
 
@@ -1515,7 +1527,7 @@ html:not([lang="en"]) .hero h1 span {
   place-items: center;
   border: 1px solid rgba(184, 242, 74, 0.45);
   border-radius: 50%;
-  color: var(--lime);
+  color: var(--green);
   font-family: var(--display);
   font-size: 20px;
   letter-spacing: 0.04em;
@@ -1547,7 +1559,7 @@ html:not([lang="en"]) .hero h1 span {
   margin-top: 12px;
   align-items: center;
   gap: 8px;
-  color: var(--lime);
+  color: var(--green);
   font-family: var(--mono);
   font-size: 11px;
   font-weight: 700;
@@ -1686,14 +1698,23 @@ html:not([lang="en"]) .hero h1 span {
   }
 
   .layer-rail {
-    overflow-x: auto;
-    scroll-snap-type: x proximity;
-    overscroll-behavior-inline: contain;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 1px;
+    background: var(--line);
+    overflow: hidden;
   }
 
   .layer-rail li {
-    min-width: 126px;
-    scroll-snap-align: start;
+    min-width: 0;
+    background: var(--ink);
+  }
+
+  .layer-rail li + li {
+    border-left: 0;
+  }
+
+  .layer-rail button {
+    min-height: 156px;
   }
 
   .paths-section {
@@ -1707,6 +1728,34 @@ html:not([lang="en"]) .hero h1 span {
 
   .atlas-controls {
     grid-template-columns: minmax(320px, 1fr) repeat(3, minmax(130px, 0.5fr));
+  }
+}
+
+@media (max-width: 1000px) {
+  .paths-section {
+    grid-template-columns: 1fr;
+  }
+
+  .paths-intro {
+    position: static;
+  }
+
+  .paths-art {
+    margin-top: 26px;
+    max-height: 170px;
+    aspect-ratio: 8 / 3;
+  }
+
+  .paths-art img {
+    object-position: 50% 52%;
+  }
+
+  .path-list a {
+    grid-template-columns: 42px 110px minmax(0, 1fr) 25px;
+  }
+
+  .path-list p {
+    display: none;
   }
 }
 
@@ -1782,7 +1831,17 @@ html:not([lang="en"]) .hero h1 span {
   }
 
   .hero-visual {
-    min-height: 540px;
+    display: grid;
+    height: auto;
+    min-height: 0;
+    grid-template-rows: 520px auto;
+  }
+
+  .canvas-key {
+    position: static;
+    padding: 16px;
+    justify-content: center;
+    flex-wrap: wrap;
   }
 
   .split-heading,
@@ -1908,6 +1967,61 @@ html:not([lang="en"]) .hero h1 span {
   }
 }
 
+@media (max-width: 720px) {
+  .graph-stage {
+    display: grid;
+  }
+
+  .graph-toolbar {
+    position: static;
+    display: grid;
+    margin: 12px;
+    padding: 8px;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 8px;
+    overflow: visible;
+  }
+
+  .orbit-hint {
+    display: none;
+  }
+
+  .graph-mode {
+    min-width: 0;
+    min-height: 44px;
+    padding: 0 10px;
+    border: 1px solid var(--line);
+    border-radius: 6px;
+    white-space: nowrap;
+  }
+
+  .graph-zoom-controls {
+    display: grid;
+    min-width: 0;
+    min-height: 44px;
+    grid-column: 1 / -1;
+    grid-template-columns: 44px minmax(80px, 1fr) 44px;
+    border: 0;
+    gap: 8px;
+  }
+
+  .graph-zoom-controls button {
+    min-width: 44px;
+    min-height: 44px;
+    padding: 0 10px;
+    border: 1px solid var(--line);
+    border-radius: 6px;
+  }
+
+  .graph-zoom-controls button:first-child {
+    border-left: 1px solid var(--line);
+  }
+
+  #model-graph {
+    height: 600px;
+  }
+}
+
 @media (max-width: 620px) {
   :root {
     --shell: calc(100% - 28px);
@@ -2010,16 +2124,25 @@ html:not([lang="en"]) .hero h1 span {
   }
 
   .hero-visual {
-    min-height: 340px;
+    min-height: 0;
+    grid-template-rows: 440px auto;
   }
 
   .canvas-key {
-    right: 14px;
-    bottom: 14px;
-    left: 14px;
-    justify-content: center;
     gap: 11px;
     font-size: 10px;
+  }
+
+  .layer-rail {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .layer-rail li:last-child:nth-child(odd) {
+    grid-column: 1 / -1;
+  }
+
+  .layer-rail button {
+    min-height: 150px;
   }
 
   .primitives,
@@ -2055,53 +2178,6 @@ html:not([lang="en"]) .hero h1 span {
   .definition-note {
     align-items: flex-start;
     flex-direction: column;
-  }
-
-  .graph-toolbar {
-    top: 12px;
-    right: 12px;
-    left: 12px;
-    display: grid;
-    padding: 8px;
-    grid-template-columns: repeat(2, minmax(0, 1fr));
-    gap: 8px;
-    overflow: visible;
-  }
-
-  .orbit-hint {
-    display: none;
-  }
-
-  .graph-mode {
-    min-height: 44px;
-    padding: 0 10px;
-    border: 1px solid var(--line);
-    border-radius: 6px;
-  }
-
-  .graph-zoom-controls {
-    display: grid;
-    min-height: 44px;
-    grid-column: 1 / -1;
-    grid-template-columns: 44px minmax(80px, 1fr) 44px;
-    border: 0;
-    gap: 8px;
-  }
-
-  .graph-zoom-controls button {
-    min-width: 44px;
-    min-height: 44px;
-    padding: 0 10px;
-    border: 1px solid var(--line);
-    border-radius: 6px;
-  }
-
-  .graph-zoom-controls button:first-child {
-    border-left: 1px solid var(--line);
-  }
-
-  #model-graph {
-    min-height: 500px;
   }
 
   .graph-legend {
@@ -2357,7 +2433,12 @@ html:not([lang="en"]) .hero h1 span {
   }
 
   .hero-visual {
-    min-height: 320px;
+    min-height: 0;
+    grid-template-rows: 320px auto;
+  }
+
+  #model-graph {
+    height: 500px;
   }
 
   .paths-art {
