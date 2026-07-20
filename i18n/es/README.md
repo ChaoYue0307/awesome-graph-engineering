@@ -1,5 +1,5 @@
 <p align="center">
-  <a href="https://chaoyue0307.github.io/awesome-graph-engineering/?lang=es">
+  <a href="https://chaoyue0307.github.io/awesome-graph-engineering/es/">
     <img src="../../assets/logo.svg" width="112" alt="Logotipo de Awesome Graph Engineering">
   </a>
 </p>
@@ -9,6 +9,12 @@
 <p align="center">
   <strong>Diseña la organización, no solo el agente.</strong><br>
   Guía de campo, conjunto de datos abierto y atlas interactivo para organizaciones programables de agentes de IA.
+</p>
+
+<p align="center">
+  <a href="https://chaoyue0307.github.io/awesome-graph-engineering/es/">
+    <img src="../../assets/visual-abstract.webp" alt="Cinco módulos especializados de agentes de IA conectados mediante una puerta central de evidencia a un artefacto duradero" width="900">
+  </a>
 </p>
 
 <p align="center">
@@ -64,7 +70,7 @@ El grafo organizativo describe autoridad y relaciones permitidas; el grafo de ej
 
 ## Explora y participa
 
-- 🧭 [Atlas interactivo y visualización del sistema](https://chaoyue0307.github.io/awesome-graph-engineering/?lang=es)
+- 🧭 [Atlas interactivo y visualización del sistema](https://chaoyue0307.github.io/awesome-graph-engineering/es/)
 - 🤗 [Conjunto de datos en Hugging Face](https://huggingface.co/datasets/cy0307/awesome-graph-engineering)
 - 🔬 [Definición completa y mapa de evidencias](../../DEFINITION.md)
 - 🧱 [Taxonomía de nueve capas](../../TAXONOMY.md) y [comparación de conceptos](../../COMPARISON.md)

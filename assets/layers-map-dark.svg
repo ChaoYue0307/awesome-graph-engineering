@@ -1,0 +1,161 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1080" height="720" viewBox="0 0 1080 720" role="img" aria-labelledby="layers-title layers-desc" focusable="false">
+  <title id="layers-title">Nine design lenses for graph engineering</title>
+  <desc id="layers-desc">A non-sequential three-by-three map of nine co-equal design lenses: Roles, Topology, Handoffs, Work graphs, State, Gates, Reliability, Observability and cost, and Evolution.</desc>
+  <defs>
+    <pattern id="grid-dark" width="28" height="28" patternUnits="userSpaceOnUse">
+      <path d="M28 0H0V28" fill="none" stroke="#61E4FF" stroke-opacity="0.035" stroke-width="1"/>
+    </pattern>
+    <linearGradient id="accent-dark" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0" stop-color="#61E4FF"/>
+      <stop offset="0.52" stop-color="#9D7DFF"/>
+      <stop offset="1" stop-color="#B8F24A"/>
+    </linearGradient>
+    <filter id="shadow-dark" x="-15%" y="-15%" width="130%" height="140%">
+      <feDropShadow dx="0" dy="8" stdDeviation="12" flood-color="#000000" flood-opacity="0.24"/>
+    </filter>
+  </defs>
+
+  <rect width="1080" height="720" rx="28" fill="#050811"/>
+  <rect width="1080" height="720" rx="28" fill="url(#grid-dark)"/>
+
+  <g font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif">
+    <rect x="48" y="42" width="196" height="28" rx="14" fill="#B8F24A" fill-opacity="0.1" stroke="#B8F24A" stroke-opacity="0.38"/>
+    <circle cx="65" cy="56" r="4" fill="#B8F24A"/>
+    <text x="78" y="61" fill="#DDF9A8" font-size="11" font-weight="750" letter-spacing="1.15">CO-EQUAL · COMPOSABLE</text>
+    <text x="48" y="112" fill="#F6F8FC" font-size="34" font-weight="760" letter-spacing="-0.7">Nine design lenses</text>
+    <text x="48" y="142" fill="#AAB7CC" font-size="16">Independent views of an agent organization — use together, in any order.</text>
+
+    <!-- Roles -->
+    <g filter="url(#shadow-dark)">
+      <rect x="48" y="184" width="312" height="148" rx="18" fill="#0B1220" stroke="#26334C"/>
+      <rect x="68" y="202" width="44" height="4" rx="2" fill="#61E4FF"/>
+      <rect x="68" y="222" width="44" height="44" rx="12" fill="#61E4FF" fill-opacity="0.1" stroke="#61E4FF" stroke-opacity="0.38"/>
+      <g fill="none" stroke="#61E4FF" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+        <circle cx="90" cy="235" r="5"/>
+        <path d="M80 256c1.6-7 5-10 10-10s8.4 3 10 10"/>
+        <path d="M78 239h-3a5 5 0 0 0-5 5v7m32-12h3a5 5 0 0 1 5 5v7" opacity="0.72"/>
+      </g>
+      <text x="130" y="250" fill="#F6F8FC" font-size="22" font-weight="720">Roles</text>
+      <text x="68" y="300" fill="#AAB7CC" font-size="15">Who owns each capability?</text>
+    </g>
+
+    <!-- Topology -->
+    <g filter="url(#shadow-dark)">
+      <rect x="384" y="184" width="312" height="148" rx="18" fill="#0B1220" stroke="#26334C"/>
+      <rect x="404" y="202" width="44" height="4" rx="2" fill="#9D7DFF"/>
+      <rect x="404" y="222" width="44" height="44" rx="12" fill="#9D7DFF" fill-opacity="0.1" stroke="#9D7DFF" stroke-opacity="0.38"/>
+      <g fill="none" stroke="#9D7DFF" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+        <path d="M415 252l10-16 12 17m-22-1 22 1m-12-17 11-4"/>
+        <circle cx="415" cy="252" r="3" fill="#0B1220"/>
+        <circle cx="425" cy="236" r="3" fill="#0B1220"/>
+        <circle cx="437" cy="253" r="3" fill="#0B1220"/>
+        <circle cx="436" cy="232" r="3" fill="#0B1220"/>
+      </g>
+      <text x="466" y="250" fill="#F6F8FC" font-size="22" font-weight="720">Topology</text>
+      <text x="404" y="300" fill="#AAB7CC" font-size="15">Which nodes may connect?</text>
+    </g>
+
+    <!-- Handoffs -->
+    <g filter="url(#shadow-dark)">
+      <rect x="720" y="184" width="312" height="148" rx="18" fill="#0B1220" stroke="#26334C"/>
+      <rect x="740" y="202" width="44" height="4" rx="2" fill="#B8F24A"/>
+      <rect x="740" y="222" width="44" height="44" rx="12" fill="#B8F24A" fill-opacity="0.1" stroke="#B8F24A" stroke-opacity="0.38"/>
+      <g fill="none" stroke="#B8F24A" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+        <rect x="748" y="232" width="16" height="16" rx="4"/>
+        <rect x="760" y="240" width="16" height="16" rx="4"/>
+        <path d="M756 252h12M764 236v16" opacity="0.75"/>
+      </g>
+      <text x="802" y="250" fill="#F6F8FC" font-size="22" font-weight="720">Handoffs</text>
+      <text x="740" y="300" fill="#AAB7CC" font-size="15">What crosses each boundary?</text>
+    </g>
+
+    <!-- Work graphs -->
+    <g filter="url(#shadow-dark)">
+      <rect x="48" y="350" width="312" height="148" rx="18" fill="#0B1220" stroke="#26334C"/>
+      <rect x="68" y="368" width="44" height="4" rx="2" fill="#9D7DFF"/>
+      <rect x="68" y="388" width="44" height="44" rx="12" fill="#9D7DFF" fill-opacity="0.1" stroke="#9D7DFF" stroke-opacity="0.38"/>
+      <g fill="none" stroke="#9D7DFF" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+        <path d="M78 400h9m6 0h9M87 400v20m6-20v10h9m-15 10h15"/>
+        <rect x="73" y="396" width="8" height="8" rx="2" fill="#0B1220"/>
+        <rect x="85" y="396" width="8" height="8" rx="2" fill="#0B1220"/>
+        <rect x="98" y="406" width="8" height="8" rx="2" fill="#0B1220"/>
+        <rect x="83" y="416" width="8" height="8" rx="2" fill="#0B1220"/>
+        <rect x="98" y="416" width="8" height="8" rx="2" fill="#0B1220"/>
+      </g>
+      <text x="130" y="416" fill="#F6F8FC" font-size="22" font-weight="720">Work graphs</text>
+      <text x="68" y="466" fill="#AAB7CC" font-size="15">How does work decompose?</text>
+    </g>
+
+    <!-- State -->
+    <g filter="url(#shadow-dark)">
+      <rect x="384" y="350" width="312" height="148" rx="18" fill="#0B1220" stroke="#26334C"/>
+      <rect x="404" y="368" width="44" height="4" rx="2" fill="#61E4FF"/>
+      <rect x="404" y="388" width="44" height="44" rx="12" fill="#61E4FF" fill-opacity="0.1" stroke="#61E4FF" stroke-opacity="0.38"/>
+      <g fill="none" stroke="#61E4FF" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+        <ellipse cx="426" cy="399" rx="12" ry="5"/>
+        <path d="M414 399v20c0 2.8 5.4 5 12 5s12-2.2 12-5v-20m-24 10c0 2.8 5.4 5 12 5s12-2.2 12-5"/>
+      </g>
+      <text x="466" y="416" fill="#F6F8FC" font-size="22" font-weight="720">State</text>
+      <text x="404" y="466" fill="#AAB7CC" font-size="15">What persists between runs?</text>
+    </g>
+
+    <!-- Gates -->
+    <g filter="url(#shadow-dark)">
+      <rect x="720" y="350" width="312" height="148" rx="18" fill="#0B1220" stroke="#26334C"/>
+      <rect x="740" y="368" width="44" height="4" rx="2" fill="#B8F24A"/>
+      <rect x="740" y="388" width="44" height="44" rx="12" fill="#B8F24A" fill-opacity="0.1" stroke="#B8F24A" stroke-opacity="0.38"/>
+      <g fill="none" stroke="#B8F24A" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+        <path d="M762 395l14 15-14 15-14-15 14-15z"/>
+        <path d="M756 410l4 4 8-9" stroke-width="2.5"/>
+      </g>
+      <text x="802" y="416" fill="#F6F8FC" font-size="22" font-weight="720">Gates</text>
+      <text x="740" y="466" fill="#AAB7CC" font-size="15">What evidence permits progress?</text>
+    </g>
+
+    <!-- Reliability -->
+    <g filter="url(#shadow-dark)">
+      <rect x="48" y="516" width="312" height="148" rx="18" fill="#0B1220" stroke="#26334C"/>
+      <rect x="68" y="534" width="44" height="4" rx="2" fill="#B8F24A"/>
+      <rect x="68" y="554" width="44" height="44" rx="12" fill="#B8F24A" fill-opacity="0.1" stroke="#B8F24A" stroke-opacity="0.38"/>
+      <g fill="none" stroke="#B8F24A" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+        <path d="M90 560l13 5v9c0 8-5.3 14-13 17-7.7-3-13-9-13-17v-9l13-5z"/>
+        <path d="M84 575l4 4 8-9" stroke-width="2.5"/>
+      </g>
+      <text x="130" y="582" fill="#F6F8FC" font-size="22" font-weight="720">Reliability</text>
+      <text x="68" y="632" fill="#AAB7CC" font-size="15">How does failure stay bounded?</text>
+    </g>
+
+    <!-- Observability and cost -->
+    <g filter="url(#shadow-dark)">
+      <rect x="384" y="516" width="312" height="148" rx="18" fill="#0B1220" stroke="#26334C"/>
+      <rect x="404" y="534" width="44" height="4" rx="2" fill="#61E4FF"/>
+      <rect x="404" y="554" width="44" height="44" rx="12" fill="#61E4FF" fill-opacity="0.1" stroke="#61E4FF" stroke-opacity="0.38"/>
+      <g fill="none" stroke="#61E4FF" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+        <path d="M412 576s5-10 14-10 14 10 14 10-5 10-14 10-14-10-14-10z"/>
+        <circle cx="426" cy="576" r="4"/>
+        <path d="M436 558h6m-3-3v6" opacity="0.8"/>
+      </g>
+      <text x="466" y="576" fill="#F6F8FC" font-size="19" font-weight="720">Observability &amp; cost</text>
+      <text x="404" y="632" fill="#AAB7CC" font-size="15">What happened — and at what cost?</text>
+    </g>
+
+    <!-- Evolution -->
+    <g filter="url(#shadow-dark)">
+      <rect x="720" y="516" width="312" height="148" rx="18" fill="#0B1220" stroke="#26334C"/>
+      <rect x="740" y="534" width="44" height="4" rx="2" fill="#9D7DFF"/>
+      <rect x="740" y="554" width="44" height="44" rx="12" fill="#9D7DFF" fill-opacity="0.1" stroke="#9D7DFF" stroke-opacity="0.38"/>
+      <g fill="none" stroke="#9D7DFF" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+        <path d="M762 589v-25m0 12-9-8m9 2 9-8m-9 20-7-5m7 5 8-6"/>
+        <circle cx="753" cy="568" r="3" fill="#0B1220"/>
+        <circle cx="771" cy="562" r="3" fill="#0B1220"/>
+        <circle cx="755" cy="577" r="3" fill="#0B1220"/>
+        <circle cx="770" cy="576" r="3" fill="#0B1220"/>
+        <circle cx="762" cy="589" r="3" fill="#0B1220"/>
+      </g>
+      <text x="802" y="582" fill="#F6F8FC" font-size="22" font-weight="720">Evolution</text>
+      <text x="740" y="632" fill="#AAB7CC" font-size="15">How does the organization adapt?</text>
+    </g>
+  </g>
+
+  <rect x="48" y="682" width="984" height="2" rx="1" fill="url(#accent-dark)" opacity="0.8"/>
+</svg>

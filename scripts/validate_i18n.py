@@ -6,6 +6,7 @@ from __future__ import annotations
 import json
 import re
 import struct
+import xml.etree.ElementTree as ET
 from pathlib import Path
 
 ROOT = Path(__file__).resolve().parent.parent
@@ -172,6 +173,33 @@ def main() -> int:
     github_preview = ROOT / "assets/share/github-social-preview.jpg"
     if not github_preview.is_file() or github_preview.stat().st_size >= 1_000_000:
         errors.append("GitHub social preview must exist and remain under 1 MB")
+
+    visual = ROOT / "assets/visual-abstract.webp"
+    visual_mirror = ROOT / "docs/assets/visual-abstract.webp"
+    if not visual.is_file() or visual.stat().st_size >= 300_000:
+        errors.append("Editorial visual abstract must exist and remain under 300 KB")
+    elif not visual_mirror.is_file() or visual_mirror.read_bytes() != visual.read_bytes():
+        errors.append("docs/assets/visual-abstract.webp must mirror assets/visual-abstract.webp")
+
+    for name in ("visual-abstract-640.webp", "visual-abstract-960.webp"):
+        responsive = ROOT / "docs/assets" / name
+        if not responsive.is_file() or responsive.stat().st_size >= 150_000:
+            errors.append(f"Responsive website visual {name} must exist and remain under 150 KB")
+
+    square_visual = ROOT / "assets/share/visual-square.webp"
+    if not square_visual.is_file() or square_visual.stat().st_size >= 300_000:
+        errors.append("Square share visual must exist and remain under 300 KB")
+
+    for name in ("layers-map-dark.svg", "layers-map-light.svg"):
+        layer_map = ROOT / "assets" / name
+        try:
+            ET.parse(layer_map)
+        except (OSError, ET.ParseError) as exc:
+            errors.append(f"{name} is missing or invalid XML: {exc}")
+        else:
+            text = layer_map.read_text(encoding="utf-8")
+            if "He Chaoyue" in text or "lifecycle" in text.casefold():
+                errors.append(f"{name} must remain name-free and non-sequential")
 
     if errors:
         print(f"FAIL — {len(errors)} localization/launch problem(s):")

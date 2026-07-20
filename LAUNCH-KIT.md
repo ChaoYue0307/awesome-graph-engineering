@@ -20,6 +20,23 @@ technical audiences may prefer the
   systems, workflow, protocol, evaluation, and agent-graph research.
 - **Creator:** He Chaoyue.
 
+## Share-ready visuals
+
+- **Link unfurls and wide posts:** [`assets/social-card.png`](assets/social-card.png)
+  at 1200×630.
+- **Square posts:** [`assets/share/visual-square.webp`](assets/share/visual-square.webp)
+  at 1080×1080.
+- **Text-free landscape artwork:**
+  [`assets/visual-abstract.webp`](assets/visual-abstract.webp) at 1600×900.
+- **GitHub repository preview:**
+  [`assets/share/github-social-preview.jpg`](assets/share/github-social-preview.jpg)
+  at 1280×640.
+
+Keep translated copy in the post rather than inside the artwork. This preserves one
+recognizable visual system across languages and keeps the message readable by
+screen readers, search engines, and small-screen users. None of the share assets
+contains a personal name.
+
 ## English copy
 
 Short:
@@ -43,43 +60,43 @@ Social:
 
 ### 简体中文
 
-> Graph Engineering 关注一个不同的问题：如何工程化 AI 智能体组成的组织，而不只是优化单个智能体？项目提供 9 个工程层、51 项精选资料、交互式图谱与开放数据集，并明确说明这一术语仍在形成中。<https://chaoyue0307.github.io/awesome-graph-engineering/?lang=zh-Hans>
+> Graph Engineering 关注一个不同的问题：如何工程化 AI 智能体组成的组织，而不只是优化单个智能体？项目提供 9 个工程层、51 项精选资料、交互式图谱与开放数据集，并明确说明这一术语仍在形成中。<https://chaoyue0307.github.io/awesome-graph-engineering/zh-Hans/>
 
 ### Español
 
 > Graph engineering plantea otra pregunta: ¿cómo diseñamos la organización de
 > agentes de IA, no solo cada agente? Explora 9 capas, 51 fuentes seleccionadas, un
 > grafo interactivo y un dataset abierto. El término es emergente y sus límites son
-> explícitos. <https://chaoyue0307.github.io/awesome-graph-engineering/?lang=es>
+> explícitos. <https://chaoyue0307.github.io/awesome-graph-engineering/es/>
 
 ### Français
 
 > Le graph engineering pose une autre question : comment concevoir l’organisation
 > des agents IA, pas seulement chaque agent ? Découvrez 9 couches, 51 sources
 > sélectionnées, un graphe interactif et un jeu de données ouvert. Le terme reste
-> émergent et ses limites sont explicites. <https://chaoyue0307.github.io/awesome-graph-engineering/?lang=fr>
+> émergent et ses limites sont explicites. <https://chaoyue0307.github.io/awesome-graph-engineering/fr/>
 
 ### Deutsch
 
 > Graph Engineering stellt eine andere Frage: Wie entwickeln wir die Organisation
 > von KI-Agenten – nicht nur jeden einzelnen Agenten? Entdecke 9 Ebenen, 51 kuratierte
 > Quellen, einen interaktiven Graphen und einen offenen Datensatz. Der Begriff ist
-> noch im Entstehen. <https://chaoyue0307.github.io/awesome-graph-engineering/?lang=de>
+> noch im Entstehen. <https://chaoyue0307.github.io/awesome-graph-engineering/de/>
 
 ### 日本語
 
-> Graph Engineering が問うのは、個々の AI エージェントだけでなく、その組織全体をどう設計するかです。9 つの設計レイヤー、51 件の厳選資料、インタラクティブなグラフ、オープンデータセットを公開。用語は形成途上で、定義と境界を明示しています。<https://chaoyue0307.github.io/awesome-graph-engineering/?lang=ja>
+> Graph Engineering が問うのは、個々の AI エージェントだけでなく、その組織全体をどう設計するかです。9 つの設計レイヤー、51 件の厳選資料、インタラクティブなグラフ、オープンデータセットを公開。用語は形成途上で、定義と境界を明示しています。<https://chaoyue0307.github.io/awesome-graph-engineering/ja/>
 
 ### 한국어
 
-> Graph Engineering은 개별 AI 에이전트만이 아니라 에이전트 조직 전체를 어떻게 설계할지 묻습니다. 9개 설계 계층, 엄선된 51개 자료, 인터랙티브 그래프, 오픈 데이터셋을 살펴보세요. 아직 형성 중인 용어이므로 정의와 범위를 명확히 공개합니다. <https://chaoyue0307.github.io/awesome-graph-engineering/?lang=ko>
+> Graph Engineering은 개별 AI 에이전트만이 아니라 에이전트 조직 전체를 어떻게 설계할지 묻습니다. 9개 설계 계층, 엄선된 51개 자료, 인터랙티브 그래프, 오픈 데이터셋을 살펴보세요. 아직 형성 중인 용어이므로 정의와 범위를 명확히 공개합니다. <https://chaoyue0307.github.io/awesome-graph-engineering/ko/>
 
 ### Português (Brasil)
 
 > Graph engineering faz outra pergunta: como projetar a organização de agentes de IA,
 > e não apenas cada agente? Explore 9 camadas, 51 fontes selecionadas, um grafo
 > interativo e um dataset aberto. O termo é emergente e seus limites estão explícitos.
-> <https://chaoyue0307.github.io/awesome-graph-engineering/?lang=pt-BR>
+> <https://chaoyue0307.github.io/awesome-graph-engineering/pt-BR/>
 
 ## Suggested post structure
 

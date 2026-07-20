@@ -543,6 +543,83 @@ canvas {
   font-size: 17px;
 }
 
+.paths-art {
+  position: relative;
+  display: block;
+  margin-top: 32px;
+  aspect-ratio: 11 / 8;
+  overflow: hidden;
+  isolation: isolate;
+  border: 1px solid var(--line-strong);
+  border-radius: var(--radius);
+  background: var(--surface);
+  box-shadow: 0 24px 70px rgba(0, 0, 0, 0.28);
+}
+
+.paths-art picture,
+.paths-art img {
+  width: 100%;
+  height: 100%;
+}
+
+.paths-art img {
+  object-fit: cover;
+  object-position: 50% 50%;
+  transition: transform 320ms ease;
+}
+
+.paths-art::after {
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  content: "";
+  pointer-events: none;
+  background:
+    linear-gradient(180deg, transparent 54%, rgba(5, 8, 17, 0.66)),
+    linear-gradient(90deg, rgba(97, 228, 255, 0.05), transparent 46%, rgba(157, 125, 255, 0.07));
+  box-shadow: inset 0 0 0 1px rgba(246, 248, 252, 0.025);
+}
+
+.paths-art > span {
+  position: absolute;
+  right: 14px;
+  bottom: 14px;
+  left: 14px;
+  z-index: 2;
+  display: flex;
+  min-height: 38px;
+  padding: 8px 11px;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  border: 1px solid rgba(246, 248, 252, 0.18);
+  border-radius: 7px;
+  background: rgba(5, 8, 17, 0.76);
+  color: var(--text);
+  font-family: var(--mono);
+  font-size: 10px;
+  letter-spacing: 0.03em;
+  backdrop-filter: blur(12px);
+}
+
+.paths-art > span b {
+  font-weight: 700;
+}
+
+.paths-art > span i {
+  color: var(--cyan);
+  font-size: 14px;
+  font-style: normal;
+}
+
+.paths-art:hover {
+  color: var(--text);
+}
+
+.paths-art:hover img {
+  transform: scale(1.025);
+}
+
 .split-heading > p {
   margin: 0 0 2px;
 }
@@ -1754,6 +1831,16 @@ html:not([lang="en"]) .hero h1 span {
     position: static;
   }
 
+  .paths-art {
+    margin-top: 26px;
+    max-height: 150px;
+    aspect-ratio: 8 / 3;
+  }
+
+  .paths-art img {
+    object-position: 50% 52%;
+  }
+
   .path-list a {
     grid-template-columns: 42px 110px minmax(0, 1fr) 25px;
   }
@@ -1875,6 +1962,11 @@ html:not([lang="en"]) .hero h1 span {
 
   .hero-copy {
     padding-top: 64px;
+  }
+
+  .paths-art {
+    margin-top: 22px;
+    aspect-ratio: 2.65 / 1;
   }
 
   .hero h1 {
@@ -2266,6 +2358,10 @@ html:not([lang="en"]) .hero h1 span {
 
   .hero-visual {
     min-height: 320px;
+  }
+
+  .paths-art {
+    display: none;
   }
 
   .primitives,

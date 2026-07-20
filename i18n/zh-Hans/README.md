@@ -1,5 +1,5 @@
 <p align="center">
-  <a href="https://chaoyue0307.github.io/awesome-graph-engineering/?lang=zh-Hans">
+  <a href="https://chaoyue0307.github.io/awesome-graph-engineering/zh-Hans/">
     <img src="../../assets/logo.svg" width="112" alt="Awesome Graph Engineering 标志">
   </a>
 </p>
@@ -9,6 +9,12 @@
 <p align="center">
   <strong>工程化整个智能体组织，而不只是单个智能体。</strong><br>
   面向可编程 AI 智能体组织的实践指南、开放数据集与交互式图谱。
+</p>
+
+<p align="center">
+  <a href="https://chaoyue0307.github.io/awesome-graph-engineering/zh-Hans/">
+    <img src="../../assets/visual-abstract.webp" alt="五个专业化 AI 智能体模块通过中央证据门连接到持久化产物" width="900">
+  </a>
 </p>
 
 <p align="center">
@@ -66,7 +72,7 @@
 
 ## 从这里开始
 
-- 🌐 [探索交互式 Resource Atlas](https://chaoyue0307.github.io/awesome-graph-engineering/?lang=zh-Hans)：查看动态组织图、九个工程层与可筛选资源。
+- 🌐 [探索交互式 Resource Atlas](https://chaoyue0307.github.io/awesome-graph-engineering/zh-Hans/)：查看动态组织图、九个工程层与可筛选资源。
 - 🤗 [使用 Hugging Face 数据集](https://huggingface.co/datasets/cy0307/awesome-graph-engineering)：浏览或加载结构化资源记录。
 - 🧭 [阅读完整定义与证据图](../../DEFINITION.md)：核查每个边界声明及其独立来源。
 - 🧱 [查看分类体系](../../TAXONOMY.md)与[对比指南](../../COMPARISON.md)：区分图、循环、工作流和相关领域。

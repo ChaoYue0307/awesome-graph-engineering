@@ -26,9 +26,11 @@ Every public description must state both scope qualifications:
 | --- | --- | --- |
 | Primary logo | Repository, website, avatars, presentations | [`assets/logo.svg`](assets/logo.svg) |
 | 512 px logo | Raster contexts and app icons | [`assets/brand/logo-512.png`](assets/brand/logo-512.png) |
+| Editorial visual abstract | README, website, article covers, and presentation backgrounds | [`assets/visual-abstract.webp`](assets/visual-abstract.webp) |
+| Square visual abstract | Square social posts and community announcements | [`assets/share/visual-square.webp`](assets/share/visual-square.webp) |
 | Social preview | X, LinkedIn, Slack, Discord, iMessage, and link unfurls | [`assets/social-card.png`](assets/social-card.png) |
 | GitHub social preview | Repository settings upload; 1280×640 and under 1 MB | [`assets/share/github-social-preview.jpg`](assets/share/github-social-preview.jpg) |
-| Nine-layer lifecycle | Talks, documentation, and explainers | [`assets/lifecycle-dark.svg`](assets/lifecycle-dark.svg), [`assets/lifecycle-light.svg`](assets/lifecycle-light.svg) |
+| Nine-lens map | Talks, documentation, and explainers | [`assets/layers-map-dark.svg`](assets/layers-map-dark.svg), [`assets/layers-map-light.svg`](assets/layers-map-light.svg) |
 
 Do not redraw the logo with emoji, text glyphs, or approximate node diagrams. Keep
 clear space equal to at least one quarter of the mark width. On dark surfaces, use
@@ -64,10 +66,21 @@ Social preview:
 > lime evidence gate on a dark blueprint grid, beside the message “Engineer the
 > organization, not just the agent.”
 
-Lifecycle diagram:
+Visual abstract:
 
-> Nine graph engineering layers: roles, topology, handoffs, work graphs, state,
-> gates, reliability, observability and cost, and evolution.
+> Five specialized AI-agent modules connect through a central evidence gate to a
+> durable artifact in a dark blueprint environment.
+
+Square visual abstract:
+
+> Five specialized AI-agent modules form a radial graph around a lime evidence
+> gate, with a verified artifact below.
+
+Nine-lens map:
+
+> A non-sequential three-by-three map of nine co-equal graph engineering design
+> lenses: roles, topology, handoffs, work graphs, state, gates, reliability,
+> observability and cost, and evolution.
 
 ## License
 

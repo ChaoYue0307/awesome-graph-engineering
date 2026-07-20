@@ -1,5 +1,5 @@
 <p align="center">
-  <a href="https://chaoyue0307.github.io/awesome-graph-engineering/?lang=de">
+  <a href="https://chaoyue0307.github.io/awesome-graph-engineering/de/">
     <img src="../../assets/logo.svg" width="112" alt="Logo von Awesome Graph Engineering">
   </a>
 </p>
@@ -9,6 +9,12 @@
 <p align="center">
   <strong>Entwickle die Organisation, nicht nur den Agenten.</strong><br>
   Praxisleitfaden, offener Datensatz und interaktiver Atlas für programmierbare Organisationen von KI-Agenten.
+</p>
+
+<p align="center">
+  <a href="https://chaoyue0307.github.io/awesome-graph-engineering/de/">
+    <img src="../../assets/visual-abstract.webp" alt="Fünf spezialisierte KI-Agentenmodule, die über ein zentrales Evidenz-Gate mit einem dauerhaften Artefakt verbunden sind" width="900">
+  </a>
 </p>
 
 <p align="center">
@@ -64,7 +70,7 @@ Der Organisationsgraph beschreibt Befugnisse und erlaubte Beziehungen; der Ausf�
 
 ## Erkunden und mitwirken
 
-- 🧭 [Interaktiver Atlas und Systemvisualisierung](https://chaoyue0307.github.io/awesome-graph-engineering/?lang=de)
+- 🧭 [Interaktiver Atlas und Systemvisualisierung](https://chaoyue0307.github.io/awesome-graph-engineering/de/)
 - 🤗 [Datensatz auf Hugging Face](https://huggingface.co/datasets/cy0307/awesome-graph-engineering)
 - 🔬 [Vollständige Definition und Evidenzübersicht](../../DEFINITION.md)
 - 🧱 [Taxonomie der neun Ebenen](../../TAXONOMY.md) und [Begriffsvergleich](../../COMPARISON.md)

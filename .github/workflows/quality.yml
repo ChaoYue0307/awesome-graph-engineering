@@ -29,6 +29,11 @@ jobs:
         with:
           python-version: "3.x"
 
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: "22"
+
       - name: Check Markdown formatting
         uses: DavidAnson/markdownlint-cli2-action@v17
         with:
@@ -43,9 +48,19 @@ jobs:
       - name: Validate localized guides and site assets
         run: python3 scripts/validate_i18n.py
 
+      - name: Verify static locale routes
+        run: node scripts/generate_site_locales.mjs --check
+
       - name: Verify generated site is nonempty
         run: |
           test -s docs/index.html
+          test -s docs/zh-Hans/index.html
+          test -s docs/es/index.html
+          test -s docs/fr/index.html
+          test -s docs/de/index.html
+          test -s docs/ja/index.html
+          test -s docs/ko/index.html
+          test -s docs/pt-BR/index.html
           test -s docs/site.webmanifest
           test -s docs/assets/social-card.png
           grep -q '"id":"age-' docs/index.html

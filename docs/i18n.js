@@ -9,6 +9,8 @@ const localeConfig = {
   "pt-BR": { og: "pt_BR" },
 };
 
+const siteUrl = "https://chaoyue0307.github.io/awesome-graph-engineering/";
+
 const copy = {
   en: {
     metaTitle: "Awesome Graph Engineering — engineer the organization, not just the agent",
@@ -34,6 +36,7 @@ const copy = {
     "definition.body": "Graph engineering is the practice of specifying, executing, observing, and evolving a graph-structured agent system—its roles and runtime instances, connecting contracts, shared state and artifacts, and the evidence by which collective behavior is judged. Each agent may contain a local loop; tests, audit loops, humans, and real-world anchors may be non-agent controls. The graph must materially constrain execution and remain inspectable.",
     "definition.note": "The term is emerging and overloaded, so the scope is deliberately narrow. It describes a practical engineering layer across agent orchestration, multi-agent systems, and durable workflows; it is not an industry standard.",
     "definition.link": "Read the full definition and scope",
+    "paths.artLink": "Explore the interactive model",
     "license.title": "License",
     "license.scope": "Repository-created metadata, schema, summaries, documentation, code, and visual assets are dedicated to the public domain under CC0 1.0 Universal.",
     "license.exclusions": "Linked papers, software, names, logos, and other third-party materials retain their own rights and licenses. CC0 does not waive trademark or patent rights and provides the work without warranties. Citation is appreciated for scholarly traceability but is not required by CC0.",
@@ -67,6 +70,7 @@ const copy = {
     "definition.body": "Graph Engineering 是对图结构智能体系统进行规范、执行、观测和演进的工程实践；它涵盖角色与运行时实例、连接它们的契约、共享状态与产物，以及评判集体行为的证据。每个智能体可以包含本地循环；测试、审计循环、人类与现实世界锚点可以作为非智能体控制节点。该图必须实质性约束执行，并保持可检查。",
     "definition.note": "该术语仍在形成且存在多种含义，因此这里将范围明确限定为智能体编排、多智能体系统和持久工作流中的实用工程层；它并非行业标准。",
     "definition.link": "阅读完整定义与范围",
+    "paths.artLink": "探索交互式模型",
     "license.title": "许可",
     "license.scope": "本仓库原创的元数据、数据结构、摘要、文档、代码和视觉资产均依据 CC0 1.0 Universal 贡献至公共领域。",
     "license.exclusions": "外部链接的论文、软件、名称、标志及其他第三方材料仍受其各自权利和许可证约束。CC0 不放弃商标权或专利权，且不对作品提供任何保证。欢迎为学术溯源进行引用，但 CC0 不要求引用。",
@@ -100,6 +104,7 @@ const copy = {
     "definition.body": "Graph engineering es la práctica de especificar, ejecutar, observar y evolucionar un sistema de agentes estructurado como grafo: sus roles e instancias de ejecución, los contratos que los conectan, el estado y los artefactos compartidos y la evidencia con la que se juzga su comportamiento colectivo. Cada agente puede contener un bucle local; las pruebas, auditorías, decisiones humanas y anclajes al mundo real pueden actuar como controles no agentes. El grafo debe condicionar materialmente la ejecución y seguir siendo inspeccionable.",
     "definition.note": "El término es emergente y polisémico, por lo que el alcance se limita a una capa práctica de ingeniería presente en la orquestación de agentes, los sistemas multiagente y los flujos de trabajo duraderos; no es un estándar industrial.",
     "definition.link": "Leer la definición y el alcance completos",
+    "paths.artLink": "Explorar el modelo interactivo",
     "license.title": "Licencia",
     "license.scope": "Los metadatos, el esquema, los resúmenes, la documentación, el código y los recursos visuales creados para este repositorio se dedican al dominio público bajo CC0 1.0 Universal.",
     "license.exclusions": "Los artículos, el software, los nombres, los logotipos y demás materiales de terceros enlazados conservan sus propios derechos y licencias. CC0 no implica la renuncia a derechos de marca o patente y la obra se ofrece sin garantías. Se agradece la cita por trazabilidad académica, pero CC0 no la exige.",
@@ -133,6 +138,7 @@ const copy = {
     "definition.body": "Le graph engineering consiste à spécifier, exécuter, observer et faire évoluer un système d’agents structuré en graphe : ses rôles et instances d’exécution, les contrats qui les relient, l’état et les artefacts partagés, ainsi que les preuves utilisées pour juger le comportement collectif. Chaque agent peut contenir une boucle locale ; tests, boucles d’audit, humains et ancrages dans le réel peuvent être des contrôles non agents. Le graphe doit contraindre réellement l’exécution et rester inspectable.",
     "definition.note": "Le terme est émergent et polysémique ; le périmètre se limite donc à une couche d’ingénierie pratique présente dans l’orchestration d’agents, les systèmes multi-agents et les workflows durables. Il ne constitue pas une norme industrielle.",
     "definition.link": "Lire la définition et le périmètre complets",
+    "paths.artLink": "Explorer le modèle interactif",
     "license.title": "Licence",
     "license.scope": "Les métadonnées, le schéma, les résumés, la documentation, le code et les ressources visuelles créés pour ce dépôt sont placés dans le domaine public selon CC0 1.0 Universal.",
     "license.exclusions": "Les articles, logiciels, noms, logos et autres contenus tiers référencés conservent leurs propres droits et licences. La licence CC0 n’emporte aucune renonciation aux droits de marque ou de brevet, et l’œuvre est fournie sans garantie. La citation est appréciée pour la traçabilité scientifique, mais elle n’est pas exigée par CC0.",
@@ -166,6 +172,7 @@ const copy = {
     "definition.body": "Graph Engineering ist die Praxis, ein graphstrukturiertes Agentensystem zu spezifizieren, auszuführen, zu beobachten und weiterzuentwickeln: seine Rollen und Laufzeitinstanzen, die verbindenden Verträge, gemeinsam genutzten Zustände und Artefakte sowie die Evidenz, nach der das kollektive Verhalten beurteilt wird. Jeder Agent kann eine lokale Schleife enthalten; Tests, Audit-Schleifen, Menschen und Realitätsanker können Nicht-Agenten-Kontrollen sein. Der Graph muss die Ausführung tatsächlich einschränken und überprüfbar bleiben.",
     "definition.note": "Der Begriff ist neu und mehrdeutig; der Umfang ist daher auf eine praktische Engineering-Ebene in Agenten-Orchestrierung, Multi-Agenten-Systemen und dauerhaften Workflows begrenzt. Er ist kein Industriestandard.",
     "definition.link": "Vollständige Definition und Abgrenzung lesen",
+    "paths.artLink": "Interaktives Modell erkunden",
     "license.title": "Lizenz",
     "license.scope": "Die für dieses Repository erstellten Metadaten, das Schema, die Zusammenfassungen, die Dokumentation, der Code und die visuellen Inhalte sind unter CC0 1.0 Universal der Gemeinfreiheit gewidmet.",
     "license.exclusions": "Verlinkte Veröffentlichungen, Software, Namen, Logos und andere Materialien Dritter unterliegen weiterhin ihren jeweiligen Rechten und Lizenzen. CC0 verzichtet nicht auf Marken- oder Patentrechte und stellt das Werk ohne Gewährleistung bereit. Eine Zitierung ist für die wissenschaftliche Nachvollziehbarkeit erwünscht, aber nach CC0 nicht erforderlich.",
@@ -199,6 +206,7 @@ const copy = {
     "definition.body": "Graph Engineering とは、グラフ構造を持つエージェントシステムを仕様化・実行・観測・進化させる実践です。役割と実行時インスタンス、それらを結ぶ契約、共有状態と成果物、集団の振る舞いを判断する証拠までを対象にします。各エージェントはローカルなループを持てます。テスト、監査ループ、人間、現実世界のアンカーは非エージェント制御ノードになり得ます。グラフは実行を実質的に制約し、検査可能でなければなりません。",
     "definition.note": "この用語は新しく多義的であるため、対象範囲をエージェント・オーケストレーション、マルチエージェントシステム、耐久性のあるワークフローにまたがる実践的な工学レイヤーに限定しています。業界標準ではありません。",
     "definition.link": "定義と対象範囲を詳しく読む",
+    "paths.artLink": "インタラクティブモデルを見る",
     "license.title": "ライセンス",
     "license.scope": "本リポジトリで作成したメタデータ、スキーマ、要約、文書、コード、ビジュアル素材は、CC0 1.0 Universal に基づきパブリックドメインに提供されています。",
     "license.exclusions": "リンク先の論文、ソフトウェア、名称、ロゴ、その他の第三者素材には、それぞれの権利とライセンスが適用されます。CC0 は商標権や特許権を放棄するものではなく、本作品は無保証で提供されます。学術的な追跡可能性のための引用を推奨しますが、CC0 上の要件ではありません。",
@@ -232,6 +240,7 @@ const copy = {
     "definition.body": "Graph Engineering은 그래프 구조의 에이전트 시스템을 명세하고, 실행하고, 관측하고, 진화시키는 실천입니다. 역할과 런타임 인스턴스, 이들을 잇는 계약, 공유 상태와 산출물, 집단 행동을 판단하는 근거를 함께 다룹니다. 각 에이전트는 로컬 루프를 가질 수 있으며 테스트, 감사 루프, 사람, 현실 세계의 앵커는 비에이전트 제어 노드가 될 수 있습니다. 그래프는 실행을 실질적으로 제약하고 검사 가능해야 합니다.",
     "definition.note": "이 용어는 새롭고 여러 의미로 쓰이므로 범위를 에이전트 오케스트레이션, 멀티에이전트 시스템, 지속 실행형 워크플로에 걸친 실용적 엔지니어링 계층으로 한정합니다. 업계 표준은 아닙니다.",
     "definition.link": "전체 정의와 범위 읽기",
+    "paths.artLink": "인터랙티브 모델 살펴보기",
     "license.title": "라이선스",
     "license.scope": "이 저장소에서 만든 메타데이터, 스키마, 요약, 문서, 코드 및 시각 자료는 CC0 1.0 Universal에 따라 퍼블릭 도메인으로 공개됩니다.",
     "license.exclusions": "링크된 논문, 소프트웨어, 명칭, 로고 및 기타 제3자 자료에는 각각의 권리와 라이선스가 적용됩니다. CC0는 상표권이나 특허권을 포기하지 않으며, 저작물은 어떠한 보증도 없이 제공됩니다. 학술적 추적 가능성을 위한 인용은 권장하지만 CC0의 의무 사항은 아닙니다.",
@@ -265,6 +274,7 @@ const copy = {
     "definition.body": "Graph engineering é a prática de especificar, executar, observar e evoluir um sistema de agentes estruturado como grafo: seus papéis e instâncias em execução, os contratos que os conectam, o estado e os artefatos compartilhados e as evidências usadas para avaliar o comportamento coletivo. Cada agente pode conter um loop local; testes, loops de auditoria, pessoas e âncoras no mundo real podem atuar como controles não agentes. O grafo deve restringir materialmente a execução e permanecer inspecionável.",
     "definition.note": "O termo é emergente e polissêmico; por isso, o escopo se limita a uma camada prática de engenharia presente na orquestração de agentes, em sistemas multiagente e em fluxos de trabalho duráveis. Não é um padrão da indústria.",
     "definition.link": "Ler a definição e o escopo completos",
+    "paths.artLink": "Explorar o modelo interativo",
     "license.title": "Licença",
     "license.scope": "Os metadados, o esquema, os resumos, a documentação, o código e os recursos visuais criados para este repositório são dedicados ao domínio público sob a CC0 1.0 Universal.",
     "license.exclusions": "Artigos, software, nomes, logotipos e outros materiais de terceiros referenciados por links mantêm seus próprios direitos e licenças. A CC0 não renuncia a direitos de marca ou patente, e a obra é fornecida sem garantias. A citação é apreciada para fins de rastreabilidade acadêmica, mas não é exigida pela CC0.",
@@ -281,9 +291,63 @@ function setMeta(selector, value) {
   if (element && value) element.setAttribute("content", value);
 }
 
+function setLink(selector, value) {
+  const element = document.querySelector(selector);
+  if (element && value) element.setAttribute("href", value);
+}
+
+function localizeWebPageSchema(locale, strings, url) {
+  const script = document.querySelector('script[type="application/ld+json"]');
+  if (!script) return;
+  try {
+    const payload = JSON.parse(script.textContent);
+    const graph = Array.isArray(payload["@graph"]) ? payload["@graph"] : [];
+    const page = graph.find((node) => {
+      const types = Array.isArray(node?.["@type"]) ? node["@type"] : [node?.["@type"]];
+      return types.includes("WebPage");
+    });
+    if (!page) return;
+    page["@id"] = `${url}#webpage`;
+    page.url = url;
+    page.name = strings.metaTitle;
+    page.description = strings.metaDescription;
+    page.inLanguage = locale;
+    script.textContent = JSON.stringify(payload);
+  } catch {
+    // The static source is validated in CI; leave it intact if a mirror mutates it.
+  }
+}
+
+function pathLocale(pathname = location.pathname) {
+  const segments = pathname.split("/").filter(Boolean);
+  if (segments.at(-1)?.toLowerCase() === "index.html") segments.pop();
+  const candidate = segments.at(-1);
+  return candidate && Object.hasOwn(localeConfig, candidate) ? candidate : null;
+}
+
+function siteRootPath(pathname = location.pathname) {
+  const segments = pathname.split("/").filter(Boolean);
+  if (segments.at(-1)?.toLowerCase() === "index.html") segments.pop();
+  if (segments.at(-1) && Object.hasOwn(localeConfig, segments.at(-1))) segments.pop();
+  return segments.length ? `/${segments.join("/")}/` : "/";
+}
+
+export function localeUrl(locale, current = location) {
+  const next = new URL(current.href);
+  next.pathname = `${siteRootPath(current.pathname)}${locale === "en" ? "" : `${locale}/`}`;
+  next.searchParams.delete("lang");
+  next.hash = current.hash;
+  return next;
+}
+
+export function canonicalLocaleUrl(locale) {
+  return new URL(locale === "en" ? siteUrl : `${siteUrl}${locale}/`);
+}
+
 export function getLocale() {
-  const requested = new URLSearchParams(location.search).get("lang") || "en";
-  return Object.hasOwn(localeConfig, requested) ? requested : "en";
+  const requested = new URLSearchParams(location.search).get("lang");
+  if (requested && Object.hasOwn(localeConfig, requested)) return requested;
+  return pathLocale() || "en";
 }
 
 export function setupLocalization() {
@@ -302,6 +366,17 @@ export function setupLocalization() {
   setMeta('meta[name="twitter:title"]', strings.metaTitle.split(" — ")[0]);
   setMeta('meta[name="twitter:description"]', strings.metaDescription);
 
+  const canonical = canonicalLocaleUrl(locale);
+  setLink('link[rel="canonical"]', canonical.href);
+  setMeta('meta[property="og:url"]', canonical.href);
+  localizeWebPageSchema(locale, strings, canonical.href);
+  Object.keys(localeConfig).forEach((candidate) => {
+    const alternate = canonicalLocaleUrl(candidate);
+    setLink(`link[rel="alternate"][hreflang="${candidate}"]`, alternate.href);
+  });
+  const defaultLocale = canonicalLocaleUrl("en");
+  setLink('link[rel="alternate"][hreflang="x-default"]', defaultLocale.href);
+
   if (locale !== "en") {
     document.querySelectorAll("[data-i18n]").forEach((element) => {
       const value = strings[element.dataset.i18n];
@@ -315,12 +390,12 @@ export function setupLocalization() {
   if (picker) {
     picker.value = locale;
     picker.addEventListener("change", () => {
-      const next = new URL(location.href);
-      if (picker.value === "en") next.searchParams.delete("lang");
-      else next.searchParams.set("lang", picker.value);
+      const next = localeUrl(picker.value);
       location.assign(next.href);
     });
   }
 
   return locale;
 }
+
+export { copy, localeConfig, siteUrl };

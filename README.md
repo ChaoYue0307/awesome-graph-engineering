@@ -13,22 +13,30 @@
 
 <p align="center">
   <a href="https://awesome.re"><img alt="Awesome" src="https://awesome.re/badge-flat2.svg"></a>
-  <a href="https://chaoyue0307.github.io/awesome-graph-engineering/"><img alt="Explore the atlas" src="https://img.shields.io/badge/explore-interactive_atlas-61e4ff?style=flat-square"></a>
   <a href="#resource-directory"><img alt="51 curated resources" src="https://img.shields.io/badge/resources-51-9d7dff?style=flat-square"></a>
-  <a href="#the-nine-engineering-layers"><img alt="9 engineering layers" src="https://img.shields.io/badge/layers-9-9d7dff?style=flat-square"></a>
   <a href="https://github.com/ChaoYue0307/awesome-graph-engineering/actions/workflows/quality.yml"><img alt="Quality checks" src="https://img.shields.io/github/actions/workflow/status/ChaoYue0307/awesome-graph-engineering/quality.yml?branch=main&style=flat-square&label=quality"></a>
   <a href="https://huggingface.co/datasets/cy0307/awesome-graph-engineering"><img alt="Hugging Face dataset" src="https://img.shields.io/badge/%F0%9F%A4%97-dataset-FFD21E?style=flat-square"></a>
   <a href="LICENSE"><img alt="CC0 1.0 license" src="https://img.shields.io/badge/license-CC0--1.0-b8f24a?style=flat-square"></a>
   <a href="https://github.com/ChaoYue0307/awesome-graph-engineering"><img alt="GitHub stars" src="https://img.shields.io/github/stars/ChaoYue0307/awesome-graph-engineering?style=flat-square&logo=github&label=stars"></a>
-  <a href="https://github.com/ChaoYue0307/awesome-graph-engineering/pulls"><img alt="Pull requests welcome" src="https://img.shields.io/badge/PRs-welcome-2ea44f?style=flat-square"></a>
+</p>
+
+<p align="center">
+  🌐 <a href="https://chaoyue0307.github.io/awesome-graph-engineering/"><strong>Explore the Atlas</strong></a> ·
+  🤗 <a href="https://huggingface.co/datasets/cy0307/awesome-graph-engineering"><strong>Use the Dataset</strong></a> ·
+  ⭐ <a href="https://github.com/ChaoYue0307/awesome-graph-engineering"><strong>Star the Repository</strong></a>
+</p>
+
+<p align="center">
+  <a href="https://chaoyue0307.github.io/awesome-graph-engineering/">
+    <img src="assets/visual-abstract.webp" alt="Five specialized AI-agent modules connected through a central evidence gate to a durable artifact" width="900">
+  </a>
 </p>
 
 <p align="center">
   🧭 <a href="#working-definition"><strong>Definition</strong></a> ·
   🧱 <a href="TAXONOMY.md"><strong>Taxonomy</strong></a> ·
   ⚖️ <a href="COMPARISON.md"><strong>Boundaries</strong></a> ·
-  🌐 <a href="https://chaoyue0307.github.io/awesome-graph-engineering/"><strong>Website</strong></a> ·
-  🤗 <a href="https://huggingface.co/datasets/cy0307/awesome-graph-engineering"><strong>Dataset</strong></a> ·
+  📚 <a href="#resource-directory"><strong>Resources</strong></a> ·
   🧾 <a href="#citation"><strong>Cite</strong></a> ·
   📜 <a href="#license"><strong>License</strong></a>
 </p>
@@ -46,23 +54,10 @@
   <a href="i18n/README.md">Help translate</a>
 </p>
 
-<p align="center">
-  ⭐ <a href="https://github.com/ChaoYue0307/awesome-graph-engineering"><strong>Star it to find it again</strong></a> ·
-  🔀 <a href="https://github.com/ChaoYue0307/awesome-graph-engineering/fork">Fork the field guide and dataset</a> ·
-  💬 <a href="https://github.com/ChaoYue0307/awesome-graph-engineering/discussions">Join the discussion</a> ·
-  🔔 <a href="https://github.com/ChaoYue0307/awesome-graph-engineering/releases">Watch releases</a>
-</p>
-
-<p align="center">
-  <a href="https://chaoyue0307.github.io/awesome-graph-engineering/">
-    <img src="assets/social-card.png" alt="Awesome Graph Engineering — engineer the organization, not just the agent" width="900">
-  </a>
-</p>
-
 > [!IMPORTANT]
 > Here, **graph engineering** means engineering graph-structured **AI-agent systems**. Graph databases, knowledge graphs, graph ETL, GraphRAG, and graph neural networks are outside this scope unless they directly support an agent graph. See the [boundary guide](COMPARISON.md#not-graph-data-engineering-the-name-collision).
 
-## Working definition
+## 🧭 Working definition
 
 **Graph engineering is the practice of specifying, executing, observing, and evolving a graph-structured agent system—its roles and runtime instances, the contracts that connect them, the state and artifacts they share, and the evidence by which their collective behavior is judged—so that the system can be controlled, tested, and improved as an engineered whole.**
 
@@ -82,7 +77,7 @@ A system is in scope when all three conditions are load-bearing:
 
 A single agent with many tools is still one node. A deterministic DAG of ordinary functions is workflow engineering. A “swarm” of personas without contracts, state boundaries, or evidence gates is branding, not graph engineering.
 
-## Core primitives
+## 🧩 Core primitives
 
 | Primitive | Engineering question | Typical artifact |
 | --- | --- | --- |
@@ -105,7 +100,7 @@ A single agent with many tools is still one node. A deterministic DAG of ordinar
 
 Org graph and run/work graph are analytical views, not standardized object types. An implementation may represent both in one runtime graph if standing authority remains distinguishable from run-specific execution.
 
-## Do you need a graph?
+## ✅ Do you need a graph?
 
 Start with the smallest architecture that closes the quality loop. One well-instrumented agent loop is usually enough until work needs at least one of these:
 
@@ -116,7 +111,7 @@ Start with the smallest architecture that closes the quality loop. One well-inst
 
 If none applies, invest in the loop first: context, stopping conditions, tests, retries, and observability. [Loop engineering](https://addyosmani.com/blog/loop-engineering/) is primarily temporal—how one agent progresses through repeated work. Graph engineering is primarily relational—how multiple scoped actors and control surfaces compose. The two concerns are complementary; neither is a maturity stage.
 
-## Choose your path
+## 🗺️ Choose your path
 
 | If you are… | Start with | Then inspect |
 | --- | --- | --- |
@@ -125,11 +120,11 @@ If none applies, invest in the loop first: context, stopping conditions, tests, 
 | 🚦 **Operating a production graph** | Durable execution, traces, budgets, replay, escalation | [Reliability](#reliability--durable-execution) → [Observability & Cost](#observability--cost) |
 | 🔬 **Researching adaptive systems** | Foundations, benchmarks, topology optimization, limits | [Research Foundations](#research-foundations) → [Critiques & Limits](#critiques--limits) |
 
-## The nine engineering layers
+## 🧱 The nine engineering layers
 
 <picture>
-  <source media="(prefers-color-scheme: dark)" srcset="assets/lifecycle-dark.svg">
-  <img src="assets/lifecycle-light.svg" alt="Nine graph engineering layers: roles, topology, handoffs, work graphs, state, gates, reliability, observability and cost, evolution">
+  <source media="(prefers-color-scheme: dark)" srcset="assets/layers-map-dark.svg">
+  <img src="assets/layers-map-light.svg" alt="Nine co-equal graph engineering design lenses: roles, topology, handoffs, work graphs, state, gates, reliability, observability and cost, and evolution">
 </picture>
 
 | # | Layer | The design question |
@@ -146,7 +141,7 @@ If none applies, invest in the loop first: context, stopping conditions, tests, 
 
 The layers are concerns, not compulsory stages. A two-role pipeline with a typed handoff and a test gate can be a complete graph. Read the full [taxonomy](TAXONOMY.md), [comparison guide](COMPARISON.md), and [anti-patterns](ANTI-PATTERNS.md).
 
-## Resource directory
+## 📚 Resource directory
 
 The resource directory prioritizes primary research, official documentation, maintained projects, standards, reproducible benchmarks, and production reports. **Evidence labels identify source type; they do not score quality.** Each entry contains an original summary, a distinct engineering rationale, and one primary layer.
 
@@ -262,7 +257,7 @@ Use the [interactive Resource Atlas](https://chaoyue0307.github.io/awesome-graph
 
 <!-- RESOURCE_TABLES_END -->
 
-## Open data
+## 🗃️ Open data
 
 The directory is generated from one canonical file:
 
@@ -282,13 +277,13 @@ print(resources.groupby("layer").size().sort_values(ascending=False))
 
 `python3 scripts/sync.py` regenerates the CSV, README resource tables, and website atlas. `python3 scripts/sync.py --check` verifies parity without writing changes. `bash scripts/publish_huggingface.sh` validates and publishes the JSONL, CSV, and dataset card in one Hub commit.
 
-## Curation method
+## 🔎 Curation method
 
 The collection is selective rather than exhaustive. Inclusion requires direct relevance, a canonical and stable URL, an identifiable source type, and a concrete contribution to at least one engineering layer. Source-type labels distinguish peer-reviewed research, preprints, official documentation, maintained open-source projects, standards, benchmarks, and practitioner analysis without implying quality.
 
 Current sources document graph-structured agent orchestration; earlier sources document its antecedents. Neither establishes universal agreement on the label. [METHODOLOGY.md](METHODOLOGY.md) records the search strategy, selection rules, date handling, and limitations.
 
-## Contributing
+## 🤝 Contributing
 
 A resource contribution should identify **the engineering decision it informs**. Before opening a pull request:
 
@@ -297,9 +292,9 @@ A resource contribution should identify **the engineering decision it informs**.
 3. Run `python3 scripts/sync.py` and `python3 scripts/validate.py`.
 4. Keep vendor claims descriptive; do not present source type as proof of effectiveness.
 
-Use [GitHub Discussions](https://github.com/ChaoYue0307/awesome-graph-engineering/discussions) for ideas, corrections, and scope questions. Report security issues privately as described in [SECURITY.md](SECURITY.md).
+Use [GitHub Discussions](https://github.com/ChaoYue0307/awesome-graph-engineering/discussions) for ideas, corrections, and scope questions. Report security issues privately as described in [SECURITY.md](SECURITY.md). To introduce the project in another community or language, use the ready-to-adapt copy in [📣 Launch and sharing kit](LAUNCH-KIT.md).
 
-## Citation
+## 🧾 Citation
 
 Preferred citation: **He Chaoyue (2026), *Awesome Graph Engineering*.**
 
@@ -316,7 +311,7 @@ Preferred citation: **He Chaoyue (2026), *Awesome Graph Engineering*.**
 
 Machine-readable citation metadata is available in [CITATION.cff](CITATION.cff).
 
-## License
+## 📜 License
 
 Except where otherwise noted, the original metadata, schema, summaries, documentation, code, and visual assets in this repository are dedicated to the public domain under [CC0 1.0 Universal](LICENSE). They may be copied, modified, distributed, and used for any purpose, including commercial use, without permission, to the extent permitted by law.
 

@@ -27,8 +27,16 @@ jobs:
         with:
           python-version: "3.x"
 
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: "22"
+
       - name: Verify generated content
         run: python3 scripts/sync.py --check
+
+      - name: Generate static locale routes
+        run: node scripts/generate_site_locales.mjs
 
       - name: Configure GitHub Pages
         uses: actions/configure-pages@v5

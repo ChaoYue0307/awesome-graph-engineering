@@ -17,6 +17,8 @@ tags:
   - agent-orchestration
   - tabular
   - datasets
+  - pandas
+  - mlcroissant
 configs:
   - config_name: default
     default: true
@@ -62,6 +64,12 @@ Each row has 13 fields:
 | `layer` | string | Primary graph-engineering design layer. |
 
 `resources.jsonl` drives the Dataset Viewer. `resources.csv` is an equivalent convenience export in the same row and field order.
+
+Interoperable access points:
+
+- [Dataset Viewer](https://huggingface.co/datasets/cy0307/awesome-graph-engineering/viewer/default/train)
+- [Croissant metadata](https://huggingface.co/api/datasets/cy0307/awesome-graph-engineering/croissant)
+- [Auto-converted Parquet](https://huggingface.co/api/datasets/cy0307/awesome-graph-engineering/parquet/default/train/0.parquet)
 
 ## Load the data
 

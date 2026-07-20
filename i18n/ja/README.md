@@ -1,5 +1,5 @@
 <p align="center">
-  <a href="https://chaoyue0307.github.io/awesome-graph-engineering/?lang=ja">
+  <a href="https://chaoyue0307.github.io/awesome-graph-engineering/ja/">
     <img src="../../assets/logo.svg" width="112" alt="Awesome Graph Engineering ロゴ">
   </a>
 </p>
@@ -9,6 +9,12 @@
 <p align="center">
   <strong>エージェント単体ではなく、組織そのものを設計する。</strong><br>
   プログラム可能な AI エージェント組織のための実践ガイド、オープンデータセット、インタラクティブ・アトラス。
+</p>
+
+<p align="center">
+  <a href="https://chaoyue0307.github.io/awesome-graph-engineering/ja/">
+    <img src="../../assets/visual-abstract.webp" alt="5 つの専門化された AI エージェントモジュールが中央の証拠ゲートを介して永続的な成果物につながる図" width="900">
+  </a>
 </p>
 
 <p align="center">
@@ -66,7 +72,7 @@
 
 ## まず見る場所
 
-- 🌐 [インタラクティブな Resource Atlas](https://chaoyue0307.github.io/awesome-graph-engineering/?lang=ja)：動的な組織図、九つの工学レイヤー、検索可能な資料を探索します。
+- 🌐 [インタラクティブな Resource Atlas](https://chaoyue0307.github.io/awesome-graph-engineering/ja/)：動的な組織図、九つの工学レイヤー、検索可能な資料を探索します。
 - 🤗 [Hugging Face データセット](https://huggingface.co/datasets/cy0307/awesome-graph-engineering)：構造化された資料レコードを閲覧・ロードします。
 - 🧭 [詳細な定義とエビデンスマップ](../../DEFINITION.md)：各境界主張と独立した根拠を確認します。
 - 🧱 [分類体系](../../TAXONOMY.md)と[比較ガイド](../../COMPARISON.md)：グラフ、ループ、ワークフロー、隣接領域を区別します。

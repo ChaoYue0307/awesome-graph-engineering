@@ -1,5 +1,5 @@
 import { GraphScene } from "./graph-scene.js?v=20260720-6";
-import { setupLocalization } from "./i18n.js?v=20260720-6";
+import { setupLocalization } from "./i18n.js?v=20260720-7";
 
 const repoUrl = "https://github.com/ChaoYue0307/awesome-graph-engineering";
 const layerOrder = [
