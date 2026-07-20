@@ -15,6 +15,7 @@
   <a href="https://awesome.re"><img alt="Awesome" src="https://awesome.re/badge-flat2.svg"></a>
   <a href="#resource-directory"><img alt="80 curated resources" src="https://img.shields.io/badge/resources-80-9d7dff?style=flat-square"></a>
   <a href="https://github.com/ChaoYue0307/awesome-graph-engineering/actions/workflows/quality.yml"><img alt="Quality checks" src="https://img.shields.io/github/actions/workflow/status/ChaoYue0307/awesome-graph-engineering/quality.yml?branch=main&style=flat-square&label=quality"></a>
+  <a href="https://github.com/ChaoYue0307/awesome-graph-engineering/releases/latest"><img alt="Latest release" src="https://img.shields.io/github/v/release/ChaoYue0307/awesome-graph-engineering?style=flat-square&label=release"></a>
   <a href="https://huggingface.co/datasets/cy0307/awesome-graph-engineering"><img alt="Hugging Face dataset" src="https://img.shields.io/badge/%F0%9F%A4%97-dataset-FFD21E?style=flat-square"></a>
   <a href="LICENSE"><img alt="CC0 1.0 license" src="https://img.shields.io/badge/license-CC0--1.0-b8f24a?style=flat-square"></a>
   <a href="https://github.com/ChaoYue0307/awesome-graph-engineering"><img alt="GitHub stars" src="https://img.shields.io/github/stars/ChaoYue0307/awesome-graph-engineering?style=flat-square&logo=github&label=stars"></a>
@@ -22,6 +23,7 @@
 
 <p align="center">
   🌐 <a href="https://chaoyue0307.github.io/awesome-graph-engineering/"><strong>Explore the Atlas</strong></a> ·
+  📦 <a href="https://github.com/ChaoYue0307/awesome-graph-engineering/releases/latest"><strong>Download the Release</strong></a> ·
   🤗 <a href="https://huggingface.co/datasets/cy0307/awesome-graph-engineering"><strong>Use the Dataset</strong></a> ·
   ⭐ <a href="https://github.com/ChaoYue0307/awesome-graph-engineering"><strong>Star the Repository</strong></a>
 </p>
@@ -295,6 +297,7 @@ The directory is generated from one canonical file:
 - [`data/resources.jsonl`](data/resources.jsonl) — newline-delimited records for streaming and diffs.
 - [`data/resources.csv`](data/resources.csv) — spreadsheet- and analysis-friendly export.
 - [`data/README.md`](data/README.md) — field definitions, controlled vocabularies, and loading examples.
+- [GitHub Releases](https://github.com/ChaoYue0307/awesome-graph-engineering/releases/latest) — versioned CSV, JSONL, and bundled dataset snapshots with source archives.
 - [Hugging Face Dataset](https://huggingface.co/datasets/cy0307/awesome-graph-engineering) — synchronized Dataset Viewer mirror and direct `datasets` loading.
 
 ```python

@@ -8,6 +8,7 @@ The Resource Atlas is published as structured, CC0 metadata. [`resources.jsonl`]
 - `resources.csv` — the same records and field order with a header row. Generated; do not edit it directly.
 - `../README.md` resource tables — generated between the `RESOURCE_TABLES_START` and `RESOURCE_TABLES_END` markers.
 - `../docs/index.html` atlas data — generated inside the `atlas-data` JSON script island.
+- [GitHub Releases](https://github.com/ChaoYue0307/awesome-graph-engineering/releases/latest) — immutable versioned snapshots with direct CSV, JSONL, and bundled downloads.
 - [Hugging Face mirror](https://huggingface.co/datasets/cy0307/awesome-graph-engineering) — published from the validated JSONL and CSV with `../huggingface/README.md` as its dataset card.
 
 After editing the JSONL source, run:

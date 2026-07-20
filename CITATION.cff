@@ -2,7 +2,7 @@ cff-version: 1.2.0
 message: "If you use this curated list or its dataset, please cite it as below."
 title: "Awesome Graph Engineering"
 type: dataset
-version: 1.0.0
+version: 1.1.0
 date-released: "2026-07-20"
 authors:
   - family-names: "He"
