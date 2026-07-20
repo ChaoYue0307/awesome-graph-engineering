@@ -22,21 +22,16 @@
   <a href="../pt-BR/README.md">Português (Brasil)</a>
 </p>
 
-> [!NOTE]
-> Esta es una **traducción editorial inicial**; se agradece la revisión técnica de hablantes nativos. El [README en inglés](../../README.md) es la versión canónica.
-
-<!-- -->
-
 > [!IMPORTANT]
 > Aquí, *graph engineering* se refiere a sistemas de agentes de IA. No es una guía sobre bases de datos de grafos, grafos de conocimiento, ETL de grafos ni redes neuronales de grafos.
 
 ## Definición de trabajo
 
-**Graph engineering es la práctica de especificar, ejecutar, observar y evolucionar un sistema de agentes estructurado como grafo: sus roles e instancias en ejecución, los contratos que los conectan, el estado y los artefactos que comparten, y la evidencia con la que se juzga su comportamiento colectivo; todo ello para controlar, probar y mejorar el sistema como un conjunto diseñado.**
+**Graph engineering es la práctica de especificar, ejecutar, observar y evolucionar un sistema de agentes estructurado como grafo: sus roles e instancias en ejecución, los contratos que los conectan, el estado y los artefactos que comparten, y la evidencia con la que se juzga su comportamiento colectivo, para que el sistema en su conjunto pueda controlarse, probarse y mejorarse.**
 
 El grafo debe ser operativo, no decorativo: su topología declarada, el grafo realizado en una ejecución o la política que lo genera debe condicionar materialmente la ejecución y ser suficientemente inspeccionable para versionarse, rastrearse, evaluarse o modificarse de forma deliberada.
 
-Usamos este concepto como **término de trabajo para una práctica emergente**, no como un estándar académico o industrial ya establecido. La definición sintetiza investigación sobre sistemas multiagente, protocolos, ejecución durable, observabilidad, evaluación y resultados negativos; no procede de una única fuente. Consulta el [mapa de afirmaciones y evidencias](../../DEFINITION.md#evidence-map-for-the-synthesis).
+**Graph engineering es un término de trabajo para una práctica emergente, no un estándar académico o industrial establecido.** La definición se apoya en trabajos sobre sistemas multiagente, protocolos, ejecución duradera, observabilidad, evaluación y resultados negativos. El [mapa de evidencias](../../DEFINITION.md#evidence-map-for-the-synthesis) vincula cada afirmación con sus fuentes.
 
 ## Prueba mínima: las tres condiciones son necesarias
 
@@ -47,7 +42,7 @@ Usamos este concepto como **término de trabajo para una práctica emergente**, 
 ## Límites del alcance
 
 - Un único agente con muchas herramientas sigue siendo un solo nodo.
-- Un DAG determinista de funciones ordinarias es ingeniería de flujos de trabajo, salvo que sirva de sustrato para nodos realmente agentivos.
+- Un DAG determinista de funciones ordinarias es ingeniería de flujos de trabajo, salvo que sirva de sustrato para nodos que realmente actúan como agentes.
 - Un chat de personajes sin contratos, límites de estado ni puertas de evidencia no basta.
 - Una visualización posterior o un organigrama estático no cuenta si no condiciona la ejecución ni permite diagnosticarla.
 - Las bases de datos de grafos, GraphRAG, los grafos de conocimiento y las GNN solo entran en alcance cuando sostienen directamente la coordinación de una organización de agentes.
@@ -62,7 +57,7 @@ Usamos este concepto como **término de trabajo para una práctica emergente**, 
 | **Grafo organizativo** | ¿Qué roles reutilizables pueden delegar, verificar o escalar? |
 | **Grafo de ejecución/trabajo** | ¿Qué tareas, dependencias y evidencias requiere esta ejecución? |
 | **Puerta de evidencia** | ¿Qué prueba permite avanzar, rechazar o escalar el trabajo? |
-| **Límite de estado** | ¿Qué se comparte, aísla, guarda o considera autoritativo? |
+| **Límite de estado** | ¿Qué se comparte, aísla, guarda o considera fuente de referencia? |
 | **Política del grafo** | ¿Quién puede crear, redirigir, cancelar o reescribir nodos y aristas? |
 
 El grafo organizativo describe autoridad y relaciones permitidas; el grafo de ejecución describe lo que ocurrió o debe ocurrir en un trabajo concreto. Son vistas analíticas complementarias, no estándares universales.
@@ -76,19 +71,23 @@ El grafo organizativo describe autoridad y relaciones permitidas; el grafo de ej
 - 🛠️ [Cómo contribuir o proponer una traducción](../../CONTRIBUTING.md)
 - 📚 [Metodología de selección](../../METHODOLOGY.md) y [metadatos de citación](../../CITATION.cff)
 
-No dupliques las tablas de recursos en esta traducción: el [directorio canónico](../../README.md#resource-directory), el atlas y el conjunto de datos se generan desde la misma fuente estructurada.
+El [directorio completo de recursos](../../README.md#resource-directory), el atlas y el conjunto de datos se generan a partir de la misma fuente estructurada.
 
 ## Cómo citar
 
-Nombre del autor: **He Chaoyue**. Conserva el título original del proyecto al citarlo:
+Cita el proyecto así: **He Chaoyue (2026), *Awesome Graph Engineering*.**
 
 ```bibtex
 @misc{he2026awesomegraphengineering,
-  author = {He, Chaoyue},
-  title  = {Awesome Graph Engineering},
-  year   = {2026},
-  url    = {https://github.com/ChaoYue0307/awesome-graph-engineering}
+  author       = {He, Chaoyue},
+  title        = {Awesome Graph Engineering: A Field Guide, Dataset, and Interactive Atlas for Programmable AI-Agent Organizations},
+  year         = {2026},
+  publisher    = {GitHub},
+  howpublished = {\url{https://github.com/ChaoYue0307/awesome-graph-engineering}},
+  url          = {https://github.com/ChaoYue0307/awesome-graph-engineering}
 }
 ```
 
-Los datos y metadatos originales se publican bajo [CC0-1.0](../../LICENSE); cada obra enlazada conserva la licencia de su autor.
+## Licencia
+
+La selección, el esquema, los resúmenes y los materiales creados para el repositorio se publican bajo [CC0 1.0 Universal](../../LICENSE). Las obras externas referenciadas conservan sus propias licencias y derechos de autor. CC0 no afecta a los derechos de marca ni de patente y se ofrece sin garantías. Se agradece la cita por trazabilidad académica, pero CC0 no la exige.

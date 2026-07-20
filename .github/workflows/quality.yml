@@ -40,7 +40,7 @@ jobs:
       - name: Validate dataset and generated views
         run: python3 scripts/validate.py
 
-      - name: Validate translations and launch assets
+      - name: Validate localized guides and site assets
         run: python3 scripts/validate_i18n.py
 
       - name: Verify generated site is nonempty

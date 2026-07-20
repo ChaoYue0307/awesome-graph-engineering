@@ -6,7 +6,7 @@ body:
   - type: markdown
     attributes:
       value: |
-        Thanks for helping the field guide travel. We publish localized introductions while keeping one canonical English research catalog. Please read the [translation hub](https://github.com/ChaoYue0307/awesome-graph-engineering/blob/main/i18n/README.md) and glossary before starting.
+        Localized introductions share one English research catalog. Read the [language guide](https://github.com/ChaoYue0307/awesome-graph-engineering/blob/main/i18n/README.md) and glossary before starting.
 
   - type: dropdown
     id: contribution

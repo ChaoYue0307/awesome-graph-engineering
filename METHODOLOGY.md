@@ -1,6 +1,6 @@
 # Curation Methodology
 
-This repository is a curated, versioned map of graph engineering—not a systematic literature review, benchmark leaderboard, or endorsement list. The working definition is in [DEFINITION.md](DEFINITION.md); the design layers are in [TAXONOMY.md](TAXONOMY.md).
+The collection is a curated, versioned map of graph engineering, not a systematic literature review, benchmark leaderboard, or endorsement list. The working definition is in [DEFINITION.md](DEFINITION.md); the design layers are in [TAXONOMY.md](TAXONOMY.md).
 
 ## Selection scope
 
@@ -16,26 +16,26 @@ In scope are:
 - historically important work in multi-agent systems, distributed AI, blackboard architectures, actor-style coordination, workflow systems, or distributed systems when a specific primitive transfers directly to agent graphs; and
 - serious critiques and negative results that help establish when a graph should not be used.
 
-Contemporary practitioner sources that explicitly frame the emerging term may be included when they sharpen a design boundary or failure mode. They remain labeled `Practitioner analysis`; recency or influence does not elevate them above primary technical evidence.
+Contemporary practitioner sources that use the emerging term may be included when they define a relevant boundary or document a failure mode. They remain labeled `Practitioner analysis`; recency or influence does not elevate them above primary technical evidence.
 
-The collection prioritizes original papers, first-party documentation, official repositories, standards bodies, and first-party engineering reports. A secondary source may be included when its synthesis or practitioner analysis is itself the useful contribution.
+The collection prioritizes original papers, first-party documentation, official repositories, standards bodies, and first-party engineering reports. A secondary source may qualify when it provides original synthesis or practitioner evidence unavailable from the primary sources alone.
 
 ## Inclusion criteria
 
 A resource should satisfy all of the following:
 
 1. **Direct relevance:** it maps to the working definition or contributes a clearly identified foundation, substrate, evaluation method, or critique.
-2. **Technical substance:** it contains enough architecture, method, implementation detail, evidence, or careful analysis to teach more than a marketing claim.
+2. **Technical substance:** it documents architecture, method, implementation details, evidence, or limitations beyond promotional claims.
 3. **Traceable provenance:** it has an identifiable author or institution and a canonical, stable URL where reasonably available.
 4. **Distinct contribution:** it is not merely a mirror, scraped rewrite, or lower-information duplicate of an included primary source.
-5. **Honest status:** archival, preprint, experimental, discontinued, absorbed, or maintenance status is stated when material to interpretation.
+5. **Status disclosure:** archival, preprint, experimental, discontinued, absorbed, or maintenance status is stated when material to interpretation.
 6. **Practical or historical value:** a practitioner or researcher can use it to make a design decision, reproduce an approach, understand evidence, or recover an important idea.
 
 Historical significance can justify retaining an inactive project. Novelty, popularity, citation count, star count, and commercial backing do not by themselves qualify a resource.
 
 ## Exclusion criteria
 
-The repository normally excludes:
+Excluded by default:
 
 - graph databases, knowledge-graph construction, graph neural networks, or GraphRAG with no agent-coordination connection;
 - single-agent prompting, context, tools, or loops with no transferable organizational or graph primitive;
@@ -45,7 +45,7 @@ The repository normally excludes:
 - abandoned software with neither current utility nor historical significance; and
 - resources whose central claims cannot be identified well enough to describe without speculation.
 
-Borderline entries are judged by their concrete contribution, not by whether their authors use the phrase “graph engineering.” The term is new; much of the relevant work uses older vocabulary.
+Eligibility depends on concrete contribution, not use of the phrase *graph engineering*; relevant work often uses earlier terminology.
 
 ## Taxonomy and controlled labels
 
@@ -89,7 +89,7 @@ A working URL proves only that a page responds. It does not establish semantic f
 
 ## Freshness and maintenance
 
-This is a living collection maintained as contributor capacity permits. Review is both event-driven—when a link, publication status, project, or standard changes—and periodic for high-value or fast-moving entries.
+Reviews occur when links, publication status, projects, or standards change, with periodic checks for high-value and fast-moving entries.
 
 Maintenance checks should look for:
 
@@ -103,7 +103,7 @@ Automated validation can catch schema drift, duplicate URLs, and some link failu
 
 ## Corrections and disputes
 
-Corrections are welcome through an issue or pull request. A useful correction identifies the resource ID and canonical URL, links to the primary evidence, states the exact field or sentence at issue, and proposes the smallest accurate change.
+A correction should identify the resource ID and canonical URL, link to primary evidence, name the exact field or sentence at issue, and propose the smallest accurate change.
 
 Factual errors, broken canonical links, changed publication or maintenance status, and dataset drift should be corrected promptly. Editorial disagreements about scope or placement should cite [DEFINITION.md](DEFINITION.md) and [TAXONOMY.md](TAXONOMY.md) so that the decision can be recorded consistently. Sensitive vulnerability reports should follow [SECURITY.md](SECURITY.md), not a public issue.
 

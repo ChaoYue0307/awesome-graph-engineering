@@ -109,7 +109,7 @@ This label records the kind of source. It does not rank rigor, guarantee correct
 - `Observability & cost`
 - `Evolution`
 
-Org graph and run/work graph are analytical views used by this repository, not standardized industry object types. `Work graphs` is the dataset label for resources centered on run-scoped decomposition, dependencies, and lineage.
+Org graph and run/work graph are analytical views, not standardized industry object types. `Work graphs` labels resources centered on run-scoped decomposition, dependencies, and lineage.
 
 ## Load the data
 
@@ -137,8 +137,10 @@ resources = pd.read_csv(
 print(resources.groupby("section").size().sort_values(ascending=False))
 ```
 
-## Scope and licensing
+## Scope
 
-Dataset membership follows the working definition and inclusion test in [`DEFINITION.md`](../DEFINITION.md). Plain graph-data engineering and single-agent tool use are outside the core scope; classical multi-agent systems remain an important foundation and area of overlap.
+Dataset membership follows the working definition and inclusion test in [`DEFINITION.md`](../DEFINITION.md). Graph-data engineering and single-agent tool use are outside the core scope; classical multi-agent systems remain a foundation and area of overlap.
 
-The metadata and original descriptions are released under [CC0-1.0](../LICENSE). Linked resources remain under their respective authors' and publishers' licenses.
+## License
+
+The dataset metadata, schema, and original descriptions are dedicated under [CC0 1.0 Universal](../LICENSE). Linked resources are not included and remain subject to their respective rights and licenses. CC0 does not waive trademark or patent rights and provides the work without warranties. Citation is appreciated for scholarly traceability but is not required by CC0.

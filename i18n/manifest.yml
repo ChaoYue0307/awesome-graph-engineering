@@ -6,32 +6,32 @@ locales:
   - code: en
     name: English
     path: ../README.md
-    status: canonical
+    status: source-catalog
   - code: zh-Hans
     name: 简体中文
     path: zh-Hans/README.md
-    status: initial-editorial
+    status: published-review-welcome
   - code: es
     name: Español
     path: es/README.md
-    status: initial-editorial
+    status: published-review-welcome
   - code: fr
     name: Français
     path: fr/README.md
-    status: initial-editorial
+    status: published-review-welcome
   - code: de
     name: Deutsch
     path: de/README.md
-    status: initial-editorial
+    status: published-review-welcome
   - code: ja
     name: 日本語
     path: ja/README.md
-    status: initial-editorial
+    status: published-review-welcome
   - code: ko
     name: 한국어
     path: ko/README.md
-    status: initial-editorial
+    status: published-review-welcome
   - code: pt-BR
     name: Português (Brasil)
     path: pt-BR/README.md
-    status: initial-editorial
+    status: published-review-welcome

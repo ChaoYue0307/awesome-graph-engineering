@@ -1,6 +1,6 @@
 # Support
 
-Thanks for using Awesome Graph Engineering. Here is where to go for help.
+Use the channels below for questions, corrections, resource proposals, and security reports.
 
 ## Questions and discussion
 
@@ -17,4 +17,4 @@ Thanks for using Awesome Graph Engineering. Here is where to go for help.
 
 ## Response expectations
 
-This is a community-maintained list. Issues and pull requests are usually reviewed within a week. Well-formed pull requests that follow the entry format merge fastest.
+Maintenance is best-effort and response times vary. Complete reports with primary evidence and the documented entry format are easier to review.

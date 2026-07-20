@@ -27,9 +27,9 @@ configs:
 
 # Awesome Graph Engineering Resource Atlas
 
-An open, expert-curated map of the research, standards, frameworks, protocols, reliability systems, evaluations, and critiques needed to engineer AI-agent organizations as programmable graphs.
+A versioned collection of research, standards, frameworks, protocols, reliability systems, evaluations, and critiques for engineering AI-agent organizations as programmable graphs.
 
-This is the synchronized dataset mirror for [Awesome Graph Engineering](https://github.com/ChaoYue0307/awesome-graph-engineering). The GitHub JSONL file is the canonical editorial source; this Hub repository makes the same records easy to preview, search, download, and load with `datasets` or pandas.
+This dataset mirrors [Awesome Graph Engineering](https://github.com/ChaoYue0307/awesome-graph-engineering). The GitHub JSONL file is canonical; the Hub exposes the same records through Dataset Viewer, direct downloads, `datasets`, and pandas.
 
 ## Working definition
 
@@ -37,7 +37,7 @@ This is the synchronized dataset mirror for [Awesome Graph Engineering](https://
 
 The graph must be load-bearing rather than decorative. Its declared topology, realized run graph, or graph-generating policy must materially constrain execution and remain inspectable enough to version, trace, evaluate, or deliberately change.
 
-The term is emerging rather than standardized. The repository [triangulates its definition and scope](https://github.com/ChaoYue0307/awesome-graph-engineering/blob/main/DEFINITION.md#evidence-map-for-the-synthesis) across peer-reviewed multi-agent research, historical agent-system foundations, standards, current runtimes, benchmarks, negative results, and contemporary practitioner analysis—including Carlos E. Perez's [“graph of loops” framing](https://x.com/IntuitMachine/status/2078419526354378975). No single source is treated as the authority for the field.
+*Graph engineering* is used here as an emerging, non-standard term. The scope synthesizes multi-agent research, historical agent-system foundations, standards, runtime documentation, benchmarks, negative results, and practitioner analysis. The [evidence map](https://github.com/ChaoYue0307/awesome-graph-engineering/blob/main/DEFINITION.md#evidence-map-for-the-synthesis) separates source-backed claims from analytical inferences. Carlos E. Perez’s [“graph of loops” essay](https://x.com/IntuitMachine/status/2078419526354378975) is one contemporary source, not an authority for the definition.
 
 ## Dataset structure
 
@@ -94,18 +94,22 @@ print(resources.groupby("layer").size().sort_values(ascending=False))
 
 ## Limitations and responsible use
 
-- This is an opinionated, versioned field guide—not an exhaustive scrape or systematic review.
+- The collection is selective and versioned; it is not an exhaustive scrape or systematic review.
 - `evidence` records publication form. It does not score correctness, replication, maintenance, safety, or endorsement.
 - Official documentation is authoritative about intended product behavior, not independent proof of reliability.
-- Practitioner analysis can sharpen a boundary but does not outweigh primary research merely because it is recent.
+- Practitioner analysis may define or challenge a boundary, but recency does not give it priority over primary evidence.
 - The field and its vocabulary are changing quickly; verify current documentation, publication status, licenses, and security posture before adoption.
-- Linked resources retain their own copyrights and licenses. CC0 applies only to this repository's metadata, schema, summaries, and original assets.
+- Linked resources are catalogued by URL only; verify each resource’s rights and license before reuse.
 
 Read the full [curation methodology](https://github.com/ChaoYue0307/awesome-graph-engineering/blob/main/METHODOLOGY.md), [scope boundaries](https://github.com/ChaoYue0307/awesome-graph-engineering/blob/main/DEFINITION.md), and [dataset contract](https://github.com/ChaoYue0307/awesome-graph-engineering/blob/main/data/README.md) before drawing aggregate conclusions.
 
+## License
+
+The dataset metadata, schema, original summaries, and repository-created assets are dedicated under [CC0 1.0 Universal](https://github.com/ChaoYue0307/awesome-graph-engineering/blob/main/LICENSE). Linked resources are not included in that dedication and remain subject to their own rights and licenses. CC0 does not waive trademark or patent rights and provides the work without warranties. Citation is appreciated for scholarly traceability but is not required by CC0.
+
 ## Versioning and synchronization
 
-`data/resources.jsonl` in GitHub is the only hand-edited source. The CSV, README tables, interactive atlas, and this Hugging Face mirror are generated or published from that source. Stable IDs are never recycled. A GitHub Actions workflow validates parity and, when configured with the repository's `HF_TOKEN` secret, republishes the mirror after accepted changes to `main`.
+GitHub’s `data/resources.jsonl` is canonical. The CSV, README tables, interactive atlas, and Hub mirror are generated from it. Stable IDs are never recycled. When `HF_TOKEN` is configured, accepted changes to `main` trigger validation and mirror publication.
 
 ## Citation
 

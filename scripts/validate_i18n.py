@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Validate localized entry points and launch assets without third-party packages."""
+"""Validate localized guides and site assets without third-party packages."""
 
 from __future__ import annotations
 
@@ -18,6 +18,25 @@ LOCALES = {
     "ko": ROOT / "i18n/ko/README.md",
     "pt-BR": ROOT / "i18n/pt-BR/README.md",
 }
+LICENSE_MARKERS = {
+    "zh-Hans": ("## 许可", "外部链接作品", "CC0 不要求引用"),
+    "es": ("## Licencia", "obras externas referenciadas", "CC0 no la exige"),
+    "fr": ("## Licence", "œuvres externes référencées", "pas exigée par CC0"),
+    "de": ("## Lizenz", "verlinkte Werke", "nach CC0 nicht erforderlich"),
+    "ja": ("## ライセンス", "リンク先の著作物", "CC0 上の要件ではありません"),
+    "ko": ("## 라이선스", "외부 저작물", "CC0의 의무 사항은 아닙니다"),
+    "pt-BR": ("## Licença", "obras externas referenciadas", "não é exigida pela CC0"),
+}
+DRAFT_MARKERS = (
+    "initial editorial translation",
+    "traducción editorial inicial",
+    "première traduction éditoriale",
+    "erste redaktionelle Übersetzung",
+    "tradução editorial inicial",
+    "初期の編集翻訳",
+    "초기 편집 번역",
+    "首版编辑性翻译",
+)
 
 
 def png_dimensions(path: Path) -> tuple[int, int]:
@@ -37,9 +56,38 @@ def validate_relative_links(path: Path, text: str, errors: list[str]) -> None:
             errors.append(f"{path.relative_to(ROOT)}: missing local link target {target}")
 
 
+def extract_bibtex(text: str) -> str | None:
+    match = re.search(r"```bibtex\n(.*?)\n```", text, flags=re.DOTALL)
+    return match.group(1) if match else None
+
+
+def extract_site_copy_keys(source: str) -> dict[str, set[str]]:
+    try:
+        copy_source = source.split("const copy = {", 1)[1].split("\n};", 1)[0]
+    except IndexError:
+        return {}
+    locales: dict[str, set[str]] = {}
+    block_pattern = re.compile(
+        r'^  (?:(?:"([^"]+)")|([A-Za-z][\w-]*)): \{\n(.*?)^  \},',
+        flags=re.MULTILINE | re.DOTALL,
+    )
+    key_pattern = re.compile(
+        r'^    (?:(?:"([^"]+)")|([A-Za-z][A-Za-z0-9]*)):',
+        flags=re.MULTILINE,
+    )
+    for match in block_pattern.finditer(copy_source):
+        locale = match.group(1) or match.group(2)
+        locales[locale] = {
+            key_match.group(1) or key_match.group(2)
+            for key_match in key_pattern.finditer(match.group(3))
+        }
+    return locales
+
+
 def main() -> int:
     errors: list[str] = []
     root_readme = (ROOT / "README.md").read_text(encoding="utf-8")
+    root_bibtex = extract_bibtex(root_readme)
     manifest = (ROOT / "i18n/manifest.yml").read_text(encoding="utf-8")
     site_html = (ROOT / "docs/index.html").read_text(encoding="utf-8")
     site_i18n = (ROOT / "docs/i18n.js").read_text(encoding="utf-8")
@@ -55,6 +103,14 @@ def main() -> int:
                 errors.append(f"{path.relative_to(ROOT)}: missing required marker {marker!r}")
         if "TODO" in text or "TBD" in text:
             errors.append(f"{path.relative_to(ROOT)}: contains an unfinished placeholder")
+        if any(marker.casefold() in text.casefold() for marker in DRAFT_MARKERS):
+            errors.append(f"{path.relative_to(ROOT)}: contains a draft-translation notice")
+        localized_bibtex = extract_bibtex(text)
+        if root_bibtex is None or localized_bibtex != root_bibtex:
+            errors.append(f"{path.relative_to(ROOT)}: BibTeX block differs from README.md")
+        for marker in ("CC0 1.0 Universal", "(../../LICENSE)", *LICENSE_MARKERS[locale]):
+            if marker not in text:
+                errors.append(f"{path.relative_to(ROOT)}: license section omits {marker!r}")
         if f"code: {locale}" not in manifest:
             errors.append(f"i18n/manifest.yml: missing locale {locale}")
         if f'value="{locale}"' not in site_html:
@@ -65,6 +121,26 @@ def main() -> int:
         if expected_root_link not in root_readme:
             errors.append(f"README.md: language row omits {expected_root_link}")
         validate_relative_links(path, text, errors)
+
+    if "initial-editorial" in manifest:
+        errors.append("i18n/manifest.yml: contains obsolete initial-editorial status")
+
+    site_copy_keys = extract_site_copy_keys(site_i18n)
+    expected_keys = site_copy_keys.get("en", set())
+    for locale in ("en", *LOCALES):
+        locale_keys = site_copy_keys.get(locale)
+        if locale_keys is None:
+            errors.append(f"docs/i18n.js: could not parse locale {locale}")
+        elif locale_keys != expected_keys:
+            missing = sorted(expected_keys - locale_keys)
+            extra = sorted(locale_keys - expected_keys)
+            errors.append(
+                f"docs/i18n.js: {locale} key mismatch; missing={missing}, extra={extra}"
+            )
+    html_keys = set(re.findall(r'data-i18n="([^"]+)"', site_html))
+    missing_html_keys = sorted(html_keys - expected_keys)
+    if missing_html_keys:
+        errors.append(f"docs/i18n.js: missing HTML translation keys {missing_html_keys}")
 
     validate_relative_links(ROOT / "i18n/README.md", (ROOT / "i18n/README.md").read_text(encoding="utf-8"), errors)
 
@@ -102,7 +178,7 @@ def main() -> int:
         for error in errors:
             print(f"  - {error}")
         return 1
-    print(f"OK — {len(LOCALES)} localized guides and launch assets validated.")
+    print(f"OK — {len(LOCALES)} localized guides and site assets validated.")
     return 0
 
 

@@ -22,21 +22,16 @@
   <a href="../pt-BR/README.md">Português (Brasil)</a>
 </p>
 
-> [!NOTE]
-> Cette page est une **première traduction éditoriale** ; une relecture technique par des locuteurs natifs est la bienvenue. Le [README anglais](../../README.md) demeure la version canonique.
-
-<!-- -->
-
 > [!IMPORTANT]
 > Ici, *graph engineering* désigne les systèmes d’agents IA. Ce guide ne porte pas sur les bases de données de graphes, les graphes de connaissances, l’ETL de graphes ni les réseaux neuronaux de graphes.
 
 ## Définition de travail
 
-**Le graph engineering est la pratique qui consiste à spécifier, exécuter, observer et faire évoluer un système d’agents structuré en graphe : ses rôles et instances d’exécution, les contrats qui les relient, l’état et les artefacts qu’ils partagent, ainsi que les preuves permettant de juger leur comportement collectif, afin de contrôler, tester et améliorer le système comme un tout conçu.**
+**Le graph engineering est la pratique qui consiste à spécifier, exécuter, observer et faire évoluer un système d’agents structuré en graphe : ses rôles et instances d’exécution, les contrats qui les relient, l’état et les artefacts qu’ils partagent, ainsi que les preuves permettant de juger leur comportement collectif, afin de contrôler, tester et améliorer le système dans son ensemble.**
 
 Le graphe doit être opérant et non décoratif : sa topologie déclarée, le graphe réalisé lors d’une exécution ou la politique qui le génère doit contraindre matériellement l’exécution et rester suffisamment inspectable pour être versionné, tracé, évalué ou modifié de manière délibérée.
 
-Nous employons cette expression comme **terme de travail pour une pratique émergente**, et non comme une norme académique ou industrielle établie. La définition synthétise des travaux sur les systèmes multi-agents, les protocoles, l’exécution durable, l’observabilité, l’évaluation et les résultats négatifs ; elle ne provient pas d’une source unique. Voir la [carte des affirmations et des preuves](../../DEFINITION.md#evidence-map-for-the-synthesis).
+**Le graph engineering est un terme de travail désignant une pratique émergente, pas une norme académique ou industrielle établie.** La définition s’appuie sur des travaux portant sur les systèmes multi-agents, les protocoles, l’exécution durable, l’observabilité, l’évaluation et les résultats négatifs. La [carte des preuves](../../DEFINITION.md#evidence-map-for-the-synthesis) relie chaque affirmation à ses sources.
 
 ## Test minimal : trois conditions nécessaires
 
@@ -48,7 +43,7 @@ Nous employons cette expression comme **terme de travail pour une pratique émer
 
 - Un agent unique doté de nombreux outils reste un seul nœud.
 - Un DAG déterministe de fonctions ordinaires relève de l’ingénierie des workflows, sauf s’il sert de substrat à de véritables nœuds agents.
-- Une discussion entre personnages sans contrats, frontières d’état ni portes de validation ne suffit pas.
+- Une discussion entre personnages sans contrats, frontières d’état ni portes de preuve ne suffit pas.
 - Une visualisation a posteriori ou un organigramme statique ne compte pas s’il ne contraint pas l’exécution et n’aide pas à la diagnostiquer.
 - Les bases de données de graphes, GraphRAG, graphes de connaissances et GNN n’entrent dans le périmètre que s’ils soutiennent directement la coordination d’une organisation d’agents.
 - Davantage d’agents ne signifie pas automatiquement un meilleur système : le graphe doit justifier son coût de coordination face à la plus petite solution fiable.
@@ -61,7 +56,7 @@ Nous employons cette expression comme **terme de travail pour une pratique émer
 | **Arête typée** | Qu’est-ce qui traverse cette relation, selon quel schéma et quelles préconditions ? |
 | **Graphe organisationnel** | Quels rôles réutilisables peuvent déléguer, vérifier ou escalader ? |
 | **Graphe d’exécution/de travail** | Quelles tâches, dépendances et preuves cette exécution exige-t-elle ? |
-| **Porte de validation** | Quelle preuve permet d’avancer, de rejeter ou d’escalader le travail ? |
+| **Porte de preuve** | Quelle preuve permet d’avancer, de rejeter ou d’escalader le travail ? |
 | **Frontière d’état** | Qu’est-ce qui est partagé, isolé, sauvegardé ou considéré comme référence ? |
 | **Politique du graphe** | Qui peut créer, rediriger, annuler ou réécrire les nœuds et arêtes ? |
 
@@ -76,19 +71,23 @@ Le graphe organisationnel décrit l’autorité et les relations permises ; le g
 - 🛠️ [Contribuer ou proposer une traduction](../../CONTRIBUTING.md)
 - 📚 [Méthode de sélection](../../METHODOLOGY.md) et [métadonnées de citation](../../CITATION.cff)
 
-Ne dupliquez pas les tableaux de ressources dans cette traduction : le [répertoire canonique](../../README.md#resource-directory), l’atlas et le jeu de données sont produits depuis la même source structurée.
+Le [répertoire complet des ressources](../../README.md#resource-directory), l’atlas et le jeu de données sont générés à partir de la même source structurée.
 
 ## Citer le projet
 
-Nom de l’auteur : **He Chaoyue**. Conservez le titre original du projet dans toute citation :
+Citez le projet comme suit : **He Chaoyue (2026), *Awesome Graph Engineering*.**
 
 ```bibtex
 @misc{he2026awesomegraphengineering,
-  author = {He, Chaoyue},
-  title  = {Awesome Graph Engineering},
-  year   = {2026},
-  url    = {https://github.com/ChaoYue0307/awesome-graph-engineering}
+  author       = {He, Chaoyue},
+  title        = {Awesome Graph Engineering: A Field Guide, Dataset, and Interactive Atlas for Programmable AI-Agent Organizations},
+  year         = {2026},
+  publisher    = {GitHub},
+  howpublished = {\url{https://github.com/ChaoYue0307/awesome-graph-engineering}},
+  url          = {https://github.com/ChaoYue0307/awesome-graph-engineering}
 }
 ```
 
-Les données et métadonnées originales sont publiées sous [CC0-1.0](../../LICENSE) ; chaque œuvre liée conserve la licence de son auteur.
+## Licence
+
+La sélection, le schéma, les résumés et les contenus créés pour le dépôt sont publiés sous [CC0 1.0 Universal](../../LICENSE). Les œuvres externes référencées conservent leurs propres licences et droits d’auteur. CC0 n’affecte pas les droits de marque ou de brevet et n’offre aucune garantie. La citation est appréciée pour la traçabilité scientifique, mais elle n’est pas exigée par CC0.

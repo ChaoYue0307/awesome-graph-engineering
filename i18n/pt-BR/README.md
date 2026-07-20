@@ -22,21 +22,16 @@
   <strong><a href="./README.md">Português (Brasil)</a></strong>
 </p>
 
-> [!NOTE]
-> Esta é uma **tradução editorial inicial**; uma revisão técnica por falantes nativos é bem-vinda. O [README em inglês](../../README.md) continua sendo a versão canônica.
-
-<!-- -->
-
 > [!IMPORTANT]
-> Neste projeto, *graph engineering* se refere a sistemas de agentes de IA. Este não é um guia sobre bancos de dados em grafo, grafos de conhecimento, ETL de grafos ou redes neurais de grafos.
+> Aqui, *graph engineering* se refere a sistemas de agentes de IA. Bancos de dados em grafo, grafos de conhecimento, ETL de grafos e redes neurais de grafos ficam fora desse escopo.
 
 ## Definição de trabalho
 
-**Graph engineering é a prática de especificar, executar, observar e evoluir um sistema de agentes estruturado como grafo: seus papéis e instâncias em execução, os contratos que os conectam, o estado e os artefatos que compartilham e as evidências usadas para julgar seu comportamento coletivo, para que o sistema possa ser controlado, testado e aprimorado como um todo projetado.**
+**Graph engineering é a prática de especificar, executar, observar e evoluir um sistema de agentes estruturado como grafo: seus papéis e instâncias em execução, os contratos que os conectam, o estado e os artefatos que compartilham e as evidências usadas para julgar seu comportamento coletivo, para que o sistema possa ser controlado, testado e aprimorado como um todo.**
 
 O grafo deve sustentar o funcionamento, e não ser apenas decorativo: sua topologia declarada, o grafo realizado durante uma execução ou a política que o gera precisa restringir materialmente a execução e permanecer inspecionável o bastante para ser versionado, rastreado, avaliado ou alterado de forma deliberada.
 
-Usamos a expressão como **termo de trabalho para uma prática emergente**, e não como um padrão acadêmico ou industrial já estabelecido. A definição sintetiza pesquisas sobre sistemas multiagentes, protocolos, execução durável, observabilidade, avaliação e resultados negativos; ela não é herdada de uma única fonte. Consulte o [mapa de afirmações e evidências](../../DEFINITION.md#evidence-map-for-the-synthesis).
+**Graph engineering é um termo de trabalho para uma prática emergente, não um padrão acadêmico ou industrial estabelecido.** A definição se apoia em pesquisas sobre sistemas multiagentes, protocolos, execução durável, observabilidade, avaliação e resultados negativos. O [mapa de evidências](../../DEFINITION.md#evidence-map-for-the-synthesis) relaciona cada afirmação às fontes correspondentes.
 
 ## Teste mínimo: as três condições são necessárias
 
@@ -47,8 +42,8 @@ Usamos a expressão como **termo de trabalho para uma prática emergente**, e n�
 ## Limites de escopo
 
 - Um único agente com muitas ferramentas ainda é apenas um nó.
-- Um DAG determinístico de funções comuns é engenharia de workflows, exceto quando serve de substrato para nós realmente agênticos.
-- Um bate-papo de personas sem contratos, limites de estado ou gates de evidência não é suficiente.
+- Um DAG determinístico de funções comuns é engenharia de fluxos de trabalho, exceto quando serve de substrato para nós que realmente atuam como agentes.
+- Um bate-papo de personas sem contratos, limites de estado ou portas de evidência não é suficiente.
 - Uma visualização posterior ou um organograma estático não conta se não restringir a execução nem ajudar a diagnosticá-la.
 - Bancos de dados em grafo, GraphRAG, grafos de conhecimento e GNNs só entram no escopo quando sustentam diretamente a coordenação de uma organização de agentes.
 - Mais agentes não significam um sistema melhor: o grafo precisa justificar seu custo de coordenação diante da menor alternativa confiável.
@@ -61,8 +56,8 @@ Usamos a expressão como **termo de trabalho para uma prática emergente**, e n�
 | **Aresta tipada** | O que atravessa esta relação, sob qual esquema e quais pré-condições? |
 | **Grafo organizacional** | Quais papéis reutilizáveis podem delegar, verificar ou escalar? |
 | **Grafo de execução/trabalho** | Quais tarefas, dependências e evidências esta execução exige? |
-| **Gate de evidência** | Qual evidência permite avançar, rejeitar ou escalar o trabalho? |
-| **Limite de estado** | O que é compartilhado, isolado, persistido ou considerado autoritativo? |
+| **Porta de evidência** | Qual evidência permite avançar, rejeitar ou escalar o trabalho? |
+| **Limite de estado** | O que é compartilhado, isolado, persistido ou considerado fonte de referência? |
 | **Política do grafo** | Quem pode criar, redirecionar, cancelar ou reescrever nós e arestas? |
 
 O grafo organizacional descreve autoridade e relações permitidas; o grafo de execução descreve o que aconteceu ou precisa acontecer em um trabalho específico. São visões analíticas complementares, não padrões universais.
@@ -76,19 +71,23 @@ O grafo organizacional descreve autoridade e relações permitidas; o grafo de e
 - 🛠️ [Como contribuir ou propor uma tradução](../../CONTRIBUTING.md)
 - 📚 [Metodologia de seleção](../../METHODOLOGY.md) e [metadados de citação](../../CITATION.cff)
 
-Não duplique as tabelas de recursos nesta tradução: o [diretório canônico](../../README.md#resource-directory), o atlas e o conjunto de dados são gerados a partir da mesma fonte estruturada.
+O [diretório completo de recursos](../../README.md#resource-directory), o atlas e o conjunto de dados são gerados a partir da mesma fonte estruturada.
 
 ## Como citar
 
-Nome do autor: **He Chaoyue**. Preserve o título original do projeto em citações:
+Cite o projeto assim: **He Chaoyue (2026), *Awesome Graph Engineering*.**
 
 ```bibtex
 @misc{he2026awesomegraphengineering,
-  author = {He, Chaoyue},
-  title  = {Awesome Graph Engineering},
-  year   = {2026},
-  url    = {https://github.com/ChaoYue0307/awesome-graph-engineering}
+  author       = {He, Chaoyue},
+  title        = {Awesome Graph Engineering: A Field Guide, Dataset, and Interactive Atlas for Programmable AI-Agent Organizations},
+  year         = {2026},
+  publisher    = {GitHub},
+  howpublished = {\url{https://github.com/ChaoYue0307/awesome-graph-engineering}},
+  url          = {https://github.com/ChaoYue0307/awesome-graph-engineering}
 }
 ```
 
-Os dados e metadados originais são publicados sob [CC0-1.0](../../LICENSE); cada obra vinculada mantém a licença de seu autor.
+## Licença
+
+A curadoria, o esquema, os resumos e os materiais criados para o repositório são disponibilizados sob [CC0 1.0 Universal](../../LICENSE). As obras externas referenciadas mantêm suas próprias licenças e direitos autorais. A CC0 não afeta direitos de marca ou patente e não oferece garantias. A citação é apreciada para fins de rastreabilidade acadêmica, mas não é exigida pela CC0.

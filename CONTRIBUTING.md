@@ -1,28 +1,28 @@
 # Contributing
 
-Thanks for helping make this a useful, evidence-led map of graph engineering. Contributions of every size are welcome — a fixed typo, a corrected project status, or a well-sourced new resource.
+Contributions may correct metadata, update project status, improve prose, or add a well-sourced resource.
 
 ## What belongs here
 
-This repository uses **graph engineering** as a working term for designing, implementing, and operating AI-agent organizations as explicit, observable graphs. A system directly in scope has all three of these properties:
+Here, **graph engineering** means designing, implementing, and operating AI-agent organizations as explicit, observable graphs. A system directly in scope has all three properties:
 
 1. **Multiple independently scoped agent nodes** — reusable roles or runtime instances with distinct goals, context, authority, or responsibility.
 2. **Explicit coordination semantics** — typed delegation, context or artifact transfer, verification, escalation, or other defined relationships.
 3. **An inspectable graph artifact** — the topology, or the policy that generates it, is load-bearing and can be versioned, traced, or otherwise examined.
 
-A resource qualifies when it helps someone design, implement, operate, evaluate, or understand those systems. The list also includes relevant foundations, substrates, measurements, and critiques: classical multi-agent systems, deterministic durable execution under agent nodes, communication protocols, evaluation methods, and evidence about when multi-agent designs fail.
+A resource qualifies when it informs the design, implementation, operation, evaluation, or analysis of such systems. Relevant foundations, substrates, measurements, and critiques may also qualify, including classical multi-agent systems, durable execution beneath agent nodes, communication protocols, evaluation methods, and evidence about multi-agent failure.
 
 A resource does not qualify when it is only:
 
-- **Graph data engineering** — graph databases, GNNs, knowledge-graph construction, or GraphRAG-as-document-retrieval. That established data practice shares the name but is outside this repository's working scope. An exception is graph-shaped state infrastructure used directly by an agent organization.
+- **Graph data engineering** — graph databases, GNNs, knowledge-graph construction, or GraphRAG-as-document-retrieval. That established data practice shares the name but is outside the agent-system scope. An exception is graph-shaped state infrastructure used directly by an agent organization.
 - **Single-agent tool use** with no independently scoped peer, worker, supervisor, or judge. A task graph internal to one agent and graph/tree-of-thought prompting are also outside the core scope.
 - Marketing copy with no technical substance, or a thin listicle rewrite of primary sources.
-- A deterministic workflow with no genuine agent nodes, unless the resource is useful as agent-graph substrate or comparison.
+- A deterministic workflow with no separately accountable agentic instances, unless it provides a relevant substrate or comparison.
 - Abandoned software with no historical significance.
 
 Classical multi-agent systems are a foundation and area of overlap, not a blanket nonexample. See [COMPARISON.md](COMPARISON.md) for the detailed boundaries.
 
-Quality bar: **every entry must be something a practitioner would thank you for.** Prefer primary sources — official documentation, the original paper, a standard, or a first-party engineering report — over aggregators.
+Prefer primary sources—official documentation, original papers, standards, and first-party engineering reports. Each entry must identify a concrete contribution to an engineering decision, implementation, evaluation, or scope boundary.
 
 ## Canonical entry format
 
@@ -47,10 +47,10 @@ The `evidence` value describes **what kind of source it is**. It is not a qualit
 
 1. **Canonical URL** — use the DOI or publisher page for peer-reviewed papers, arXiv abstract for preprints, official docs or repository for tools, and the publisher page for books. Do not add trackers, affiliate links, or avoidable mirrors.
 2. **Description** — write one or two concrete sentences explaining what the resource contributes. Prefer architectural details, study design, scale, and limitations over marketing claims.
-3. **Why** — state why this particular item helps a graph engineer or why it matters as foundation, substrate, evidence, or critique.
-4. **Evidence honesty** — select the source/evidence label by publication form, not by perceived prestige. A polished company article remains `Practitioner analysis`; first-party product reference material is `Official documentation`.
-5. **Status honesty** — if a project is archived, discontinued, or absorbed, say so in the description. Include inactive projects only when historically important.
-6. **One primary layer** — choose the most useful discovery lens, even when the resource crosses several.
+3. **Engineering rationale** — identify the specific decision, primitive, evidence question, or boundary the resource informs.
+4. **Evidence label** — select the label by publication form, not perceived prestige. A polished company article remains `Practitioner analysis`; first-party product reference material is `Official documentation`.
+5. **Project status** — state archival, discontinuation, or acquisition status when material.
+6. **Primary layer** — choose the layer that best matches the resource’s main engineering contribution.
 
 ## How to contribute
 
@@ -58,22 +58,22 @@ The `evidence` value describes **what kind of source it is**. It is not a qualit
 2. **New resource**: append one complete 13-field object. Use the next unused `age-NNNN` identifier; identifiers are never recycled.
 3. Run `python3 scripts/sync.py` to regenerate the CSV, README tables, and website atlas.
 4. Run `python3 scripts/validate.py` and then `python3 scripts/sync.py --check`.
-5. Open a pull request explaining the addition or correction. One resource per PR is easiest to review; coherent batches are welcome.
+5. Open a pull request explaining the addition or correction. Prefer one resource per pull request; use a coherent batch when the changes share one rationale.
 
 For prose fixes outside generated resource tables, edit the relevant Markdown file directly. Open an issue or discussion before proposing a new section or changing the schema.
 
 ## Translating the field guide
 
-We use localized introductions with one canonical English resource catalog. Start at
-the [translation hub](i18n/README.md), check the controlled terminology in
+Localized introductions share one English resource catalog. Start with the
+[translation hub](i18n/README.md), check the controlled terminology in
 [`i18n/glossary.yml`](i18n/glossary.yml), and open a
 [translation issue](https://github.com/ChaoYue0307/awesome-graph-engineering/issues/new?template=translation.yml)
-before claiming a new locale.
+before adding a locale.
 
 - Keep the emerging-term qualification, three-part minimum test, and scope boundaries intact.
 - Keep He Chaoyue, citation keys, URLs, code, dataset IDs, and original paper or project titles unchanged.
 - Do not copy the generated resource tables into a localized README. Link to the canonical atlas instead.
-- Label an unreviewed page as an initial editorial translation. Native-language and agent-systems review are both welcome.
+- Record review status in [`i18n/manifest.yml`](i18n/manifest.yml) and request both native-language and agent-systems review.
 - Prefer a short, accurate translation over a complete one that changes the technical meaning.
 
 ### Pull-request checklist
@@ -90,8 +90,8 @@ CI checks Markdown, schema and vocabulary validity, generated-file parity, and l
 
 ## Removing resources
 
-Removal PRs are as valuable as additions. Grounds include link rot with no canonical replacement, an inactive project without historical significance, duplication, or material that has become misleading. Explain the reason and, where possible, provide a canonical successor.
+A removal pull request may address link rot without a canonical replacement, duplication, an inactive project without historical significance, or materially misleading content. State the reason and provide a canonical successor when one exists.
 
 ## License
 
-By contributing, you agree that your contributions are released under [CC0-1.0](LICENSE), the same license as the repository's original metadata and descriptions. Linked works remain under their authors' licenses.
+Contributions are dedicated under [CC0 1.0 Universal](LICENSE). By submitting a contribution, you confirm that you have the right to apply CC0 to it. Linked third-party works remain subject to their own terms; do not copy protected third-party content into this repository.

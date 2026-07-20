@@ -1,6 +1,6 @@
 # Security Policy
 
-This repository is a curated list plus a static website. It ships no executable dependencies to users, but links can rot or be taken over, and the site is served via GitHub Pages.
+Awesome Graph Engineering publishes a curated resource list and a static GitHub Pages website. It ships no executable dependencies to users; its main security risks are malicious or hijacked external links and injection defects in the website.
 
 ## Reporting
 
@@ -13,4 +13,4 @@ This repository is a curated list plus a static website. It ships no executable 
 - In scope: every URL in `README.md`, `data/`, and `docs/`; the static site under `docs/`.
 - Out of scope: vulnerabilities in the third-party projects this list links to — report those upstream to the project itself.
 
-Please allow up to 7 days for a first response.
+Reports are reviewed on a best-effort basis. Confirmed malicious links are removed before further investigation.

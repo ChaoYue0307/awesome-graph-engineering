@@ -1,6 +1,6 @@
 # Graph Engineering vs. Its Neighbors
 
-The word "graph" is badly overloaded. **Graph engineering** is also an emerging, non-standard label in the AI-agent context, so this page documents the working scope used by this repository rather than claiming a settled field boundary. It connects several established disciplines; the comparisons below explain when a neighboring frame is the more precise one.
+The word "graph" is heavily overloaded. In AI-agent systems, **graph engineering** is also an emerging, non-standard label. The scope below connects established disciplines while identifying when a neighboring term is more precise.
 
 ## Five interacting engineering dimensions
 
@@ -16,7 +16,7 @@ Prompt, context, harness, loop, and graph engineering govern different concerns.
 
 A loop is principally a temporal view; a graph is principally a relational view. A node may run a loop, but graph membership does not require every node to own one. The complementary loop field guide is [awesome-loop-engineering](https://github.com/ChaoYue0307/awesome-loop-engineering).
 
-Under this repository's working definition, a system is in scope only when all three conditions hold:
+A system is in scope only when all three conditions hold:
 
 1. It has multiple independently scoped agent roles or runtime instances.
 2. Their coordination semantics are explicit — for example typed delegation, context or artifact transfer, verification, or escalation relationships.
@@ -24,11 +24,11 @@ Under this repository's working definition, a system is in scope only when all t
 
 ## Not graph data engineering (the name collision)
 
-There is an established practice also called graph engineering: **building systems on graph-shaped data** — graph databases (Neo4j, Neptune), query languages (Cypher, GQL, SPARQL), graph analytics, GNNs, knowledge graphs, and GraphRAG. That is a *data* concern; this list scopes the term to agent organization. The overlap is real but narrow: a knowledge graph can serve an agent organization as shared state, and an agent team can build knowledge graphs. The test is the principal meaning of the nodes and edges: if they represent data entities and relationships, plain graph data engineering is outside this repository; if multiple independently scoped agents and their coordination are the load-bearing graph, it may be in scope. (GraphQL is neither — it is an API query language.)
+There is an established practice also called graph engineering: **building systems on graph-shaped data** — graph databases (Neo4j, Neptune), query languages (Cypher, GQL, SPARQL), graph analytics, GNNs, knowledge graphs, and GraphRAG. That is a *data* concern; the agent-system scope here is narrower. A knowledge graph can serve an agent organization as shared state, and an agent team can build knowledge graphs. The test is the principal meaning of the nodes and edges: data entities and relationships belong to graph data engineering; multiple independently scoped agents connected by load-bearing coordination may belong to graph engineering as defined here. (GraphQL is neither — it is an API query language.)
 
 ## Org graph vs. run/work graph
 
-This repository uses two **analytical views** to reason about different timescales. The labels are not claimed as universal standards, and an implementation may store both views in one runtime structure.
+Two **analytical views** separate standing authority from run-specific execution. They are not universal standards, and an implementation may store both in one runtime structure.
 
 | | Org graph view | Run/work graph view |
 | --- | --- | --- |
@@ -46,11 +46,11 @@ Classical orchestrators run graphs of predefined steps; they are strong at sched
 
 ## Classical multi-agent systems: foundation and overlap
 
-Multi-agent-systems (MAS) research — agent-oriented programming, BDI architectures, blackboards, FIPA protocols, game-theoretic coordination, and learned communication — is a direct foundation and substantial overlap, not a blanket nonexample. LLM-based agents add unusually general and language-mediated nodes, but do not erase that lineage. This repository emphasizes engineering roles, handoffs, verification, reliability, and cost while including relevant MAS work in [Research Foundations](README.md#research-foundations).
+Multi-agent-systems (MAS) research — agent-oriented programming, BDI architectures, blackboards, FIPA protocols, game-theoretic coordination, and learned communication — is a direct foundation and substantial overlap, not a blanket nonexample. LLM-based agents add unusually general and language-mediated nodes, but do not erase that lineage. The catalog emphasizes engineering roles, handoffs, verification, reliability, and cost while including relevant MAS work in [Research Foundations](README.md#research-foundations).
 
 ## One agent vs. a graph
 
-The most important comparison, because the honest answer is often *one agent*. A single agent avoids explicit inter-agent handoff loss and coordination overhead, and it may be cheaper and easier to debug when the task fits one context and one competence. Single-agent tool use, a task dependency graph internal to one agent, and graph/tree-of-thought prompting do not meet this repository's minimum inclusion test by themselves.
+The most important comparison, because the appropriate answer is often *one agent*. A single agent avoids explicit inter-agent handoff loss and coordination overhead, and it may be cheaper and easier to debug when the task fits one context and one competence. Single-agent tool use, an internal task-dependency graph, and graph/tree-of-thought prompting do not meet the minimum inclusion test by themselves.
 
 A graph earns its overhead when at least one of these is true:
 

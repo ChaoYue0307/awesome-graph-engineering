@@ -6,7 +6,7 @@ body:
   - type: markdown
     attributes:
       value: |
-        Thanks for helping improve the atlas. You only need to identify the source and explain why it matters; maintainers will normalize the structured record and assign its stable `age-NNNN` ID.
+        Identify the primary source and the engineering decision it informs. Maintainers will normalize the structured record and assign its stable `age-NNNN` ID.
 
   - type: input
     id: resource_title

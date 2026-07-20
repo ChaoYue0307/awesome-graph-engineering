@@ -1,8 +1,8 @@
 # Brand and media guide
 
-Awesome Graph Engineering should feel like an **open technical field guide for
-programmable agent organizations**: rigorous enough to trust, visual enough to make
-an emerging systems idea legible, and open enough to invite correction.
+Apply three editorial standards across public materials: technical precision,
+visual legibility, and explicit qualification of unsettled terminology and evidence
+limits.
 
 ## Core message
 
@@ -13,7 +13,7 @@ One-sentence description:
 > A field guide, open dataset, and interactive atlas for specifying, executing,
 > observing, and evolving graph-structured AI-agent systems.
 
-The project must always retain two qualifications:
+Every public description must state both scope qualifications:
 
 - **Graph engineering is an emerging working term**, not a settled academic field or
   accepted industry standard.
@@ -69,10 +69,17 @@ Lifecycle diagram:
 > Nine graph engineering layers: roles, topology, handoffs, work graphs, state,
 > gates, reliability, observability and cost, and evolution.
 
-## Attribution
+## License
 
-Preferred credit: **Awesome Graph Engineering by He Chaoyue**.
+Repository-created curation, schema, summaries, documentation, code, and visual
+assets are released under [CC0 1.0 Universal](LICENSE); trademark and patent rights
+are unaffected, and the work is provided without warranties. Linked research and
+external projects remain subject to their own terms.
 
-The repository’s original curation, schema, summaries, and brand assets are released
-under [CC0-1.0](LICENSE). Linked research and external projects retain their own
-licenses. Use the machine-readable citation in [CITATION.cff](CITATION.cff).
+## Citation and attribution
+
+Scholarly citation metadata is provided in [CITATION.cff](CITATION.cff). Citation is
+appreciated for traceability but is not required by CC0.
+
+When credit is desired, use: **Awesome Graph Engineering by He Chaoyue**. Keep
+personal names out of figures, diagrams, logos, and social-preview artwork.

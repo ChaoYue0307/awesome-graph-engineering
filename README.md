@@ -29,7 +29,8 @@
   ⚖️ <a href="COMPARISON.md"><strong>Boundaries</strong></a> ·
   🌐 <a href="https://chaoyue0307.github.io/awesome-graph-engineering/"><strong>Website</strong></a> ·
   🤗 <a href="https://huggingface.co/datasets/cy0307/awesome-graph-engineering"><strong>Dataset</strong></a> ·
-  🧾 <a href="#citation-and-license"><strong>Cite</strong></a>
+  🧾 <a href="#citation"><strong>Cite</strong></a> ·
+  📜 <a href="#license"><strong>License</strong></a>
 </p>
 
 <p align="center">
@@ -59,7 +60,7 @@
 </p>
 
 > [!IMPORTANT]
-> Here, **graph engineering** means engineering graph-structured **AI-agent systems**. It is not a guide to graph databases, knowledge graphs, graph ETL, GraphRAG, or graph neural networks. Start with the [boundary guide](COMPARISON.md#not-graph-data-engineering-the-name-collision) if that name collision brought you here.
+> Here, **graph engineering** means engineering graph-structured **AI-agent systems**. Graph databases, knowledge graphs, graph ETL, GraphRAG, and graph neural networks are outside this scope unless they directly support an agent graph. See the [boundary guide](COMPARISON.md#not-graph-data-engineering-the-name-collision).
 
 ## Working definition
 
@@ -67,13 +68,9 @@
 
 The graph must be load-bearing rather than decorative: its declared topology, realized run graph, or graph-generating policy materially constrains execution and remains inspectable enough to version, trace, evaluate, or deliberately change.
 
-[Carlos E. Perez’s contemporary “graph of loops” framing](https://x.com/IntuitMachine/status/2078419526354378975) adds an essential control insight: improvement loops must be connected so that independent loops can monitor, constrain, or veto one another, and the network still needs external anchors that touch reality. This repository adopts those grounding principles while narrowing its core catalog to AI-agent organizations. Agent roles and runtime instances are the principal adaptive nodes; deterministic tests, audit loops, human decisions, and real-world anchors may be non-agent control nodes. Not every node needs its own retry loop.
+Connected improvement loops can monitor, constrain, or veto one another, while external measurements, fixed rules, and human decisions provide grounding. [Carlos E. Perez’s 2026 “graph of loops” essay](https://x.com/IntuitMachine/status/2078419526354378975) articulates this control perspective. Applied to AI-agent organizations, agent roles and runtime instances are the primary adaptive nodes; deterministic tests, audit cycles, human decisions, and real-world observations may act as control nodes or gates.
 
-This definition is triangulated rather than inherited from any one author. The [claim-to-evidence map](DEFINITION.md#evidence-map-for-the-synthesis) connects every major boundary to independent research, standards, runtime documentation, benchmarks, and negative results—and states where this repository is making an inference.
-
-We use this as a **working term for an emerging practice**, not as a claim that a new field appeared fully formed or has a settled name. The practice connects decades of [agent-oriented programming](https://doi.org/10.1016/0004-3702(93)90034-9), [multi-agent systems](https://doi.org/10.1017/S0269888900008122), [blackboard architectures](https://doi.org/10.1609/aimag.v7i2.537), distributed systems, workflow orchestration, and newer work that models language-agent systems as optimizable graphs, including [GPTSwarm](https://arxiv.org/abs/2402.16823).
-
-The phrase gained fresh practitioner attention in July 2026 when Peter Steinberger asked, “Are we still talking loops or did we shift to graphs yet?” Steinberger’s post and Perez’s essay are useful markers of the conversation—not proof of coinage or consensus. See the [definition and evidence notes](DEFINITION.md) and [research methodology](METHODOLOGY.md).
+*Graph engineering* is used here as an **emerging, non-standard term**. Its scope synthesizes established work in [agent-oriented programming](https://doi.org/10.1016/0004-3702(93)90034-9), [multi-agent systems](https://doi.org/10.1017/S0269888900008122), [blackboard architectures](https://doi.org/10.1609/aimag.v7i2.537), distributed systems, workflow orchestration, and graph-based language-agent research such as [GPTSwarm](https://arxiv.org/abs/2402.16823). The [evidence map](DEFINITION.md#evidence-map-for-the-synthesis) separates source-backed claims from analytical inferences. Steinberger’s and Perez’s July 2026 posts document recent practitioner usage; they do not establish coinage or consensus.
 
 ### The minimum test
 
@@ -106,7 +103,7 @@ A single agent with many tools is still one node. A deterministic DAG of ordinar
 | **Primary question** | “Who may do and verify what?” | “What must happen next for this outcome?” |
 | **Safety boundary** | A planner may select permitted relationships | A planner must not silently expand its own permissions |
 
-These are analytical views used by this repository, not proposed universal standards. A concrete system may store both in one runtime graph as long as role authority and run-time execution remain distinguishable.
+Org graph and run/work graph are analytical views, not standardized object types. An implementation may represent both in one runtime graph if standing authority remains distinguishable from run-specific execution.
 
 ## Do you need a graph?
 
@@ -117,7 +114,7 @@ Start with the smallest architecture that closes the quality loop. One well-inst
 - **Independent verification:** a producer should not be the only judge of its own output.
 - **Fault or trust isolation:** failure, untrusted input, or privileged actions must be contained.
 
-If none applies, invest in the loop first: context, stopping conditions, tests, retries, and observability. [Loop engineering](https://addyosmani.com/blog/loop-engineering/) is primarily temporal—how one agent progresses through repeated work. Graph engineering is primarily relational—how multiple scoped actors and control surfaces compose. Real systems need both; this is not a maturity ladder.
+If none applies, invest in the loop first: context, stopping conditions, tests, retries, and observability. [Loop engineering](https://addyosmani.com/blog/loop-engineering/) is primarily temporal—how one agent progresses through repeated work. Graph engineering is primarily relational—how multiple scoped actors and control surfaces compose. The two concerns are complementary; neither is a maturity stage.
 
 ## Choose your path
 
@@ -151,7 +148,7 @@ The layers are concerns, not compulsory stages. A two-role pipeline with a typed
 
 ## Resource directory
 
-The list favors primary research, official documentation, maintained projects, standards, reproducible benchmarks, and candid production reports. **Evidence labels identify source type; they are not a quality score.** Every entry includes an original summary, a “why it matters” note, and one primary engineering layer.
+The resource directory prioritizes primary research, official documentation, maintained projects, standards, reproducible benchmarks, and production reports. **Evidence labels identify source type; they do not score quality.** Each entry contains an original summary, a distinct engineering rationale, and one primary layer.
 
 Use the [interactive Resource Atlas](https://chaoyue0307.github.io/awesome-graph-engineering/#atlas) to search and filter the same records by section, source type, evidence label, and layer.
 
@@ -283,26 +280,26 @@ resources = pd.read_csv(
 print(resources.groupby("layer").size().sort_values(ascending=False))
 ```
 
-`python3 scripts/sync.py` regenerates the CSV, the README resource tables, and the website atlas. `python3 scripts/sync.py --check` proves they are in sync without changing files. `bash scripts/publish_huggingface.sh` validates those views and publishes the JSONL, CSV, and dataset card to the Hub in one commit.
+`python3 scripts/sync.py` regenerates the CSV, README resource tables, and website atlas. `python3 scripts/sync.py --check` verifies parity without writing changes. `bash scripts/publish_huggingface.sh` validates and publishes the JSONL, CSV, and dataset card in one Hub commit.
 
 ## Curation method
 
-This is an opinionated field guide, not an exhaustive scrape. Inclusion requires direct relevance, a canonical and stable URL, an identifiable source type, and a concrete contribution to at least one engineering layer. We distinguish peer-reviewed work, preprints, official docs, maintained OSS, standards, benchmarks, and practitioner analysis so readers can weigh claims in context.
+The collection is selective rather than exhaustive. Inclusion requires direct relevance, a canonical and stable URL, an identifiable source type, and a concrete contribution to at least one engineering layer. Source-type labels distinguish peer-reviewed research, preprints, official documentation, maintained open-source projects, standards, benchmarks, and practitioner analysis without implying quality.
 
-The term itself is handled with the same care: present-day sources establish that graph-shaped agent orchestration is real; earlier sources establish substantial prior art; neither establishes universal agreement on the label. Read [METHODOLOGY.md](METHODOLOGY.md) for search strategy, selection rules, date handling, and known limitations.
+Current sources document graph-structured agent orchestration; earlier sources document its antecedents. Neither establishes universal agreement on the label. [METHODOLOGY.md](METHODOLOGY.md) records the search strategy, selection rules, date handling, and limitations.
 
 ## Contributing
 
-The best contributions explain **why a resource changes an engineering decision**. Before opening a pull request:
+A resource contribution should identify **the engineering decision it informs**. Before opening a pull request:
 
 1. Read [CONTRIBUTING.md](CONTRIBUTING.md) and search the existing JSONL for duplicates.
 2. Add one canonical record with a concrete summary, `why`, evidence label, and primary layer.
 3. Run `python3 scripts/sync.py` and `python3 scripts/validate.py`.
 4. Keep vendor claims descriptive; do not present source type as proof of effectiveness.
 
-Ideas, corrections, and boundary debates are welcome in [GitHub Discussions](https://github.com/ChaoYue0307/awesome-graph-engineering/discussions). Please use private vulnerability reporting for security issues; see [SECURITY.md](SECURITY.md).
+Use [GitHub Discussions](https://github.com/ChaoYue0307/awesome-graph-engineering/discussions) for ideas, corrections, and scope questions. Report security issues privately as described in [SECURITY.md](SECURITY.md).
 
-## Citation and license
+## Citation
 
 Preferred citation: **He Chaoyue (2026), *Awesome Graph Engineering*.**
 
@@ -317,15 +314,13 @@ Preferred citation: **He Chaoyue (2026), *Awesome Graph Engineering*.**
 }
 ```
 
-Machine-readable metadata is available in [CITATION.cff](CITATION.cff). The curation, schema, summaries, and original repository assets are released under [CC0 1.0](LICENSE). Linked works retain their own licenses and copyrights.
+Machine-readable citation metadata is available in [CITATION.cff](CITATION.cff).
 
-## Acknowledgements
+## License
 
-This project builds on the multi-agent-systems, distributed-systems, workflow, and AI-agent communities—and on the maintainers who publish enough implementation detail for others to learn from their successes and failures. The name follows the useful convention established by [awesome lists](https://github.com/sindresorhus/awesome).
+Except where otherwise noted, the original metadata, schema, summaries, documentation, code, and visual assets in this repository are dedicated to the public domain under [CC0 1.0 Universal](LICENSE). They may be copied, modified, distributed, and used for any purpose, including commercial use, without permission, to the extent permitted by law.
 
-To share or remix the project, use the ready-to-post multilingual copy in
-[LAUNCH-KIT.md](LAUNCH-KIT.md) and the logos, colors, alt text, and attribution rules
-in [BRAND.md](BRAND.md).
+Linked papers, documentation, software, names, logos, and other third-party materials are not covered by this dedication and remain subject to their respective rights and licenses. CC0 does not waive trademark or patent rights and provides the work without warranties. Citation is appreciated for scholarly traceability but is not required by CC0.
 
 <p align="center">
   <strong>One agent can execute a loop. An engineered graph can coordinate an organization.</strong>

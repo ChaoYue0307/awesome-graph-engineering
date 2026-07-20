@@ -22,11 +22,6 @@
   <a href="../pt-BR/README.md">Português (Brasil)</a>
 </p>
 
-> [!NOTE]
-> Dies ist eine **erste redaktionelle Übersetzung**; eine fachliche Prüfung durch deutschsprachige Muttersprachlerinnen und Muttersprachler ist willkommen. Maßgeblich bleibt das [englische README](../../README.md).
-
-<!-- -->
-
 > [!IMPORTANT]
 > *Graph Engineering* bezeichnet hier Systeme aus KI-Agenten. Dies ist kein Leitfaden für Graphdatenbanken, Wissensgraphen, Graph-ETL oder Graph Neural Networks.
 
@@ -36,7 +31,7 @@
 
 Der Graph muss tragend und nicht bloß dekorativ sein: Seine deklarierte Topologie, der in einem Lauf realisierte Graph oder die graphenerzeugende Richtlinie beeinflusst die Ausführung wesentlich und bleibt so weit inspizierbar, dass er versioniert, nachverfolgt, bewertet oder bewusst verändert werden kann.
 
-Wir verwenden den Ausdruck als **Arbeitsbegriff für eine entstehende Praxis**, nicht als bereits etablierten akademischen oder industriellen Standard. Die Definition synthetisiert Forschung zu Multi-Agenten-Systemen, Protokollen, dauerhafter Ausführung, Beobachtbarkeit, Evaluation und negativen Ergebnissen; sie stammt nicht aus einer einzelnen Quelle. Siehe die [Zuordnung von Aussagen zu Evidenz](../../DEFINITION.md#evidence-map-for-the-synthesis).
+**Graph Engineering ist ein Arbeitsbegriff für eine entstehende Praxis, kein etablierter akademischer oder industrieller Standard.** Die Definition stützt sich auf Arbeiten zu Multi-Agenten-Systemen, Protokollen, dauerhafter Ausführung, Beobachtbarkeit, Evaluation und negativen Ergebnissen. Die [Evidenzübersicht](../../DEFINITION.md#evidence-map-for-the-synthesis) ordnet die Aussagen ihren Quellen zu.
 
 ## Mindesttest: Alle drei Bedingungen sind erforderlich
 
@@ -76,19 +71,23 @@ Der Organisationsgraph beschreibt Befugnisse und erlaubte Beziehungen; der Ausf�
 - 🛠️ [Mitwirken oder eine Übersetzung vorschlagen](../../CONTRIBUTING.md)
 - 📚 [Auswahlmethodik](../../METHODOLOGY.md) und [Zitationsmetadaten](../../CITATION.cff)
 
-Die Ressourcentabellen werden hier nicht dupliziert: Das [kanonische Verzeichnis](../../README.md#resource-directory), der Atlas und der Datensatz entstehen aus derselben strukturierten Quelle.
+Das vollständige [Ressourcenverzeichnis](../../README.md#resource-directory), der Atlas und der Datensatz werden aus derselben strukturierten Quelle erstellt.
 
 ## Zitieren
 
-Name des Autors: **He Chaoyue**. Bitte den Originaltitel des Projekts in Zitaten beibehalten:
+Empfohlene Zitierweise: **He Chaoyue (2026), *Awesome Graph Engineering*.**
 
 ```bibtex
 @misc{he2026awesomegraphengineering,
-  author = {He, Chaoyue},
-  title  = {Awesome Graph Engineering},
-  year   = {2026},
-  url    = {https://github.com/ChaoYue0307/awesome-graph-engineering}
+  author       = {He, Chaoyue},
+  title        = {Awesome Graph Engineering: A Field Guide, Dataset, and Interactive Atlas for Programmable AI-Agent Organizations},
+  year         = {2026},
+  publisher    = {GitHub},
+  howpublished = {\url{https://github.com/ChaoYue0307/awesome-graph-engineering}},
+  url          = {https://github.com/ChaoYue0307/awesome-graph-engineering}
 }
 ```
 
-Die ursprünglichen Daten und Metadaten stehen unter [CC0-1.0](../../LICENSE); verlinkte Werke behalten jeweils die Lizenz ihrer Urheber.
+## Lizenz
+
+Die Kuratierung, das Schema, die Zusammenfassungen und die eigens für dieses Repository erstellten Inhalte stehen unter [CC0 1.0 Universal](../../LICENSE). Für verlinkte Werke gelten weiterhin die jeweiligen Lizenzen und Urheberrechte. CC0 lässt Marken- und Patentrechte unberührt und bietet keine Gewährleistung. Eine Zitierung ist für die wissenschaftliche Nachvollziehbarkeit erwünscht, aber nach CC0 nicht erforderlich.

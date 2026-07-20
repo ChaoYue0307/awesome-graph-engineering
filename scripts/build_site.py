@@ -1,8 +1,7 @@
 #!/usr/bin/env python3
-"""Compatibility entry point for the canonical resource synchronizer.
+"""Compatibility entry point for the resource synchronizer.
 
-This now updates the site, CSV, and README together. Prefer ``scripts/sync.py``
-in new automation; the old command remains supported for contributors.
+Prefer ``scripts/sync.py``; this command remains available for existing workflows.
 """
 
 from sync import main
