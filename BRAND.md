@@ -62,8 +62,8 @@ Logo:
 
 Social preview:
 
-> Awesome Graph Engineering social preview: four connected agent nodes surround a
-> lime evidence gate on a dark blueprint grid, beside the message “Engineer the
+> Awesome Graph Engineering social preview: five connected functional nodes surround
+> a lime evidence gate on a dark blueprint grid, beside the message “Engineer the
 > organization, not just the agent.”
 
 Visual abstract:
