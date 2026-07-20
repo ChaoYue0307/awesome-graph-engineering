@@ -159,6 +159,8 @@ export class GraphScene {
     this.canvas.dataset.graphMode = this.mode;
     this.pointer = null;
     this.raf = 0;
+    this.lastDecorativeFrame = 0;
+    this.monoFont = getComputedStyle(document.documentElement).getPropertyValue("--mono").trim() || "monospace";
     this.inViewport = true;
     this.renderFrame = this.renderFrame.bind(this);
     this.onViewportResize = () => this.resize();
@@ -632,7 +634,7 @@ export class GraphScene {
     if (node.gate) {
       ctx.fillStyle = color;
       ctx.globalAlpha = 0.9;
-      ctx.font = `700 ${Math.max(12, radius * 0.5)}px ${getComputedStyle(document.documentElement).getPropertyValue('--mono')}`;
+      ctx.font = `700 ${Math.max(12, radius * 0.5)}px ${this.monoFont}`;
       ctx.textAlign = "center";
       ctx.textBaseline = "middle";
       ctx.fillText("✓", projected.x, projected.y + 1);
@@ -781,6 +783,11 @@ export class GraphScene {
       && !this.pointer
       && this.cssWidth > 720
       && this.cssHeight > 480;
+    if (autoMoving && time - this.lastDecorativeFrame < 32) {
+      this.requestFrame();
+      return;
+    }
+    if (autoMoving) this.lastDecorativeFrame = time;
     if (autoMoving) {
       const bounds = this.rotationBounds();
       this.targetRotationY = clamp(this.baseRotationY + Math.sin(time * 0.00022) * 0.11, bounds.minY, bounds.maxY);

@@ -101,7 +101,18 @@ def render_csv(rows: list[dict[str, object]]) -> str:
 
 def markdown_text(value: object) -> str:
     """Keep generated table cells on one Markdown row."""
-    return str(value).replace("\\", "\\\\").replace("|", "\\|").replace("\n", " ").strip()
+    return (
+        str(value)
+        .replace("&", "&amp;")
+        .replace("<", "&lt;")
+        .replace(">", "&gt;")
+        .replace("\\", "\\\\")
+        .replace("[", "\\[")
+        .replace("]", "\\]")
+        .replace("|", "\\|")
+        .replace("\n", " ")
+        .strip()
+    )
 
 
 def render_tables(rows: list[dict[str, object]]) -> str:
@@ -109,10 +120,18 @@ def render_tables(rows: list[dict[str, object]]) -> str:
     for row in rows:
         sections.setdefault(str(row["section"]), []).append(row)
 
-    chunks: list[str] = []
+    index_lines = [
+        "### Contents",
+        "",
+        *[
+            f"- [{markdown_text(section)}](#{re.sub(r'[^a-z0-9 -]', '', section.lower()).replace(' ', '-')}) — {len(section_rows)} resources"
+            for section, section_rows in sections.items()
+        ],
+    ]
+    chunks: list[str] = ["\n".join(index_lines)]
     for section, section_rows in sections.items():
         lines = [
-            f"## {markdown_text(section)}",
+            f"### {markdown_text(section)}",
             "",
             "| Resource | Source | What it contributes | Evidence |",
             "| --- | --- | --- | --- |",

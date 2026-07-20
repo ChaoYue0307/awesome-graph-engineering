@@ -1,4 +1,4 @@
-import { GraphScene } from "./graph-scene.js?v=20260720-16";
+import { GraphScene } from "./graph-scene.js?v=20260721-1";
 import { setupLocalization } from "./i18n.js?v=20260720-7";
 
 const repoUrl = "https://github.com/ChaoYue0307/awesome-graph-engineering";
@@ -14,21 +14,6 @@ const layerOrder = [
   "Evolution",
   "Cross-layer",
 ];
-
-const typeCodes = {
-  Paper: "PPR",
-  Blog: "ESS",
-  Docs: "DOC",
-  Tool: "SDK",
-  Benchmark: "BNCH",
-  Dataset: "DATA",
-  Book: "BOOK",
-  Course: "CRS",
-  Video: "VID",
-  List: "LIST",
-  Standard: "SPEC",
-  Critique: "CRIT",
-};
 
 function parseData() {
   const source = document.getElementById("atlas-data");
@@ -151,7 +136,6 @@ function setupGraphScenes() {
       if (action === "in") modelScene.setZoom(modelScene.targetZoom + 0.1);
       if (action === "out") modelScene.setZoom(modelScene.targetZoom - 0.1);
       if (action === "reset") modelScene.resetView();
-      modelCanvas?.focus({ preventScroll: true });
     });
   });
 
@@ -160,6 +144,7 @@ function setupGraphScenes() {
 
 function setupAtlas(data) {
   const query = document.getElementById("atlas-query");
+  const form = document.getElementById("atlas-controls");
   const layer = document.getElementById("layer-filter");
   const type = document.getElementById("type-filter");
   const evidence = document.getElementById("evidence-filter");
@@ -192,7 +177,11 @@ function setupAtlas(data) {
 
   const anchorId = location.hash ? decodeURIComponent(location.hash.slice(1)) : "";
   const anchorIndex = anchorId ? data.findIndex((row) => row.id === anchorId) : -1;
-  const state = { shown: anchorIndex >= 0 ? Math.ceil((anchorIndex + 1) / 12) * 12 : 12, rows: [] };
+  const state = {
+    shown: anchorIndex >= 0 ? Math.ceil((anchorIndex + 1) / 12) * 12 : 12,
+    rows: [],
+    expanded: new Set(anchorIndex >= 0 ? [anchorId] : []),
+  };
   let anchorHandled = false;
 
   function setFiltersOpen(open) {
@@ -243,11 +232,13 @@ function setupAtlas(data) {
     const item = document.createElement("article");
     item.className = "resource-item";
     item.id = row.id || `resource-${index}`;
+    item.setAttribute("role", "listitem");
 
     const button = document.createElement("button");
     button.type = "button";
     button.className = "resource-row";
-    button.setAttribute("aria-expanded", "false");
+    const isExpanded = state.expanded.has(item.id);
+    button.setAttribute("aria-expanded", String(isExpanded));
     const detailId = `resource-detail-${row.id || index}`;
     button.setAttribute("aria-controls", detailId);
 
@@ -255,7 +246,7 @@ function setupAtlas(data) {
     title.className = "resource-title";
     const typeCode = document.createElement("span");
     typeCode.className = "resource-type";
-    typeCode.textContent = typeCodes[row.rtype] || "REF";
+    typeCode.textContent = row.rtype || "Reference";
     const titleText = document.createElement("span");
     const strong = document.createElement("b");
     strong.textContent = row.title || "Untitled resource";
@@ -280,7 +271,7 @@ function setupAtlas(data) {
     const details = document.createElement("div");
     details.className = "resource-details";
     details.id = detailId;
-    details.hidden = true;
+    details.hidden = !isExpanded;
     const why = document.createElement("p");
     why.textContent = row.why || `Why it matters: ${row.description || "This resource is part of the curated field guide."}`;
     const link = document.createElement("a");
@@ -314,6 +305,8 @@ function setupAtlas(data) {
       const expanded = button.getAttribute("aria-expanded") === "true";
       button.setAttribute("aria-expanded", String(!expanded));
       details.hidden = expanded;
+      if (expanded) state.expanded.delete(item.id);
+      else state.expanded.add(item.id);
     });
 
     item.append(button, details);
@@ -334,6 +327,9 @@ function setupAtlas(data) {
     empty.hidden = state.rows.length !== 0;
     showMore.hidden = state.rows.length <= state.shown;
     clear.hidden = !filtersActive;
+    document.querySelectorAll("[data-layer]").forEach((button) => {
+      button.setAttribute("aria-pressed", String(button.dataset.layer === layer.value));
+    });
     updateFilterDisclosure();
     updateUrl();
 
@@ -355,7 +351,13 @@ function setupAtlas(data) {
   let inputTimer;
   query.addEventListener("input", () => {
     clearTimeout(inputTimer);
-    inputTimer = setTimeout(() => render({ reset: true }), 80);
+    inputTimer = setTimeout(() => render({ reset: true }), 220);
+  });
+  form?.addEventListener("submit", (event) => {
+    event.preventDefault();
+    clearTimeout(inputTimer);
+    render({ reset: true });
+    query.focus({ preventScroll: true });
   });
   [layer, type, evidence].forEach((control) => control.addEventListener("change", () => render({ reset: true })));
   clear.addEventListener("click", () => {
@@ -378,6 +380,7 @@ function setupAtlas(data) {
       render({ reset: true });
       const reducedMotion = matchMedia("(prefers-reduced-motion: reduce)").matches;
       document.getElementById("atlas")?.scrollIntoView({ behavior: reducedMotion ? "auto" : "smooth" });
+      query.focus({ preventScroll: true });
     });
   });
   document.querySelectorAll("[data-query]").forEach((link) => {

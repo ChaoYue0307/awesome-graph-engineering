@@ -1,0 +1,29 @@
+# Awesome Graph Engineering
+
+> A field guide, open dataset, and interactive atlas for graph-structured multi-agent systems and programmable AI-agent organizations.
+
+Awesome Graph Engineering uses “graph engineering” as an emerging, non-standard working term. In this project, graph nodes are independently scoped AI-agent roles or runtime instances; edges are explicit coordination contracts; work must remain inspectable through topology, run graphs, state, artifacts, and evidence gates. Graph databases, knowledge graphs, GraphRAG, graph ETL, and graph neural networks are outside scope unless they directly support an agent graph.
+
+## Canonical guides
+
+- [Definition and scope](https://github.com/ChaoYue0307/awesome-graph-engineering/blob/main/DEFINITION.md): working definition, boundary tests, evidence map, limitations, and sources.
+- [Taxonomy](https://github.com/ChaoYue0307/awesome-graph-engineering/blob/main/TAXONOMY.md): nine engineering layers from roles and topology through reliability, observability, and evolution.
+- [Comparisons and boundaries](https://github.com/ChaoYue0307/awesome-graph-engineering/blob/main/COMPARISON.md): agent graphs versus loops, workflows, graph data engineering, and related practices.
+- [Methodology](https://github.com/ChaoYue0307/awesome-graph-engineering/blob/main/METHODOLOGY.md): search strategy, selection criteria, evidence labels, and maintenance policy.
+- [Anti-patterns](https://github.com/ChaoYue0307/awesome-graph-engineering/blob/main/ANTI-PATTERNS.md): failure modes and design corrections.
+
+## Open data
+
+- [Canonical JSONL](https://raw.githubusercontent.com/ChaoYue0307/awesome-graph-engineering/main/data/resources.jsonl)
+- [CSV](https://raw.githubusercontent.com/ChaoYue0307/awesome-graph-engineering/main/data/resources.csv)
+- [JSON Schema](https://raw.githubusercontent.com/ChaoYue0307/awesome-graph-engineering/main/data/resource.schema.json)
+- [Hugging Face dataset](https://huggingface.co/datasets/cy0307/awesome-graph-engineering)
+
+The JSONL file is the canonical hand-edited catalog. The CSV, README resource tables, and website atlas are generated views. Repository-created metadata, schema, summaries, documentation, code, and visual assets are dedicated to the public domain under CC0 1.0 Universal; linked third-party works retain their own rights and licenses.
+
+## Contribute
+
+- [Contribution guide](https://github.com/ChaoYue0307/awesome-graph-engineering/blob/main/CONTRIBUTING.md)
+- [Suggest a resource](https://github.com/ChaoYue0307/awesome-graph-engineering/issues/new?template=add-resource.yml)
+- [Report a correction](https://github.com/ChaoYue0307/awesome-graph-engineering/issues/new?template=correction.yml)
+- [Report a website or accessibility issue](https://github.com/ChaoYue0307/awesome-graph-engineering/issues/new?template=website.yml)

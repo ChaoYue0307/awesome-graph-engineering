@@ -5,6 +5,7 @@ from __future__ import annotations
 
 import csv
 import datetime as dt
+import ipaddress
 import io
 import json
 import re
@@ -78,6 +79,7 @@ SECTIONS = {
     "Critiques & Limits",
 }
 ID_RE = re.compile(r"age-\d{4}\Z")
+SCHEMA = ROOT / "data" / "resource.schema.json"
 
 
 def read_jsonl(errors: list[str]) -> list[dict[str, object]]:
@@ -158,6 +160,25 @@ def validate_rows(rows: list[dict[str, object]], errors: list[str]) -> None:
             parsed = urlparse(url)
             if parsed.scheme not in {"http", "https"} or not parsed.netloc:
                 errors.append(f"{rid}: URL must use http(s) and include a host: {url}")
+            if any(character.isspace() for character in url):
+                errors.append(f"{rid}: URL must not contain whitespace: {url}")
+            if parsed.username or parsed.password:
+                errors.append(f"{rid}: URL must not contain embedded credentials: {url}")
+            hostname = (parsed.hostname or "").casefold().rstrip(".")
+            if hostname == "localhost" or hostname.endswith(".localhost") or hostname.endswith(".local"):
+                errors.append(f"{rid}: URL host must be publicly routable: {url}")
+            try:
+                address = ipaddress.ip_address(hostname)
+            except ValueError:
+                address = None
+            if address and (
+                address.is_private
+                or address.is_loopback
+                or address.is_link_local
+                or address.is_reserved
+                or address.is_unspecified
+            ):
+                errors.append(f"{rid}: URL host must not be a private or reserved address: {url}")
             normalized_url = parsed._replace(
                 scheme=parsed.scheme.lower(),
                 netloc=parsed.netloc.lower(),
@@ -197,6 +218,42 @@ def validate_rows(rows: list[dict[str, object]], errors: list[str]) -> None:
         )
     if missing_layers:
         errors.append("dataset has no resources in layer(s): " + ", ".join(missing_layers))
+
+
+def validate_schema(errors: list[str]) -> None:
+    try:
+        schema = json.loads(SCHEMA.read_text(encoding="utf-8"))
+    except OSError as exc:
+        errors.append(f"cannot read {SCHEMA.relative_to(ROOT)}: {exc}")
+        return
+    except json.JSONDecodeError as exc:
+        errors.append(f"{SCHEMA.relative_to(ROOT)} is not valid JSON: {exc.msg}")
+        return
+
+    if schema.get("$schema") != "https://json-schema.org/draft/2020-12/schema":
+        errors.append("resource.schema.json must use JSON Schema draft 2020-12")
+    if schema.get("type") != "object" or schema.get("additionalProperties") is not False:
+        errors.append("resource.schema.json must define a closed object schema")
+    if schema.get("required") != list(FIELDS):
+        errors.append("resource.schema.json required fields/order do not match the canonical schema")
+
+    properties = schema.get("properties")
+    if not isinstance(properties, dict) or list(properties) != list(FIELDS):
+        errors.append("resource.schema.json properties/order do not match the canonical schema")
+        return
+
+    expected_enums = {
+        "section": SECTIONS,
+        "rtype": TYPES,
+        "evidence": EVIDENCE,
+        "layer": LAYERS,
+    }
+    for field, expected in expected_enums.items():
+        actual = properties.get(field, {}).get("enum")
+        if not isinstance(actual, list) or set(actual) != expected:
+            errors.append(f"resource.schema.json enum for '{field}' is out of sync")
+    if properties.get("year", {}).get("type") != "integer":
+        errors.append("resource.schema.json must type 'year' as an integer")
 
 
 def validate_csv(rows: list[dict[str, object]], errors: list[str]) -> None:
@@ -303,6 +360,7 @@ def main() -> int:
     errors: list[str] = []
     rows = read_jsonl(errors)
     validate_rows(rows, errors)
+    validate_schema(errors)
     validate_csv(rows, errors)
     validate_readme(rows, errors)
     validate_site(rows, errors)
@@ -311,7 +369,7 @@ def main() -> int:
         for error in errors:
             print(f"  - {error}")
         return 1
-    print(f"OK — {len(rows)} resources validated across JSONL, CSV, README, and site.")
+    print(f"OK — {len(rows)} resources validated across JSONL, CSV, JSON Schema, README, and site.")
     return 0
 
 

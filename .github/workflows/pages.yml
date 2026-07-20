@@ -17,6 +17,8 @@ concurrency:
 
 jobs:
   build:
+    permissions:
+      contents: read
     runs-on: ubuntu-latest
     steps:
       - name: Check out repository
@@ -32,8 +34,8 @@ jobs:
         with:
           node-version: "22"
 
-      - name: Verify generated content
-        run: python3 scripts/sync.py --check
+      - name: Run repository quality gates
+        run: bash scripts/check.sh
 
       - name: Generate static locale routes
         run: node scripts/generate_site_locales.mjs
@@ -47,6 +49,9 @@ jobs:
           path: docs
 
   deploy:
+    permissions:
+      pages: write
+      id-token: write
     environment:
       name: github-pages
       url: ${{ steps.deployment.outputs.page_url }}

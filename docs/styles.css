@@ -121,6 +121,49 @@ canvas {
   transform: translateY(0);
 }
 
+.error-page {
+  display: grid;
+  min-height: 100svh;
+  padding: 48px max(24px, var(--safe-right)) 48px max(24px, var(--safe-left));
+  place-items: center;
+  background:
+    radial-gradient(circle at 78% 22%, rgba(97, 228, 255, 0.11), transparent 24rem),
+    linear-gradient(rgba(113, 154, 213, 0.04) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(113, 154, 213, 0.04) 1px, transparent 1px);
+  background-size: auto, 72px 72px, 72px 72px;
+}
+
+.error-page-card {
+  width: min(720px, 100%);
+  padding: clamp(30px, 6vw, 64px);
+  border: 1px solid var(--line-strong);
+  border-radius: var(--radius);
+  background: rgba(8, 13, 24, 0.9);
+  box-shadow: 0 36px 100px rgba(0, 0, 0, 0.38);
+}
+
+.error-page-card .section-index {
+  margin-top: 56px;
+}
+
+.error-page-card h1 {
+  max-width: 650px;
+  margin: 0;
+  font-family: var(--display);
+  font-size: clamp(48px, 9vw, 88px);
+  font-weight: 850;
+  letter-spacing: -0.045em;
+  line-height: 0.98;
+  text-wrap: balance;
+}
+
+.error-page-card > p:not(.section-index) {
+  max-width: 590px;
+  margin: 28px 0 0;
+  color: var(--muted);
+  font-size: 17px;
+}
+
 .section-shell {
   width: var(--shell);
   margin-inline: auto;
@@ -307,10 +350,13 @@ canvas {
 .section-heading h2,
 .paths-intro h2 {
   margin: 0;
+  max-width: 100%;
   font-family: var(--display);
   font-weight: 850;
   letter-spacing: -0.045em;
   line-height: 0.98;
+  overflow-wrap: anywhere;
+  text-wrap: balance;
 }
 
 .hero h1 {
@@ -1297,16 +1343,24 @@ html:not([lang="en"]) .hero h1 span {
 
 .resource-title {
   display: grid;
-  grid-template-columns: 32px minmax(0, 1fr);
+  grid-template-columns: max-content minmax(0, 1fr);
   gap: 12px;
 }
 
 .resource-type {
+  display: inline-flex;
+  min-height: 24px;
+  padding: 3px 7px;
   align-self: start;
+  align-items: center;
+  border: 1px solid rgba(157, 125, 255, 0.46);
+  border-radius: 999px;
+  background: rgba(157, 125, 255, 0.08);
   color: var(--violet);
   font-family: var(--mono);
-  font-size: 10px;
+  font-size: 9px;
   font-weight: 800;
+  line-height: 1;
 }
 
 .resource-title b {
@@ -1342,7 +1396,7 @@ html:not([lang="en"]) .hero h1 span {
 
 .resource-details {
   display: grid;
-  margin: 0 18px 18px 62px;
+  margin: 0 18px 18px;
   padding: 18px 20px;
   grid-template-columns: minmax(0, 1fr) auto;
   align-items: center;
@@ -1731,6 +1785,63 @@ html:not([lang="en"]) .hero h1 span {
   }
 }
 
+@media (max-width: 1080px) {
+  body.nav-open {
+    overflow: hidden;
+  }
+
+  .nav-shell {
+    position: relative;
+  }
+
+  .menu-toggle {
+    display: block;
+  }
+
+  .nav-links {
+    position: absolute;
+    top: calc(100% + 1px);
+    right: 0;
+    left: 0;
+    display: none;
+    max-height: calc(100dvh - 72px - var(--safe-top));
+    padding: 16px;
+    overflow-y: auto;
+    flex-direction: column;
+    align-items: stretch;
+    gap: 4px;
+    border: 1px solid var(--line-strong);
+    border-top: 0;
+    border-radius: 0 0 10px 10px;
+    background: rgba(5, 8, 17, 0.98);
+    overscroll-behavior: contain;
+  }
+
+  .nav-links.is-open {
+    display: flex;
+  }
+
+  .nav-links > a {
+    min-height: 48px;
+    padding: 10px;
+    align-items: center;
+  }
+
+  .language-picker {
+    width: 100%;
+    margin: 4px 0;
+  }
+
+  .language-picker select {
+    width: 100%;
+    min-height: 48px;
+  }
+
+  .github-link {
+    justify-content: center;
+  }
+}
+
 @media (max-width: 1000px) {
   .paths-section {
     grid-template-columns: 1fr;
@@ -1762,61 +1873,6 @@ html:not([lang="en"]) .hero h1 span {
 @media (max-width: 920px) {
   :root {
     --shell: min(100% - 32px, 760px);
-  }
-
-  body.nav-open {
-    overflow: hidden;
-  }
-
-  .nav-shell {
-    position: relative;
-  }
-
-  .menu-toggle {
-    display: block;
-  }
-
-  .nav-links {
-    position: absolute;
-    top: calc(100% + 1px);
-    right: 0;
-    left: 0;
-    display: none;
-    padding: 16px;
-    flex-direction: column;
-    align-items: stretch;
-    gap: 4px;
-    border: 1px solid var(--line-strong);
-    border-top: 0;
-    border-radius: 0 0 10px 10px;
-    background: rgba(5, 8, 17, 0.98);
-    max-height: calc(100dvh - 72px - var(--safe-top));
-    overflow-y: auto;
-    overscroll-behavior: contain;
-  }
-
-  .nav-links.is-open {
-    display: flex;
-  }
-
-  .nav-links > a {
-    min-height: 48px;
-    padding: 10px;
-    align-items: center;
-  }
-
-  .language-picker {
-    width: 100%;
-    margin: 4px 0;
-  }
-
-  .language-picker select {
-    width: 100%;
-    min-height: 48px;
-  }
-
-  .github-link {
-    justify-content: center;
   }
 
   .hero {
@@ -2294,9 +2350,9 @@ html:not([lang="en"]) .hero h1 span {
   .resource-evidence {
     display: inline-flex;
     width: fit-content;
-    max-width: calc(100% - 44px);
+    max-width: 100%;
     min-height: 28px;
-    margin-left: 44px;
+    margin-left: 0;
     padding: 4px 8px;
     align-items: center;
     border: 1px solid var(--line);

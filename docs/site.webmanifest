@@ -1,9 +1,12 @@
 {
   "name": "Awesome Graph Engineering",
   "short_name": "Graph Engineering",
-  "description": "A field guide, open dataset, and interactive atlas for programmable AI-agent organizations.",
+  "description": "A field guide, open dataset, and interactive atlas for graph-structured multi-agent systems and programmable AI-agent organizations.",
   "start_url": "./",
+  "scope": "./",
   "display": "standalone",
+  "lang": "en",
+  "categories": ["education", "developer", "productivity"],
   "background_color": "#050811",
   "theme_color": "#050811",
   "icons": [

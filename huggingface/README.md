@@ -29,7 +29,7 @@ configs:
 
 # Awesome Graph Engineering Resource Atlas
 
-A versioned collection of research, standards, frameworks, protocols, reliability systems, evaluations, and critiques for engineering AI-agent organizations as programmable graphs.
+A versioned collection of research, standards, frameworks, protocols, reliability systems, evaluations, and critiques for graph-structured multi-agent systems and programmable AI-agent organizations.
 
 This dataset mirrors [Awesome Graph Engineering](https://github.com/ChaoYue0307/awesome-graph-engineering). The GitHub JSONL file is canonical; the Hub exposes the same records through Dataset Viewer, direct downloads, `datasets`, and pandas.
 
@@ -63,7 +63,7 @@ Each row has 13 fields:
 | `evidence` | string | Source-type label, not a quality score. |
 | `layer` | string | Primary graph-engineering design layer. |
 
-`resources.jsonl` drives the Dataset Viewer. `resources.csv` is an equivalent convenience export in the same row and field order.
+`resources.jsonl` drives the Dataset Viewer. `resources.csv` is an equivalent convenience export in the same row and field order. `resource.schema.json` is the machine-readable JSON Schema for one record.
 
 Interoperable access points:
 

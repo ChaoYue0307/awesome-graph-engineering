@@ -1,0 +1,79 @@
+name: Website or accessibility issue
+description: Report a browser, mobile, interaction, performance, or accessibility problem.
+title: "[Website]: "
+labels:
+  - website
+  - bug
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Thanks for helping make the field guide easier to use. Please share only the details needed to reproduce the problem.
+
+  - type: input
+    id: page
+    attributes:
+      label: Page or section
+      description: Paste the URL or name the section where the issue appears.
+      placeholder: https://chaoyue0307.github.io/awesome-graph-engineering/#atlas
+    validations:
+      required: true
+
+  - type: dropdown
+    id: category
+    attributes:
+      label: Issue category
+      options:
+        - Mobile or responsive layout
+        - Keyboard or screen-reader accessibility
+        - Search, filters, or other interaction
+        - Visual overlap or clipping
+        - Performance or animation
+        - Browser compatibility
+        - Broken content or link
+    validations:
+      required: true
+
+  - type: textarea
+    id: observed
+    attributes:
+      label: What happened?
+      description: Describe the problem and what you expected instead.
+      placeholder: On a 390 px-wide screen, …
+    validations:
+      required: true
+
+  - type: textarea
+    id: reproduce
+    attributes:
+      label: Reproduction steps
+      description: Include the smallest sequence that consistently shows the issue.
+      placeholder: |
+        1. Open the atlas
+        2. Search for …
+        3. Observe …
+    validations:
+      required: true
+
+  - type: input
+    id: environment
+    attributes:
+      label: Browser and device
+      description: Include browser version, operating system, device, and viewport if known.
+      placeholder: Safari 19, iPhone 17, portrait
+
+  - type: textarea
+    id: evidence
+    attributes:
+      label: Supporting evidence
+      description: Add a screenshot, screen recording, console message, or accessibility-tool output if useful.
+
+  - type: checkboxes
+    id: checks
+    attributes:
+      label: Quick checks
+      options:
+        - label: I checked that an open issue does not already cover this problem.
+          required: true
+        - label: I removed private or sensitive information from any evidence attached here.
+          required: true

@@ -9,3 +9,4 @@ venv/
 *.log
 .lychee-cache
 .design/
+dist/

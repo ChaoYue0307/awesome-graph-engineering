@@ -14,7 +14,7 @@ const siteUrl = "https://chaoyue0307.github.io/awesome-graph-engineering/";
 const copy = {
   en: {
     metaTitle: "Awesome Graph Engineering — engineer the organization, not just the agent",
-    metaDescription: "A curated field guide, structured dataset, and interactive atlas for engineering AI-agent organizations as programmable graphs.",
+    metaDescription: "A curated field guide, structured dataset, and interactive atlas for graph-structured multi-agent systems and programmable AI-agent organizations.",
     "nav.fieldGuide": "Field guide",
     "nav.layers": "Layers",
     "nav.atlas": "Atlas",
@@ -23,7 +23,7 @@ const copy = {
     "hero.line1": "Engineer the",
     "hero.line2": "organization, not",
     "hero.line3": "just the agent.",
-    "hero.lede": "A curated field guide to engineering AI-agent organizations as programmable graphs — roles, topologies, handoffs, work graphs, verification, reliability, and observability.",
+    "hero.lede": "A curated field guide to graph-structured multi-agent systems — programmable AI-agent organizations with explicit roles, topologies, handoffs, work graphs, verification, reliability, and observability.",
     "hero.explore": "Explore the atlas",
     "hero.github": "View on GitHub",
     "hero.layers": "design layers",

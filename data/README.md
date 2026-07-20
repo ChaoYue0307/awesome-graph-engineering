@@ -6,20 +6,20 @@ The Resource Atlas is published as structured, CC0 metadata. [`resources.jsonl`]
 
 - `resources.jsonl` — one UTF-8 JSON object per line, in curated display order. Edit this file.
 - `resources.csv` — the same records and field order with a header row. Generated; do not edit it directly.
+- `resource.schema.json` — JSON Schema for validating individual 13-field records and controlled vocabularies.
 - `../README.md` resource tables — generated between the `RESOURCE_TABLES_START` and `RESOURCE_TABLES_END` markers.
 - `../docs/index.html` atlas data — generated inside the `atlas-data` JSON script island.
-- [GitHub Releases](https://github.com/ChaoYue0307/awesome-graph-engineering/releases/latest) — immutable versioned snapshots with direct CSV, JSONL, and bundled downloads.
+- [GitHub Releases](https://github.com/ChaoYue0307/awesome-graph-engineering/releases) — versioned snapshots with direct downloads and SHA-256 checksums; each release note states its dataset coverage.
 - [Hugging Face mirror](https://huggingface.co/datasets/cy0307/awesome-graph-engineering) — published from the validated JSONL and CSV with `../huggingface/README.md` as its dataset card.
 
 After editing the JSONL source, run:
 
 ```bash
 python3 scripts/sync.py
-python3 scripts/validate.py
-python3 scripts/sync.py --check
+bash scripts/check.sh
 ```
 
-The final command is read-only and fails when any generated view has drifted from the canonical data.
+The final command is read-only and fails when any generated view, schema contract, locale route, JavaScript module, or required site asset is invalid or stale.
 
 To publish the validated mirror manually:
 
@@ -27,7 +27,15 @@ To publish the validated mirror manually:
 bash scripts/publish_huggingface.sh
 ```
 
-The GitHub workflow uses the same script and an `HF_TOKEN` repository secret. Synchronization is one-way: edit the canonical GitHub JSONL, never the Hub copy.
+The GitHub workflow uses the same script and an `HF_TOKEN` repository secret. It publishes JSONL, CSV, JSON Schema, and the dataset card. Synchronization is one-way: edit the canonical GitHub JSONL, never the Hub copy.
+
+To build the same deterministic, checksummed package used by GitHub Releases:
+
+```bash
+python3 scripts/build_release.py --version 1.2.0
+```
+
+The builder verifies that the requested version matches `CITATION.cff` and the website's Dataset JSON-LD, then writes CSV, JSONL, JSON Schema, manifest, social preview, bundle ZIP, and `SHA256SUMS` assets under `dist/release/`. Pushing a matching `v*` tag runs the release workflow after the full quality suite passes.
 
 ## Schema: exactly 13 fields
 

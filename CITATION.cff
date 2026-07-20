@@ -10,7 +10,7 @@ authors:
 repository-code: "https://github.com/ChaoYue0307/awesome-graph-engineering"
 url: "https://chaoyue0307.github.io/awesome-graph-engineering/"
 license: CC0-1.0
-abstract: "A curated field guide to graph engineering: designing AI-agent organizations as programmable structures — org graphs and work graphs, topologies, handoffs and protocols, verification gates, reliability, observability, and dynamic agent orgs — with a structured dataset and interactive resource atlas."
+abstract: "A curated field guide, structured dataset, and interactive atlas for graph-structured multi-agent systems and programmable AI-agent organizations: org graphs and work graphs, roles, topologies, handoffs, verification gates, reliability, observability, and evolution."
 keywords:
   - graph-engineering
   - multi-agent-systems

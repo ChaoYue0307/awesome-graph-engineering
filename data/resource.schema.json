@@ -1,0 +1,124 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://raw.githubusercontent.com/ChaoYue0307/awesome-graph-engineering/main/data/resource.schema.json",
+  "title": "Awesome Graph Engineering resource record",
+  "description": "One curated resource in the graph engineering atlas.",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "id",
+    "section",
+    "subcategory",
+    "rtype",
+    "title",
+    "url",
+    "venue",
+    "year",
+    "authors",
+    "description",
+    "why",
+    "evidence",
+    "layer"
+  ],
+  "properties": {
+    "id": {
+      "type": "string",
+      "pattern": "^age-[0-9]{4}$"
+    },
+    "section": {
+      "type": "string",
+      "enum": [
+        "Start Here",
+        "Research Foundations",
+        "Frameworks & SDKs",
+        "Protocols & Handoffs",
+        "State, Memory & Artifacts",
+        "Verification & Evals",
+        "Reliability & Durable Execution",
+        "Observability & Cost",
+        "Benchmarks & Datasets",
+        "Production Case Studies",
+        "Critiques & Limits"
+      ]
+    },
+    "subcategory": {
+      "type": "string",
+      "minLength": 1
+    },
+    "rtype": {
+      "type": "string",
+      "enum": [
+        "Paper",
+        "Blog",
+        "Docs",
+        "Tool",
+        "Benchmark",
+        "Dataset",
+        "Book",
+        "Course",
+        "Video",
+        "List",
+        "Standard",
+        "Critique"
+      ]
+    },
+    "title": {
+      "type": "string",
+      "minLength": 1
+    },
+    "url": {
+      "type": "string",
+      "format": "uri",
+      "pattern": "^https?://"
+    },
+    "venue": {
+      "type": "string",
+      "minLength": 1
+    },
+    "year": {
+      "type": "integer",
+      "minimum": 1900,
+      "maximum": 2100
+    },
+    "authors": {
+      "type": "string",
+      "minLength": 1
+    },
+    "description": {
+      "type": "string",
+      "minLength": 1
+    },
+    "why": {
+      "type": "string",
+      "minLength": 1
+    },
+    "evidence": {
+      "type": "string",
+      "enum": [
+        "Peer-reviewed research",
+        "Research preprint",
+        "Practitioner analysis",
+        "Official documentation",
+        "Maintained OSS project",
+        "Industry standard",
+        "Benchmark/dataset",
+        "Book/course",
+        "Community resource"
+      ]
+    },
+    "layer": {
+      "type": "string",
+      "enum": [
+        "Roles",
+        "Topology",
+        "Handoffs",
+        "Work graphs",
+        "State",
+        "Gates",
+        "Reliability",
+        "Observability & cost",
+        "Evolution"
+      ]
+    }
+  }
+}
