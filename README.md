@@ -49,13 +49,7 @@
   <a href="i18n/README.md">Help translate</a>
 </p>
 
-> [!IMPORTANT]
-> Here, **graph engineering** means engineering graph-structured **AI-agent systems**. Graph databases, knowledge graphs, graph ETL, GraphRAG, and graph neural networks are outside this scope unless they directly support an agent graph. See the [boundary guide](COMPARISON.md#not-graph-data-engineering-the-name-collision).
-
-<!-- -->
-
-> [!NOTE]
-> 🔎 **Source integrity:** every catalog entry must resolve to a canonical primary record with verified identity and publication status. Screenshots, slides, search snippets, generated summaries, and title-only pages are treated as leads—not citations. See the [verification protocol](METHODOLOGY.md#source-verification).
+Here, **graph engineering** means engineering graph-structured **AI-agent systems**. Graph databases, knowledge graphs, graph ETL, GraphRAG, and graph neural networks are outside this scope unless they directly support an agent graph. See the [boundary guide](COMPARISON.md#not-graph-data-engineering-the-name-collision).
 
 ## 🧭 Working definition
 
@@ -367,12 +361,6 @@ print(resources.groupby("layer").size().sort_values(ascending=False))
 ```
 
 `python3 scripts/sync.py` regenerates the CSV, README resource tables, and website atlas. `bash scripts/check.sh` runs the full local validation suite without changing generated files. `bash scripts/publish_huggingface.sh` validates and publishes the JSONL, CSV, JSON Schema, and dataset card in one Hub commit.
-
-## 🔎 Curation method
-
-The collection is selective rather than exhaustive. Inclusion requires direct relevance, a canonical and stable primary record, verified source identity and status, and a concrete contribution to at least one engineering layer. Screenshots and search results are discovery leads, not evidence. Source-type labels distinguish peer-reviewed research, preprints, official documentation, maintained open-source projects, standards, benchmarks, and practitioner analysis without implying quality.
-
-Current sources document graph-structured agent orchestration; earlier sources document its antecedents. Neither establishes universal agreement on the label. [METHODOLOGY.md](METHODOLOGY.md) records the search strategy, selection rules, date handling, and limitations.
 
 ## 🤝 Contributing
 

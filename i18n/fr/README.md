@@ -28,8 +28,7 @@
   <a href="../pt-BR/README.md">Português (Brasil)</a>
 </p>
 
-> [!IMPORTANT]
-> Ici, *graph engineering* désigne les systèmes d’agents IA. Ce guide ne porte pas sur les bases de données de graphes, les graphes de connaissances, l’ETL de graphes ni les réseaux neuronaux de graphes.
+Ici, *graph engineering* désigne les systèmes d’agents IA. Ce guide ne porte pas sur les bases de données de graphes, les graphes de connaissances, l’ETL de graphes ni les réseaux neuronaux de graphes.
 
 ## Définition de travail
 

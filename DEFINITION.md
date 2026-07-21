@@ -1,6 +1,6 @@
 # Graph Engineering: A Working Definition
 
-> **Status:** *Graph engineering* is used here as an emerging practitioner term; it is not a settled academic field or accepted industry standard. The definition below establishes an explicit scope that can be evaluated and revised.
+*Graph engineering* is used here as an emerging practitioner term, not a settled academic field or accepted industry standard. The definition below establishes an explicit scope that can be evaluated and revised.
 
 **Graph engineering is the practice of specifying, executing, observing, and evolving a graph-structured agent system—its roles and runtime instances, the contracts that connect them, the state and artifacts they share, and the evidence by which their collective behavior is judged—so that the system can be controlled, tested, and improved as an engineered whole.**
 

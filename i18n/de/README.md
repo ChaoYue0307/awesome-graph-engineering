@@ -28,8 +28,7 @@
   <a href="../pt-BR/README.md">Português (Brasil)</a>
 </p>
 
-> [!IMPORTANT]
-> *Graph Engineering* bezeichnet hier Systeme aus KI-Agenten. Dies ist kein Leitfaden für Graphdatenbanken, Wissensgraphen, Graph-ETL oder Graph Neural Networks.
+*Graph Engineering* bezeichnet hier Systeme aus KI-Agenten. Dies ist kein Leitfaden für Graphdatenbanken, Wissensgraphen, Graph-ETL oder Graph Neural Networks.
 
 ## Arbeitsdefinition
 

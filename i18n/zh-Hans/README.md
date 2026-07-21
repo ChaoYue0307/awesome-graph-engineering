@@ -28,8 +28,7 @@
   <a href="../pt-BR/README.md">Português (Brasil)</a>
 </p>
 
-> [!IMPORTANT]
-> 这里的 **Graph Engineering（图工程）**特指 AI 智能体系统。图数据库、知识图谱、图 ETL 和图神经网络不属于这一范围。
+这里的 **Graph Engineering（图工程）**特指 AI 智能体系统。图数据库、知识图谱、图 ETL 和图神经网络不属于这一范围。
 
 ## 工作定义
 

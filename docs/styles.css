@@ -1677,7 +1677,7 @@ html:not([lang="en"]) .hero h1 span {
 .open-links {
   display: grid;
   margin-top: 40px;
-  grid-template-columns: repeat(3, 1fr);
+  grid-template-columns: repeat(2, 1fr);
   border-block: 1px solid var(--line-strong);
 }
 

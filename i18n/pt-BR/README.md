@@ -28,8 +28,7 @@
   <strong><a href="./README.md">Português (Brasil)</a></strong>
 </p>
 
-> [!IMPORTANT]
-> Aqui, *graph engineering* se refere a sistemas de agentes de IA. Bancos de dados em grafo, grafos de conhecimento, ETL de grafos e redes neurais de grafos ficam fora desse escopo.
+Aqui, *graph engineering* se refere a sistemas de agentes de IA. Bancos de dados em grafo, grafos de conhecimento, ETL de grafos e redes neurais de grafos ficam fora desse escopo.
 
 ## Definição de trabalho
 

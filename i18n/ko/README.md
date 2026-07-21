@@ -28,8 +28,7 @@
   <a href="../pt-BR/README.md">Português (Brasil)</a>
 </p>
 
-> [!IMPORTANT]
-> 여기서 **Graph Engineering(그래프 엔지니어링)**은 AI 에이전트 시스템을 뜻합니다. 그래프 데이터베이스, 지식 그래프, 그래프 ETL, 그래프 신경망은 이 범위에 포함되지 않습니다.
+여기서 **Graph Engineering(그래프 엔지니어링)**은 AI 에이전트 시스템을 뜻합니다. 그래프 데이터베이스, 지식 그래프, 그래프 ETL, 그래프 신경망은 이 범위에 포함되지 않습니다.
 
 ## 실무 정의
 
