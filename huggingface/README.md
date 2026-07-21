@@ -69,7 +69,7 @@ Interoperable access points:
 
 - [Dataset Viewer](https://huggingface.co/datasets/cy0307/awesome-graph-engineering/viewer/default/train)
 - [Croissant metadata](https://huggingface.co/api/datasets/cy0307/awesome-graph-engineering/croissant)
-- [Auto-converted Parquet](https://huggingface.co/api/datasets/cy0307/awesome-graph-engineering/parquet/default/train/0.parquet)
+- [Auto-converted Parquet](https://huggingface.co/datasets/cy0307/awesome-graph-engineering/resolve/refs%2Fconvert%2Fparquet/default/train/0000.parquet)
 
 ## Load the data
 
