@@ -170,9 +170,6 @@ function localizeHtml(template, locale, strings, localeConfig) {
 
   html = localizeElements(html, strings);
 
-  const heroLabel = [strings["hero.line1"], strings["hero.line2"], strings["hero.line3"]].join(" ");
-  html = setAttribute(html, /(<h1\b[^>]*\baria-label=")[^"]*(")/i, heroLabel, "hero aria-label");
-
   // Every generated locale route is one directory below the English source.
   // Prefix only local file references; fragments and absolute URLs stay intact.
   html = html.replace(/\b(href|src)="([^"]+)"/gi, (match, attribute, value) => (

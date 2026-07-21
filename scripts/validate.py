@@ -19,12 +19,14 @@ from sync import (
     JSONL,
     README,
     ROOT,
+    SECTION_ORDER,
     SITE,
     TABLE_END,
     TABLE_START,
     render_atlas,
     render_csv,
     render_tables,
+    markdown_destination,
     replace_atlas_data,
     replace_readme_tables,
 )
@@ -65,21 +67,26 @@ LAYERS = {
     "Observability & cost",
     "Evolution",
 }
-SECTIONS = {
-    "Start Here",
-    "Research Foundations",
-    "Frameworks & SDKs",
-    "Protocols & Handoffs",
-    "State, Memory & Artifacts",
-    "Verification & Evals",
-    "Reliability & Durable Execution",
-    "Observability & Cost",
-    "Benchmarks & Datasets",
-    "Production Case Studies",
-    "Critiques & Limits",
-}
+SECTIONS = set(SECTION_ORDER)
 ID_RE = re.compile(r"age-\d{4}\Z")
+CONTROL_RE = re.compile(r"[\x00-\x1f\x7f]")
+FORMULA_RE = re.compile(r"^[=+\-@]")
 SCHEMA = ROOT / "data" / "resource.schema.json"
+EVIDENCE_BY_TYPE = {
+    "Paper": {"Peer-reviewed research", "Research preprint"},
+    "Blog": {"Practitioner analysis"},
+    "Docs": {"Official documentation"},
+    "Tool": {"Maintained OSS project"},
+    "Benchmark": {"Benchmark/dataset"},
+    "Dataset": {"Benchmark/dataset"},
+    "Book": {"Book/course"},
+    "Course": {"Book/course"},
+    "Video": {"Book/course", "Community resource", "Official documentation", "Practitioner analysis"},
+    "List": {"Community resource"},
+    "Standard": {"Industry standard", "Official documentation", "Maintained OSS project"},
+    "Critique": {"Peer-reviewed research", "Research preprint", "Practitioner analysis"},
+}
+FORMULA_FIELDS = {"subcategory", "title", "venue", "authors", "description", "why"}
 
 
 def read_jsonl(errors: list[str]) -> list[dict[str, object]]:
@@ -110,6 +117,8 @@ def validate_rows(rows: list[dict[str, object]], errors: list[str]) -> None:
     seen_ids: dict[str, int] = {}
     seen_urls: dict[str, str] = {}
     seen_titles: dict[str, str] = {}
+    seen_loose_titles: dict[str, str] = {}
+    previous_id_number = -1
     current_year = dt.date.today().year
     for position, row in enumerate(rows, 1):
         rid = str(row.get("id") or f"row {position}")
@@ -127,6 +136,19 @@ def validate_rows(rows: list[dict[str, object]], errors: list[str]) -> None:
                 errors.append(f"{rid}: empty required field '{field}'")
             elif field != "year" and not isinstance(value, str):
                 errors.append(f"{rid}: '{field}' must be a string")
+            elif isinstance(value, str):
+                if value != value.strip():
+                    errors.append(f"{rid}: '{field}' must not have leading or trailing whitespace")
+                if CONTROL_RE.search(value):
+                    errors.append(f"{rid}: '{field}' must not contain control characters")
+                if field in FORMULA_FIELDS and FORMULA_RE.match(value):
+                    errors.append(f"{rid}: '{field}' must not begin with a spreadsheet formula prefix")
+        description = row.get("description")
+        why = row.get("why")
+        if isinstance(description, str) and len(description) < 80:
+            errors.append(f"{rid}: 'description' must contain at least 80 characters")
+        if isinstance(why, str) and len(why) < 60:
+            errors.append(f"{rid}: 'why' must contain at least 60 characters")
         year = row.get("year")
         if not isinstance(year, int) or isinstance(year, bool):
             errors.append(f"{rid}: 'year' must be an integer")
@@ -145,11 +167,22 @@ def validate_rows(rows: list[dict[str, object]], errors: list[str]) -> None:
             errors.append(f"{rid}: unknown layer '{layer}'")
         if isinstance(section, str) and section not in SECTIONS:
             errors.append(f"{rid}: unknown section '{section}'")
+        if isinstance(rtype, str) and isinstance(evidence, str):
+            allowed_evidence = EVIDENCE_BY_TYPE.get(rtype)
+            if allowed_evidence is not None and evidence not in allowed_evidence:
+                errors.append(
+                    f"{rid}: rtype '{rtype}' is inconsistent with evidence label '{evidence}'"
+                )
 
         raw_id = row.get("id")
         if isinstance(raw_id, str) and raw_id:
             if not ID_RE.fullmatch(raw_id):
                 errors.append(f"{rid}: id must match age-NNNN")
+            else:
+                id_number = int(raw_id.removeprefix("age-"))
+                if id_number <= previous_id_number:
+                    errors.append(f"{rid}: IDs must be in strictly increasing numeric order")
+                previous_id_number = max(previous_id_number, id_number)
             if raw_id in seen_ids:
                 errors.append(f"{rid}: duplicate id (first used on row {seen_ids[raw_id]})")
             else:
@@ -203,6 +236,14 @@ def validate_rows(rows: list[dict[str, object]], errors: list[str]) -> None:
                 )
             else:
                 seen_titles[normalized_title] = rid
+            loose_title = re.sub(r"[^\w]+", " ", normalized_title).strip()
+            if loose_title in seen_loose_titles and seen_loose_titles[loose_title] != rid:
+                errors.append(
+                    f"{rid}: punctuation-insensitive title duplicate also used by "
+                    f"{seen_loose_titles[loose_title]}: {title}"
+                )
+            else:
+                seen_loose_titles[loose_title] = rid
 
     present_sections = {
         str(row.get("section")) for row in rows if isinstance(row.get("section"), str)
@@ -254,6 +295,10 @@ def validate_schema(errors: list[str]) -> None:
             errors.append(f"resource.schema.json enum for '{field}' is out of sync")
     if properties.get("year", {}).get("type") != "integer":
         errors.append("resource.schema.json must type 'year' as an integer")
+    if properties.get("description", {}).get("minLength") != 80:
+        errors.append("resource.schema.json must require 80 characters for 'description'")
+    if properties.get("why", {}).get("minLength") != 60:
+        errors.append("resource.schema.json must require 60 characters for 'why'")
 
 
 def validate_csv(rows: list[dict[str, object]], errors: list[str]) -> None:
@@ -295,7 +340,11 @@ def validate_readme(rows: list[dict[str, object]], errors: list[str]) -> None:
     readme_urls = re.findall(
         r"^\| .*?\*\*\[[^\]]+\]\((https?://.+)\)\*\*<br><sub>", block, re.M
     )
-    data_urls = [str(row.get("url")) for row in rows if isinstance(row.get("url"), str)]
+    data_urls = [
+        markdown_destination(row.get("url"))
+        for row in rows
+        if isinstance(row.get("url"), str)
+    ]
     if set(readme_urls) != set(data_urls) or len(readme_urls) != len(data_urls):
         missing = sorted(set(data_urls) - set(readme_urls))
         extra = sorted(set(readme_urls) - set(data_urls))

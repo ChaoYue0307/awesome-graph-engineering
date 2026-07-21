@@ -24,6 +24,15 @@ body:
     validations:
       required: true
 
+  - type: input
+    id: source_identity
+    attributes:
+      label: Canonical identifier and status
+      description: Give the DOI, arXiv or anthology ID, OpenReview forum ID, specification version, release tag, or equivalent, and say whether it is peer-reviewed, a preprint, draft, release, or official documentation.
+      placeholder: "DOI 10.xxxx/... · peer-reviewed at ..."
+    validations:
+      required: true
+
   - type: dropdown
     id: scope_relationship
     attributes:
@@ -73,6 +82,8 @@ body:
       label: Quick checks
       options:
         - label: I searched the README for the title or URL and did not find a duplicate.
+          required: true
+        - label: I opened the canonical primary record and verified the exact title, authors or maintainers, year, venue or release, and publication status. A screenshot or search result is not my only source.
           required: true
         - label: This is not solely graph-data engineering or single-agent tool use, unless it clearly supports an in-scope agent graph.
           required: true

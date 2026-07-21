@@ -128,9 +128,10 @@ Curated by He Chaoyue.
   author       = {He, Chaoyue},
   title        = {Awesome Graph Engineering: A Field Guide, Dataset, and Interactive Atlas for Programmable AI-Agent Organizations},
   year         = {2026},
+  version      = {1.3.0},
   publisher    = {GitHub},
-  howpublished = {\url{https://github.com/ChaoYue0307/awesome-graph-engineering}},
-  url          = {https://github.com/ChaoYue0307/awesome-graph-engineering}
+  howpublished = {\url{https://github.com/ChaoYue0307/awesome-graph-engineering/releases/tag/v1.3.0}},
+  url          = {https://github.com/ChaoYue0307/awesome-graph-engineering/releases/tag/v1.3.0}
 }
 ```
 

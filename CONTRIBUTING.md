@@ -6,7 +6,7 @@ Contributions may correct metadata, update project status, improve prose, or add
 
 Here, **graph engineering** means designing, implementing, and operating AI-agent organizations as explicit, observable graphs. A system directly in scope has all three properties:
 
-1. **Multiple independently scoped agent nodes** — reusable roles or runtime instances with distinct goals, context, authority, or responsibility.
+1. **Plural bounded agency** — at least two separately accountable agentic runtime instances each make bounded execution decisions; instances may share a reusable role or model.
 2. **Explicit coordination semantics** — typed delegation, context or artifact transfer, verification, escalation, or other defined relationships.
 3. **An inspectable graph artifact** — the topology, or the policy that generates it, is load-bearing and can be versioned, traced, or otherwise examined.
 
@@ -45,19 +45,21 @@ The `evidence` value describes **what kind of source it is**. It is not a qualit
 
 ## Writing rules
 
-1. **Canonical URL** — use the DOI or publisher page for peer-reviewed papers, arXiv abstract for preprints, official docs or repository for tools, and the publisher page for books. Do not add trackers, affiliate links, or avoidable mirrors.
-2. **Description** — write one or two concrete sentences explaining what the resource contributes. Prefer architectural details, study design, scale, and limitations over marketing claims.
-3. **Engineering rationale** — identify the specific decision, primitive, evidence question, or boundary the resource informs.
-4. **Evidence label** — select the label by publication form, not perceived prestige. A polished company article remains `Practitioner analysis`; first-party product reference material is `Official documentation`.
-5. **Project status** — state archival, discontinuation, or acquisition status when material.
-6. **Primary layer** — choose the layer that best matches the resource’s main engineering contribution.
+1. **Source identity** — resolve an exact title plus a durable identifier or version from a canonical primary record. A screenshot, slide, search snippet, generated summary, or title-only page is a lead, not evidence. If authors, affiliation, venue, date, or status conflict, do not add the item until the conflict is resolved.
+2. **Canonical URL** — use the DOI or publisher page for peer-reviewed papers, arXiv abstract for preprints, official docs or repository for tools, and the publisher page for books. Pin a specification or release when a mutable `latest` URL would make the record’s year or description drift. Do not add trackers, affiliate links, or avoidable mirrors.
+3. **Authors** — copy the canonical author or maintainer list in source order; prefer the full list rather than adding a new `et al.` abbreviation.
+4. **Description** — write at least 80 characters in one or two concrete sentences explaining what the resource contributes. Prefer architectural details, study design, scale, and limitations over marketing claims.
+5. **Engineering rationale** — write at least 60 characters identifying the specific decision, primitive, evidence question, or boundary the resource informs.
+6. **Evidence label** — select the label by publication form, not perceived prestige. A polished company article remains `Practitioner analysis`; first-party product reference material is `Official documentation`.
+7. **Project status** — state archival, discontinuation, acquisition, draft, pre-release, or experimental status when material.
+8. **Primary layer** — choose the layer that best matches the resource’s main engineering contribution.
 
 ## How to contribute
 
 1. **Small resource fix**: edit the matching JSON object in `data/resources.jsonl`.
 2. **New resource**: append one complete 13-field object. Use the next unused `age-NNNN` identifier; identifiers are never recycled.
 3. Run `python3 scripts/sync.py` to regenerate the CSV, README tables, and website atlas.
-4. Run `python3 scripts/validate.py` and then `python3 scripts/sync.py --check`.
+4. Run `bash scripts/check.sh`.
 5. Open a pull request explaining the addition or correction. Prefer one resource per pull request; use a coherent batch when the changes share one rationale.
 
 For prose fixes outside generated resource tables, edit the relevant Markdown file directly. Open an issue or discussion before proposing a new section or changing the schema.
@@ -79,6 +81,7 @@ before adding a locale.
 ### Pull-request checklist
 
 - [ ] The resource directly fits the minimum inclusion test or clearly serves its foundations, substrate, measurement, or critique.
+- [ ] I opened a canonical primary record and verified the exact title, authors or maintainers, year, venue or release, and publication status; a screenshot or search result was not the sole source.
 - [ ] All 13 fields are present and controlled labels match the documented display values exactly.
 - [ ] The URL is canonical and loads.
 - [ ] The description is concrete; `why` adds a distinct practitioner rationale.

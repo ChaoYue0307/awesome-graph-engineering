@@ -29,8 +29,10 @@ Every published introduction must preserve these load-bearing ideas:
    or accepted industry standard.
 2. The scope is graph-structured **AI-agent systems**, not general graph databases,
    knowledge graphs, GNNs, GraphRAG, charts, or diagrams.
-3. In-scope systems need multiple bounded agent nodes, explicit coordination
-   semantics, and an inspectable graph artifact that materially constrains execution.
+3. In-scope systems need at least two separately accountable agentic runtime
+   instances that make bounded execution decisions, explicit coordination semantics,
+   and an inspectable graph artifact that materially constrains execution. Instances
+   may share a role or model.
 4. An org graph and a run/work graph are complementary analytical views, not claimed
    universal standards.
 5. Adding agents is not automatically an improvement; the graph must justify its

@@ -38,6 +38,19 @@ FIELDS = (
     "evidence",
     "layer",
 )
+SECTION_ORDER = (
+    "Start Here",
+    "Research Foundations",
+    "Frameworks & SDKs",
+    "Protocols & Handoffs",
+    "State, Memory & Artifacts",
+    "Verification & Evals",
+    "Reliability & Durable Execution",
+    "Observability & Cost",
+    "Benchmarks & Datasets",
+    "Production Case Studies",
+    "Critiques & Limits",
+)
 TABLE_START = "<!-- RESOURCE_TABLES_START -->"
 TABLE_END = "<!-- RESOURCE_TABLES_END -->"
 ATLAS_RE = re.compile(
@@ -115,10 +128,30 @@ def markdown_text(value: object) -> str:
     )
 
 
+def markdown_destination(value: object) -> str:
+    """Keep a validated URL from terminating or escaping a Markdown link."""
+    return (
+        str(value)
+        .replace("\\", "%5C")
+        .replace("(", "%28")
+        .replace(")", "%29")
+        .replace("<", "%3C")
+        .replace(">", "%3E")
+        .strip()
+    )
+
+
 def render_tables(rows: list[dict[str, object]]) -> str:
     sections: OrderedDict[str, list[dict[str, object]]] = OrderedDict()
     for row in rows:
         sections.setdefault(str(row["section"]), []).append(row)
+    ordered_sections: OrderedDict[str, list[dict[str, object]]] = OrderedDict()
+    for section in SECTION_ORDER:
+        if section in sections:
+            ordered_sections[section] = sections[section]
+    for section, section_rows in sections.items():
+        ordered_sections.setdefault(section, section_rows)
+    sections = ordered_sections
 
     index_lines = [
         "### Contents",
@@ -143,7 +176,7 @@ def render_tables(rows: list[dict[str, object]]) -> str:
                 part for part in (markdown_text(row["authors"]), year) if part
             )
             resource = (
-                f"{marker} **[{markdown_text(row['title'])}]({row['url']})**"
+                f"{marker} **[{markdown_text(row['title'])}]({markdown_destination(row['url'])})**"
                 f"<br><sub>{markdown_text(row['rtype'])} · "
                 f"{markdown_text(row['subcategory'])}</sub>"
             )

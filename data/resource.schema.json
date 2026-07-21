@@ -86,11 +86,11 @@
     },
     "description": {
       "type": "string",
-      "minLength": 1
+      "minLength": 80
     },
     "why": {
       "type": "string",
-      "minLength": 1
+      "minLength": 60
     },
     "evidence": {
       "type": "string",

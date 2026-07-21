@@ -2,7 +2,7 @@
 
 > A field guide, open dataset, and interactive atlas for graph-structured multi-agent systems and programmable AI-agent organizations.
 
-Awesome Graph Engineering uses “graph engineering” as an emerging, non-standard working term. In this project, graph nodes are independently scoped AI-agent roles or runtime instances; edges are explicit coordination contracts; work must remain inspectable through topology, run graphs, state, artifacts, and evidence gates. Graph databases, knowledge graphs, GraphRAG, graph ETL, and graph neural networks are outside scope unless they directly support an agent graph.
+Awesome Graph Engineering uses “graph engineering” as an emerging, non-standard working term. A qualifying system runs at least two separately accountable agentic runtime instances that can each make bounded execution decisions; instances may share a role or model. Edges are explicit coordination contracts, and work remains inspectable through topology, run graphs, state, artifacts, and evidence gates. Graph databases, knowledge graphs, GraphRAG, graph ETL, and graph neural networks are outside scope unless they directly support an agent graph.
 
 ## Canonical guides
 

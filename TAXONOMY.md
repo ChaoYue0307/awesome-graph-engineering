@@ -16,7 +16,7 @@ Nine design lenses organize decisions and resources for AI-agent organizations. 
 
 ## How to use the taxonomy
 
-- **Placing a system**: qualification requires multiple independently scoped agent roles or instances, explicit coordination semantics, and an inspectable artifact recording the topology or generating policy. Start with the layers implicated by the task; add others when observed failure modes demand them. Treat layer 9 as a research frontier rather than settled practice.
+- **Placing a system**: qualification requires at least two separately accountable agentic runtime instances that can make bounded execution decisions, explicit coordination semantics, and an inspectable artifact recording the topology or generating policy. The instances may share a role or model. Start with the layers implicated by the task; add others when observed failure modes demand them. Treat layer 9 as a research frontier rather than settled practice.
 - **Placing a decision**: architecture arguments are usually one layer masquerading as another. "Which framework?" (topology) is often really "what are our edge contracts?" (handoffs) or "who pays for the tokens?" (cost). Naming the layer keeps the argument honest.
 - **Placing a resource**: most resources serve one primary layer; cross-cutting material (surveys, case studies, courses) is tagged by the layer it teaches best.
 

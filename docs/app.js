@@ -1,5 +1,5 @@
 import { GraphScene } from "./graph-scene.js?v=20260721-1";
-import { setupLocalization } from "./i18n.js?v=20260720-7";
+import { setupLocalization } from "./i18n.js?v=20260721-4";
 
 const repoUrl = "https://github.com/ChaoYue0307/awesome-graph-engineering";
 const layerOrder = [
@@ -13,6 +13,19 @@ const layerOrder = [
   "Observability & cost",
   "Evolution",
   "Cross-layer",
+];
+const sectionOrder = [
+  "Start Here",
+  "Research Foundations",
+  "Frameworks & SDKs",
+  "Protocols & Handoffs",
+  "State, Memory & Artifacts",
+  "Verification & Evals",
+  "Reliability & Durable Execution",
+  "Observability & Cost",
+  "Benchmarks & Datasets",
+  "Production Case Studies",
+  "Critiques & Limits",
 ];
 
 function parseData() {
@@ -145,6 +158,7 @@ function setupGraphScenes() {
 function setupAtlas(data) {
   const query = document.getElementById("atlas-query");
   const form = document.getElementById("atlas-controls");
+  const section = document.getElementById("section-filter");
   const layer = document.getElementById("layer-filter");
   const type = document.getElementById("type-filter");
   const evidence = document.getElementById("evidence-filter");
@@ -161,9 +175,11 @@ function setupAtlas(data) {
   const filterFields = document.getElementById("atlas-filter-fields");
   const filterCount = document.getElementById("filter-count");
 
-  if (!query || !layer || !type || !evidence || !results || !count || !clear || !showMore || !empty) return;
+  if (!query || !section || !layer || !type || !evidence || !results || !count || !clear || !showMore || !empty) return;
 
+  const availableSections = unique(data.map((row) => row.section));
   const availableLayers = unique(data.map((row) => row.layer));
+  fillSelect(section, sectionOrder.filter((name) => availableSections.includes(name)).concat(availableSections.filter((name) => !sectionOrder.includes(name)).sort()));
   fillSelect(layer, layerOrder.filter((name) => availableLayers.includes(name)).concat(availableLayers.filter((name) => !layerOrder.includes(name)).sort()));
   fillSelect(type, unique(data.map((row) => row.rtype)).sort());
   fillSelect(evidence, unique(data.map((row) => row.evidence)).sort());
@@ -171,6 +187,7 @@ function setupAtlas(data) {
 
   const params = new URLSearchParams(location.search);
   query.value = params.get("q") || "";
+  section.value = params.get("section") || "";
   layer.value = params.get("layer") || "";
   type.value = params.get("type") || "";
   evidence.value = params.get("evidence") || "";
@@ -191,7 +208,7 @@ function setupAtlas(data) {
   }
 
   function updateFilterDisclosure() {
-    const active = [layer.value, type.value, evidence.value].filter(Boolean).length;
+    const active = [section.value, layer.value, type.value, evidence.value].filter(Boolean).length;
     if (filterCount) {
       filterCount.hidden = active === 0;
       filterCount.textContent = `${active} active`;
@@ -204,6 +221,7 @@ function setupAtlas(data) {
   });
 
   function match(row) {
+    if (section.value && row.section !== section.value) return false;
     if (layer.value && row.layer !== layer.value) return false;
     if (type.value && row.rtype !== type.value) return false;
     if (evidence.value && row.evidence !== evidence.value) return false;
@@ -221,6 +239,7 @@ function setupAtlas(data) {
     const locale = new URLSearchParams(location.search).get("lang");
     if (locale && locale !== "en") next.set("lang", locale);
     if (query.value.trim()) next.set("q", query.value.trim());
+    if (section.value) next.set("section", section.value);
     if (layer.value) next.set("layer", layer.value);
     if (type.value) next.set("type", type.value);
     if (evidence.value) next.set("evidence", evidence.value);
@@ -229,10 +248,10 @@ function setupAtlas(data) {
   }
 
   function createResource(row, index) {
-    const item = document.createElement("article");
+    const item = document.createElement("li");
     item.className = "resource-item";
+    item.lang = "en";
     item.id = row.id || `resource-${index}`;
-    item.setAttribute("role", "listitem");
 
     const button = document.createElement("button");
     button.type = "button";
@@ -313,7 +332,10 @@ function setupAtlas(data) {
     return item;
   }
 
-  function render({ reset = false } = {}) {
+  function render({ reset = false, clearHash = false } = {}) {
+    if (clearHash && location.hash && data.some((row) => `#${row.id}` === location.hash)) {
+      history.replaceState(null, "", `${location.pathname}${location.search}`);
+    }
     if (reset) state.shown = 12;
     state.rows = data.filter(match);
     if (!anchorHandled && anchorId) {
@@ -322,8 +344,10 @@ function setupAtlas(data) {
     }
     const visible = state.rows.slice(0, state.shown);
     results.replaceChildren(...visible.map(createResource));
-    const filtersActive = Boolean(query.value.trim() || layer.value || type.value || evidence.value);
-    count.textContent = `${state.rows.length} of ${data.length} resources${filtersActive ? " match" : ""}`;
+    const filtersActive = Boolean(query.value.trim() || section.value || layer.value || type.value || evidence.value);
+    count.textContent = filtersActive
+      ? `Showing ${visible.length} of ${state.rows.length} matching resources (${data.length} total)`
+      : `Showing ${visible.length} of ${data.length} resources`;
     empty.hidden = state.rows.length !== 0;
     showMore.hidden = state.rows.length <= state.shown;
     clear.hidden = !filtersActive;
@@ -351,22 +375,23 @@ function setupAtlas(data) {
   let inputTimer;
   query.addEventListener("input", () => {
     clearTimeout(inputTimer);
-    inputTimer = setTimeout(() => render({ reset: true }), 220);
+    inputTimer = setTimeout(() => render({ reset: true, clearHash: true }), 220);
   });
   form?.addEventListener("submit", (event) => {
     event.preventDefault();
     clearTimeout(inputTimer);
-    render({ reset: true });
+    render({ reset: true, clearHash: true });
     query.focus({ preventScroll: true });
   });
-  [layer, type, evidence].forEach((control) => control.addEventListener("change", () => render({ reset: true })));
+  [section, layer, type, evidence].forEach((control) => control.addEventListener("change", () => render({ reset: true, clearHash: true })));
   clear.addEventListener("click", () => {
     query.value = "";
+    section.value = "";
     layer.value = "";
     type.value = "";
     evidence.value = "";
     setFiltersOpen(false);
-    render({ reset: true });
+    render({ reset: true, clearHash: true });
     query.focus();
   });
   showMore.addEventListener("click", () => {
@@ -377,7 +402,7 @@ function setupAtlas(data) {
   document.querySelectorAll("[data-layer]").forEach((button) => {
     button.addEventListener("click", () => {
       layer.value = button.dataset.layer;
-      render({ reset: true });
+      render({ reset: true, clearHash: true });
       const reducedMotion = matchMedia("(prefers-reduced-motion: reduce)").matches;
       document.getElementById("atlas")?.scrollIntoView({ behavior: reducedMotion ? "auto" : "smooth" });
       query.focus({ preventScroll: true });
@@ -386,19 +411,19 @@ function setupAtlas(data) {
   document.querySelectorAll("[data-query]").forEach((link) => {
     link.addEventListener("click", () => {
       query.value = link.dataset.query;
-      render({ reset: true });
+      render({ reset: true, clearHash: true });
     });
   });
   document.querySelectorAll("[data-layer-link]").forEach((link) => {
     link.addEventListener("click", () => {
       layer.value = link.dataset.layerLink;
-      render({ reset: true });
+      render({ reset: true, clearHash: true });
     });
   });
   document.querySelectorAll("[data-section-link]").forEach((link) => {
     link.addEventListener("click", () => {
-      query.value = link.dataset.sectionLink;
-      render({ reset: true });
+      section.value = link.dataset.sectionLink;
+      render({ reset: true, clearHash: true });
     });
   });
 
@@ -436,8 +461,12 @@ function setupAtlas(data) {
     try {
       await navigator.clipboard.writeText(location.href);
       announce("Share link copied.");
+      shareView.textContent = "Copied ✓";
+      setTimeout(() => { shareView.textContent = "Share"; }, 1600);
     } catch {
       announce("The share link is ready in the address bar.");
+      shareView.textContent = "Link in address bar";
+      setTimeout(() => { shareView.textContent = "Share"; }, 2200);
     }
   });
 

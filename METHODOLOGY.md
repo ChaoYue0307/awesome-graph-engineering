@@ -77,15 +77,32 @@ Descriptions therefore state concrete contributions and material limitations ins
 
 ## Source verification
 
-Curators should:
+Source identity, publication status, scope fit, and claim accuracy are separate checks. Curators should:
 
-- use the original paper, official documentation, official repository, publisher, or standards page as the canonical URL;
-- verify titles, authors or maintainers, publication status, and quantitative claims against that source;
-- distinguish a source's claim from an independently established result;
-- disclose archive, deprecation, acquisition, or discontinuation status when known; and
-- prefer a durable replacement over a dead link without silently changing the identity of the resource.
+1. **Resolve the identity.** Use the original paper, publisher record, official documentation, official repository, release, or standards page as the canonical URL. Match the exact title, authors or maintainers, and a durable identifier such as a DOI, arXiv ID, anthology ID, OpenReview forum ID, specification version, or release tag when one exists.
+2. **Confirm the status.** Check whether the artifact is peer-reviewed, a preprint, a workshop paper, a draft standard, experimental documentation, a maintained release, or an archived project. Do not infer status from visual polish, author reputation, or a familiar conference template.
+3. **Read the primary artifact.** Verify every quantitative claim and the described mechanism against the source itself. Search snippets, generated summaries, screenshots, slide images, and title-only pages are discovery leads—not bibliographic evidence.
+4. **Test the scope independently.** A work does not become in scope because its title contains *graph*, *agent*, *loop*, or *engineering*. Apply the minimum system test in [DEFINITION.md](DEFINITION.md); graph-shaped memory or data remains a substrate unless multiple bounded agents and their load-bearing coordination graph are actually present.
+5. **Triangulate anomalies.** For a new or unpublished-looking work, check at least two independent authoritative surfaces, such as a canonical index plus an author, institution, venue, or repository page. Conflicting authors, affiliations, dates, or claims must be resolved before inclusion.
+6. **Exclude unresolved candidates.** Never manufacture missing metadata or cite a plausible-looking artifact provisionally. Reconsider it only after a canonical record or direct author or venue confirmation appears.
 
-A working URL proves only that a page responds. It does not establish semantic freshness, correctness, or continued maintenance.
+A working URL proves only that a page responds. It does not establish identity, authenticity, semantic freshness, correctness, or continued maintenance.
+
+## Search strategy
+
+Discovery combines exact-title and concept searches across canonical scholarly indexes, publisher proceedings, official documentation, standards bodies, and first-party repositories. Searches use both the emerging label *graph engineering* and established neighboring terms such as multi-agent orchestration, agent communication topology, work graphs, handoffs, shared state, verification, durable execution, and compound AI systems. Citation chaining from strong primary sources and release notes is used to locate earlier foundations and newer implementations.
+
+Candidate discovery and inclusion are separate stages. Every candidate is checked against its primary artifact and the source-verification protocol above; a search result, screenshot, social post, or secondary summary is never sufficient by itself. The corpus is updated incrementally as new venue proceedings, specifications, releases, benchmarks, and substantive negative results become available.
+
+## Date handling
+
+For papers, `year` records the cited peer-reviewed publication year, or the preprint year when no later publication is verified. For documentation, standards, tools, and datasets, it records the cited major version or materially reviewed release rather than an assumed project-creation date. Mutable specifications and release-sensitive documentation are pinned to a dated version or tag whenever possible. When a preprint is later published, or a moving document supersedes the cited version, the canonical URL, venue, year, evidence label, and description are reviewed together.
+
+The dated corpus snapshot in the README records when aggregate counts were recalculated; it does not imply that every linked project was re-audited on that day.
+
+## Limitations
+
+This is a selective field guide, not a systematic review, exhaustive bibliography, citation ranking, or replication study. Coverage is biased toward publicly accessible English-language primary records and sources discoverable through the indexes and communities reviewed. Fast-moving preprints, product documentation, and project status can change after verification. Mapping each resource to one primary layer compresses work that may span several concerns, and evidence labels describe publication form rather than methodological quality. Original linked works remain the authority for their claims, methods, limitations, and licenses.
 
 ## Freshness and maintenance
 
@@ -117,9 +134,9 @@ For every addition, correction, move, or removal:
 2. preserve the stable `id` for an existing resource and never reuse a retired ID;
 3. use one canonical URL per resource and keep controlled labels exact;
 4. run `python3 scripts/sync.py` to regenerate the CSV, README tables, and website atlas;
-5. run `python3 scripts/validate.py`; and
+5. run `bash scripts/check.sh` to validate the dataset, generated views, locales, JavaScript, and site assets; and
 6. review every generated diff before committing it.
 
-After changes land on `main`, the Hugging Face workflow—when configured with the `HF_TOKEN` repository secret—republishes the dataset card, JSONL, and CSV in one Hub commit. Hub-side edits are intentionally overwritten by the next sync; corrections belong in the canonical GitHub source.
+After changes land on `main`, the Hugging Face workflow—when configured with the `HF_TOKEN` repository secret—republishes the dataset card, JSONL, CSV, and JSON Schema in one Hub commit. Hub-side edits are intentionally overwritten by the next sync; corrections belong in the canonical GitHub source.
 
 The synchronization check establishes structural consistency, not an independent judgment of resource quality. The field-level dataset contract is documented in [data/README.md](data/README.md), and contribution mechanics are in [CONTRIBUTING.md](CONTRIBUTING.md).

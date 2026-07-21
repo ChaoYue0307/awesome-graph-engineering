@@ -32,7 +32,7 @@ The GitHub workflow uses the same script and an `HF_TOKEN` repository secret. It
 To build the same deterministic, checksummed package used by GitHub Releases:
 
 ```bash
-python3 scripts/build_release.py --version 1.2.0
+python3 scripts/build_release.py --version 1.3.0
 ```
 
 The builder verifies that the requested version matches `CITATION.cff` and the website's Dataset JSON-LD, then writes CSV, JSONL, JSON Schema, manifest, social preview, bundle ZIP, and `SHA256SUMS` assets under `dist/release/`. Pushing a matching `v*` tag runs the release workflow after the full quality suite passes.
@@ -52,12 +52,12 @@ Every JSONL object must contain exactly the fields below. The generator emits CS
 | 7 | `venue` | string | Publisher, venue, documentation site, or repository host shown to readers. |
 | 8 | `year` | integer | Four-digit publication year or year of the cited major release. |
 | 9 | `authors` | string | Author(s) or maintaining organization; separate multiple named authors with semicolons. |
-| 10 | `description` | string | Original one- or two-sentence summary of the resource's concrete contribution. |
-| 11 | `why` | string | Distinct practitioner rationale: why the item matters to this scope or what decision it improves. |
+| 10 | `description` | string | Original one- or two-sentence summary of the resource's concrete contribution; at least 80 characters. |
+| 11 | `why` | string | Distinct practitioner rationale: why the item matters to this scope or what decision it improves; at least 60 characters. |
 | 12 | `evidence` | string | Controlled **source/evidence display label** describing publication form. It is not a quality score. |
 | 13 | `layer` | string | Controlled primary design-layer display label from [the taxonomy](../TAXONOMY.md). |
 
-All string fields are required and non-empty. Keep each object on one physical line; ordinary JSON escaping rules apply.
+All string fields are required and non-empty; `description` must contain at least 80 characters and `why` at least 60. Keep each object on one physical line; ordinary JSON escaping rules apply.
 
 ## Controlled display-label vocabularies
 

@@ -12,19 +12,32 @@ Prompt, context, harness, loop, and graph engineering govern different concerns.
 | **Context engineering** | What the model can see | The model lacks (or drowns in) information |
 | **Harness engineering** | One run's tools, permissions, isolation, checks | The agent can't act safely or verify locally |
 | **Loop engineering** | A temporal control cycle: trigger → act → verify → retry or persist | Work recurs, needs feedback, or cannot finish reliably in one pass |
-| **Graph engineering** | Relationships among multiple independently scoped agent nodes | Coordination, isolation, specialization, or parallel work must be explicit and inspectable |
+| **Graph engineering** | Relationships among multiple separately accountable agentic runtime instances | Coordination, isolation, specialization, or parallel work must be explicit and inspectable |
 
 A loop is principally a temporal view; a graph is principally a relational view. A node may run a loop, but graph membership does not require every node to own one. The complementary loop field guide is [awesome-loop-engineering](https://github.com/ChaoYue0307/awesome-loop-engineering).
 
 A system is in scope only when all three conditions hold:
 
-1. It has multiple independently scoped agent roles or runtime instances.
+1. It runs at least two separately accountable agentic runtime instances that can each make bounded execution decisions; instances may share a role or model.
 2. Their coordination semantics are explicit — for example typed delegation, context or artifact transfer, verification, or escalation relationships.
 3. The topology or policy that generates it is a load-bearing, inspectable system artifact.
 
+## How loops and graphs compose
+
+Loop engineering and graph engineering are complementary views, not competing labels. A loop explains how behavior changes across time; a graph explains how responsibility, information, control, and evidence move among bounded parts of a system.
+
+| Composition pattern | Temporal loop | Relational graph | Concrete evidence |
+| --- | --- | --- | --- |
+| **Node-local loop** | One agent observes, acts, checks, and retries | The node still has bounded inputs, outputs, authority, and neighbors | One reliable agent loop may be sufficient when no coordination boundary is needed. |
+| **Edge-gated repair** | A failed check sends work back for revision | The producer, verifier, acceptance rule, and repair edge are explicit | [VeriMAP](https://aclanthology.org/2026.eacl-long.353/) attaches verification functions to dependency-graph subtasks. |
+| **Run-level orchestration** | A workflow can pause, retry, resume, or cycle | Agent, tool, function, join, and human-control nodes retain distinct semantics | [ADK for Go 2.0](https://developers.googleblog.com/announcing-adk-go-20/) documents cycles, retries, durable human input, state, and graph telemetry. |
+| **Outer-loop evolution** | Execution evidence updates prompts, roles, routes, or topology across trials | The graph or its generating policy is the object being changed | [GPTSwarm](https://proceedings.mlr.press/v235/zhuge24a.html) and [EvoMAS](https://openreview.net/forum?id=ic0AGRIkmY) optimize inspectable agent-system structure from task feedback. |
+
+Neither view implies the other. A single agent can run a sophisticated loop without forming an agent graph; a multi-agent DAG can execute once without a persistent improvement loop.
+
 ## Not graph data engineering (the name collision)
 
-There is an established practice also called graph engineering: **building systems on graph-shaped data** — graph databases (Neo4j, Neptune), query languages (Cypher, GQL, SPARQL), graph analytics, GNNs, knowledge graphs, and GraphRAG. That is a *data* concern; the agent-system scope here is narrower. A knowledge graph can serve an agent organization as shared state, and an agent team can build knowledge graphs. The test is the principal meaning of the nodes and edges: data entities and relationships belong to graph data engineering; multiple independently scoped agents connected by load-bearing coordination may belong to graph engineering as defined here. (GraphQL is neither — it is an API query language.)
+There is an established practice also called graph engineering: **building systems on graph-shaped data** — graph databases (Neo4j, Neptune), query languages (Cypher, GQL, SPARQL), graph analytics, GNNs, knowledge graphs, and GraphRAG. That is a *data* concern; the agent-system scope here is narrower. A knowledge graph or graph-shaped long-term memory can serve an agent organization as shared state, and an agent team can build or query such a graph. It does not, by itself, turn one agent into an agent graph. The test is the principal meaning of the nodes and edges: entities, events, memories, and their relationships belong to graph data or memory engineering; multiple independently scoped agents connected by load-bearing coordination may belong to graph engineering as defined here. A system may contain both and should name the two graphs separately. (GraphQL is neither — it is an API query language.)
 
 ## Org graph vs. run/work graph
 

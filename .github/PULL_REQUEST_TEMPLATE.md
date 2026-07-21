@@ -5,7 +5,8 @@
 ## Checklist
 
 - [ ] Entry follows [CONTRIBUTING.md](../CONTRIBUTING.md) (canonical URL, concrete summary, `why`, source/evidence label, primary layer)
-- [ ] URL loads and is the canonical source
+- [ ] Canonical primary record was opened; exact identity, authors or maintainers, year, venue or release, and status were verified
+- [ ] URL loads and is the canonical source; screenshots and search results were not used as sole evidence
 - [ ] Canonical `data/resources.jsonl` updated for added/removed resources
 - [ ] `python3 scripts/sync.py` was run after dataset edits
 - [ ] `bash scripts/check.sh` passes locally

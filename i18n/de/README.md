@@ -41,7 +41,7 @@ Der Graph muss tragend und nicht bloß dekorativ sein: Seine deklarierte Topolog
 
 ## Mindesttest: Alle drei Bedingungen sind erforderlich
 
-1. **Mehrere unabhängig abgegrenzte Agentenknoten:** Verschiedene Rollen oder Instanzen besitzen eigenen Kontext, eigene Befugnisse oder Ziele.
+1. **Mehrere begrenzt handlungsfähige Agenteninstanzen:** Mindestens zwei getrennt zurechenbare Laufzeitinstanzen können jeweils innerhalb ihrer Grenzen Ausführungsentscheidungen treffen; sie dürfen dieselbe Rolle oder dasselbe Modell verwenden.
 2. **Explizite Koordinationssemantik:** Kanten legen fest, was übertragen werden darf, wann Kontrolle wechselt und wie Ergebnisse angenommen oder abgelehnt werden.
 3. **Ein inspizierbares Graphartefakt:** Topologie, Ausführungsgraph oder graphenerzeugende Richtlinie kann versioniert, nachverfolgt, bewertet oder bewusst verändert werden.
 
@@ -88,9 +88,10 @@ Curated by He Chaoyue.
   author       = {He, Chaoyue},
   title        = {Awesome Graph Engineering: A Field Guide, Dataset, and Interactive Atlas for Programmable AI-Agent Organizations},
   year         = {2026},
+  version      = {1.3.0},
   publisher    = {GitHub},
-  howpublished = {\url{https://github.com/ChaoYue0307/awesome-graph-engineering}},
-  url          = {https://github.com/ChaoYue0307/awesome-graph-engineering}
+  howpublished = {\url{https://github.com/ChaoYue0307/awesome-graph-engineering/releases/tag/v1.3.0}},
+  url          = {https://github.com/ChaoYue0307/awesome-graph-engineering/releases/tag/v1.3.0}
 }
 ```
 

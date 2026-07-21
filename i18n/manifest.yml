@@ -1,7 +1,7 @@
 schema_version: 1
 canonical_locale: en
 canonical_source: ../README.md
-source_date: 2026-07-20
+source_date: 2026-07-21
 locales:
   - code: en
     name: English

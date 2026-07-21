@@ -7,7 +7,7 @@ on:
   workflow_dispatch:
     inputs:
       version:
-        description: Existing version tag to publish, for example v1.2.0
+        description: Existing version tag to publish, for example v1.3.0
         required: true
         type: string
 
@@ -26,10 +26,10 @@ jobs:
           REF_NAME: ${{ github.ref_name }}
         run: |
           tag="${DISPATCH_VERSION:-$REF_NAME}"
-          case "$tag" in
-            v[0-9]*.[0-9]*.[0-9]*) ;;
-            *) echo "Invalid release tag: $tag" >&2; exit 1 ;;
-          esac
+          if [[ ! "$tag" =~ ^v[0-9]+\.[0-9]+\.[0-9]+$ ]]; then
+            echo "Invalid release tag: $tag" >&2
+            exit 1
+          fi
           echo "tag=$tag" >> "$GITHUB_OUTPUT"
           echo "version=${tag#v}" >> "$GITHUB_OUTPUT"
 
@@ -64,7 +64,21 @@ jobs:
           RELEASE_TAG: ${{ steps.release.outputs.tag }}
           RELEASE_VERSION: ${{ steps.release.outputs.version }}
         run: |
-          gh release create "$RELEASE_TAG" dist/release/* \
-            --verify-tag \
-            --title "Awesome Graph Engineering v$RELEASE_VERSION" \
-            --generate-notes
+          asset_prefix="dist/release/awesome-graph-engineering-v$RELEASE_VERSION"
+          release_assets=(
+            "$asset_prefix-manifest.json"
+            "$asset_prefix-social-preview.jpg"
+            "$asset_prefix.csv"
+            "$asset_prefix.jsonl"
+            "$asset_prefix.schema.json"
+            "$asset_prefix.zip"
+            "dist/release/SHA256SUMS"
+          )
+          if gh release view "$RELEASE_TAG" >/dev/null 2>&1; then
+            gh release upload "$RELEASE_TAG" "${release_assets[@]}" --clobber
+          else
+            gh release create "$RELEASE_TAG" "${release_assets[@]}" \
+              --verify-tag \
+              --title "Awesome Graph Engineering v$RELEASE_VERSION" \
+              --generate-notes
+          fi

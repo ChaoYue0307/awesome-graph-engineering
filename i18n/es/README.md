@@ -41,7 +41,7 @@ El grafo debe ser operativo, no decorativo: su topología declarada, el grafo re
 
 ## Prueba mínima: las tres condiciones son necesarias
 
-1. **Múltiples nodos de agentes con alcance independiente:** roles o instancias distintos controlan su contexto, autoridad u objetivos.
+1. **Agencia plural y delimitada:** al menos dos instancias de agentes en ejecución, responsables por separado, pueden tomar decisiones acotadas; pueden compartir rol o modelo.
 2. **Semántica explícita de coordinación:** las aristas definen qué puede pasar, cuándo se transfiere el control y cómo se aceptan o rechazan los resultados.
 3. **Un artefacto de grafo inspeccionable:** la topología, el grafo de ejecución o su política generadora puede versionarse, rastrearse, evaluarse o cambiarse deliberadamente.
 
@@ -88,9 +88,10 @@ Curated by He Chaoyue.
   author       = {He, Chaoyue},
   title        = {Awesome Graph Engineering: A Field Guide, Dataset, and Interactive Atlas for Programmable AI-Agent Organizations},
   year         = {2026},
+  version      = {1.3.0},
   publisher    = {GitHub},
-  howpublished = {\url{https://github.com/ChaoYue0307/awesome-graph-engineering}},
-  url          = {https://github.com/ChaoYue0307/awesome-graph-engineering}
+  howpublished = {\url{https://github.com/ChaoYue0307/awesome-graph-engineering/releases/tag/v1.3.0}},
+  url          = {https://github.com/ChaoYue0307/awesome-graph-engineering/releases/tag/v1.3.0}
 }
 ```
 

@@ -179,6 +179,16 @@ def main() -> int:
     if not github_preview.is_file() or github_preview.stat().st_size >= 1_000_000:
         errors.append("GitHub social preview must exist and remain under 1 MB")
 
+    website_preview = ROOT / "docs/assets/social-card-v1.3.0.png"
+    if not website_preview.is_file() or website_preview.read_bytes() != social.read_bytes():
+        errors.append("versioned website social card must mirror assets/social-card.png")
+    expected_social_url = (
+        "https://chaoyue0307.github.io/awesome-graph-engineering/"
+        "assets/social-card-v1.3.0.png"
+    )
+    if expected_social_url not in site_html:
+        errors.append("docs/index.html must reference the versioned website social card")
+
     visual = ROOT / "assets/visual-abstract.webp"
     visual_mirror = ROOT / "docs/assets/visual-abstract.webp"
     if not visual.is_file() or visual.stat().st_size >= 300_000:

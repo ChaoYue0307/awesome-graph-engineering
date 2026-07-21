@@ -41,7 +41,7 @@ Le graphe doit être opérant et non décoratif : sa topologie déclarée, le gr
 
 ## Test minimal : trois conditions nécessaires
 
-1. **Plusieurs nœuds agents aux périmètres indépendants :** des rôles ou instances distincts possèdent leur contexte, leur autorité ou leurs objectifs.
+1. **Agentivité plurielle et bornée :** au moins deux instances d’agents en cours d’exécution, responsables séparément, peuvent prendre des décisions bornées ; elles peuvent partager un rôle ou un modèle.
 2. **Une sémantique de coordination explicite :** les arêtes précisent ce qui peut circuler, quand le contrôle est transféré et comment les résultats sont acceptés ou rejetés.
 3. **Un artefact de graphe inspectable :** la topologie, le graphe d’exécution ou sa politique génératrice peut être versionné, tracé, évalué ou modifié intentionnellement.
 
@@ -88,9 +88,10 @@ Curated by He Chaoyue.
   author       = {He, Chaoyue},
   title        = {Awesome Graph Engineering: A Field Guide, Dataset, and Interactive Atlas for Programmable AI-Agent Organizations},
   year         = {2026},
+  version      = {1.3.0},
   publisher    = {GitHub},
-  howpublished = {\url{https://github.com/ChaoYue0307/awesome-graph-engineering}},
-  url          = {https://github.com/ChaoYue0307/awesome-graph-engineering}
+  howpublished = {\url{https://github.com/ChaoYue0307/awesome-graph-engineering/releases/tag/v1.3.0}},
+  url          = {https://github.com/ChaoYue0307/awesome-graph-engineering/releases/tag/v1.3.0}
 }
 ```
 
