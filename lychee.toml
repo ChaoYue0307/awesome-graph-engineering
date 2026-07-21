@@ -25,6 +25,9 @@ exclude = [
   "^https://www\\.sciencedirect\\.com",
   "^https://link\\.springer\\.com",
   "^https://www\\.gartner\\.com",
+  # AAAI's OJS endpoint intermittently rejects Lychee's HTTP/2 CI client even
+  # when the canonical article pages load; records are verified manually.
+  "^https://ojs\\.aaai\\.org",
 ]
 
 exclude_path = ["node_modules", "docs"]
