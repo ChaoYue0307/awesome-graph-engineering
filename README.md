@@ -12,7 +12,7 @@
 </p>
 
 <p align="center">
-  <a href="#resource-directory"><img alt="447 curated resources" src="https://img.shields.io/badge/resources-447-9d7dff?style=flat-square"></a>
+  <a href="#-resource-directory"><img alt="447 curated resources" src="https://img.shields.io/badge/resources-447-9d7dff?style=flat-square"></a>
   <a href="https://github.com/ChaoYue0307/awesome-graph-engineering/actions/workflows/quality.yml"><img alt="Quality checks" src="https://img.shields.io/github/actions/workflow/status/ChaoYue0307/awesome-graph-engineering/quality.yml?branch=main&style=flat-square&label=quality"></a>
   <a href="https://huggingface.co/datasets/cy0307/awesome-graph-engineering"><img alt="Hugging Face dataset" src="https://img.shields.io/badge/%F0%9F%A4%97-dataset-FFD21E?style=flat-square"></a>
   <a href="LICENSE"><img alt="CC0 1.0 license" src="https://img.shields.io/badge/license-CC0--1.0-b8f24a?style=flat-square"></a>
@@ -27,13 +27,13 @@
 </p>
 
 <p align="center">
-  🧭 <a href="#working-definition"><strong>Definition</strong></a> ·
+  🧭 <a href="#-working-definition"><strong>Definition</strong></a> ·
   🧱 <a href="TAXONOMY.md"><strong>Taxonomy</strong></a> ·
   ⚖️ <a href="COMPARISON.md"><strong>Boundaries</strong></a> ·
-  📚 <a href="#resource-directory"><strong>Resources</strong></a> ·
+  📚 <a href="#-resource-directory"><strong>Resources</strong></a> ·
   📣 <a href="LAUNCH-KIT.md"><strong>Share</strong></a> ·
-  🧾 <a href="#citation"><strong>Cite</strong></a> ·
-  📜 <a href="#license"><strong>License</strong></a>
+  🧾 <a href="#-citation"><strong>Cite</strong></a> ·
+  📜 <a href="#-license"><strong>License</strong></a>
 </p>
 
 <p align="center">
@@ -74,7 +74,7 @@ Here, **graph engineering** means engineering graph-structured **AI-agent system
 
 <!-- CORPUS_STATS_END -->
 
-Every number above is generated from [`data/resources.jsonl`](data/resources.jsonl) and checked in CI, so it cannot drift from the catalog. Full breakdowns by section, layer, type, and evidence label are in the [resource directory](#resource-directory) and the [interactive atlas](https://chaoyue0307.github.io/awesome-graph-engineering/#atlas).
+Every number above is generated from [`data/resources.jsonl`](data/resources.jsonl) and checked in CI, so it cannot drift from the catalog. Full breakdowns by section, layer, type, and evidence label are in the [resource directory](#-resource-directory) and the [interactive atlas](https://chaoyue0307.github.io/awesome-graph-engineering/#atlas).
 
 ## 🧭 Working definition
 
