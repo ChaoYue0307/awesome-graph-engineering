@@ -53,6 +53,8 @@ SECTION_ORDER = (
 )
 TABLE_START = "<!-- RESOURCE_TABLES_START -->"
 TABLE_END = "<!-- RESOURCE_TABLES_END -->"
+STATS_START = "<!-- CORPUS_STATS_START -->"
+STATS_END = "<!-- CORPUS_STATS_END -->"
 ATLAS_RE = re.compile(
     r"(<script\b(?=[^>]*\bid=[\"']atlas-data[\"'])"
     r"(?=[^>]*\btype=[\"']application/json[\"'])[^>]*>)"
@@ -194,6 +196,52 @@ def render_tables(rows: list[dict[str, object]]) -> str:
     return "\n\n".join(chunks) + "\n"
 
 
+def corpus_stats(rows: list[dict[str, object]]) -> list[tuple[str, str]]:
+    """Derive the headline corpus numbers shown in the README intro."""
+    research = {"Peer-reviewed research", "Research preprint"}
+    latest = max(int(row["year"]) for row in rows)
+    counts = {
+        "curated resources": len(rows),
+        "directory sections": len({str(row["section"]) for row in rows}),
+        "design layers": len({str(row["layer"]) for row in rows}),
+        "distinct sources": len({str(row["venue"]) for row in rows}),
+        "papers &amp; preprints": sum(1 for row in rows if row["evidence"] in research),
+        "tools, docs &amp; standards": sum(
+            1 for row in rows if row["rtype"] in {"Tool", "Docs", "Standard"}
+        ),
+        "benchmarks &amp; datasets": sum(
+            1 for row in rows if row["rtype"] in {"Benchmark", "Dataset"}
+        ),
+        f"published in {latest}": sum(1 for row in rows if int(row["year"]) == latest),
+    }
+    return [(f"{value:,}", label) for label, value in counts.items()]
+
+
+def render_stats(rows: list[dict[str, object]]) -> str:
+    stats = corpus_stats(rows)
+    lines = ['<div align="center">', "", "<table>"]
+    for start in range(0, len(stats), 4):
+        lines.append("  <tr>")
+        for value, label in stats[start : start + 4]:
+            lines.append(
+                f'    <td align="center"><strong>{value}</strong><br>'
+                f"<sub>{label}</sub></td>"
+            )
+        lines.append("  </tr>")
+    lines += ["</table>", "", "</div>"]
+    return "\n".join(lines) + "\n"
+
+
+def replace_readme_stats(readme: str, stats: str) -> str:
+    if readme.count(STATS_START) != 1 or readme.count(STATS_END) != 1:
+        raise ValueError(
+            "README.md must contain exactly one CORPUS_STATS_START/END marker pair"
+        )
+    before, remainder = readme.split(STATS_START, 1)
+    _, after = remainder.split(STATS_END, 1)
+    return before + STATS_START + "\n\n" + stats.rstrip() + "\n\n" + STATS_END + after
+
+
 def replace_readme_tables(readme: str, tables: str) -> str:
     if readme.count(TABLE_START) != 1 or readme.count(TABLE_END) != 1:
         raise ValueError(
@@ -222,7 +270,9 @@ def expected_artifacts(rows: list[dict[str, object]]) -> dict[Path, str]:
     site = SITE.read_text(encoding="utf-8")
     return {
         CSV: render_csv(rows),
-        README: replace_readme_tables(readme, render_tables(rows)),
+        README: replace_readme_stats(
+            replace_readme_tables(readme, render_tables(rows)), render_stats(rows)
+        ),
         SITE: replace_atlas_data(site, render_atlas(rows)),
     }
 

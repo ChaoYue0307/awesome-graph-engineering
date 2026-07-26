@@ -51,6 +51,31 @@
 
 Here, **graph engineering** means engineering graph-structured **AI-agent systems**. Graph databases, knowledge graphs, graph ETL, GraphRAG, and graph neural networks are outside this scope unless they directly support an agent graph. See the [boundary guide](COMPARISON.md#not-graph-data-engineering-the-name-collision).
 
+<!-- CORPUS_STATS_START -->
+
+<div align="center">
+
+<table>
+  <tr>
+    <td align="center"><strong>447</strong><br><sub>curated resources</sub></td>
+    <td align="center"><strong>11</strong><br><sub>directory sections</sub></td>
+    <td align="center"><strong>9</strong><br><sub>design layers</sub></td>
+    <td align="center"><strong>177</strong><br><sub>distinct sources</sub></td>
+  </tr>
+  <tr>
+    <td align="center"><strong>200</strong><br><sub>papers &amp; preprints</sub></td>
+    <td align="center"><strong>123</strong><br><sub>tools, docs &amp; standards</sub></td>
+    <td align="center"><strong>37</strong><br><sub>benchmarks &amp; datasets</sub></td>
+    <td align="center"><strong>232</strong><br><sub>published in 2026</sub></td>
+  </tr>
+</table>
+
+</div>
+
+<!-- CORPUS_STATS_END -->
+
+Every number above is generated from [`data/resources.jsonl`](data/resources.jsonl) and checked in CI, so it cannot drift from the catalog. Full breakdowns by section, layer, type, and evidence label are in the [resource directory](#resource-directory) and the [interactive atlas](https://chaoyue0307.github.io/awesome-graph-engineering/#atlas).
+
 ## 🧭 Working definition
 
 **Graph engineering is the practice of specifying, executing, observing, and evolving a graph-structured agent system—its roles and runtime instances, the contracts that connect them, the state and artifacts they share, and the evidence by which their collective behavior is judged—so that the system can be controlled, tested, and improved as an engineered whole.**
@@ -145,7 +170,7 @@ The layers are concerns, not compulsory stages. A two-role pipeline with a typed
 
 The resource directory prioritizes primary research, official documentation, maintained projects, standards, reproducible benchmarks, and production reports. **Evidence labels identify source type; they do not score quality.** Each entry contains an original summary, a distinct engineering rationale, and one primary layer.
 
-**Corpus snapshot — 26 July 2026:** 447 curated resources, including 124 peer-reviewed research entries and 37 benchmarks or datasets; 232 were published or materially updated in 2026.
+**Corpus snapshot — 26 July 2026:** 447 resources drawn from 177 distinct sources. By evidence label: 124 peer-reviewed research, 81 practitioner analysis, 76 research preprints, 57 official documentation, 56 maintained OSS projects, 37 benchmarks or datasets, 10 industry standards, 5 community resources, 1 book or course. 232 entries were published or materially updated in 2026.
 
 Use the [interactive Resource Atlas](https://chaoyue0307.github.io/awesome-graph-engineering/#atlas) to search and filter the same records by section, source type, evidence label, and layer.
 
