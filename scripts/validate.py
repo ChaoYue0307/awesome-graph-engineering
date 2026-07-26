@@ -338,7 +338,7 @@ def validate_readme(rows: list[dict[str, object]], errors: list[str]) -> None:
     # The generated link boundary, rather than the first ``)``, matters for DOI
     # URLs whose path legitimately contains parentheses.
     readme_urls = re.findall(
-        r"^\| .*?\*\*\[[^\]]+\]\((https?://.+)\)\*\*<br><sub>", block, re.M
+        r"^\| .*?\*\*\[[^\]]+\]\((https?://[^\s|]+)\)\*\*<br><sub>", block, re.M
     )
     data_urls = [
         markdown_destination(row.get("url"))
