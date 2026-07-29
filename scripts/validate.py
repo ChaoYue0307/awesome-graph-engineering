@@ -25,10 +25,13 @@ from sync import (
     TABLE_START,
     render_atlas,
     render_csv,
+    render_evidence_breakdown,
     render_stats,
     render_tables,
     markdown_destination,
     replace_atlas_data,
+    replace_readme_badge,
+    replace_readme_breakdown,
     replace_readme_stats,
     replace_readme_tables,
 )
@@ -365,15 +368,21 @@ def validate_readme(rows: list[dict[str, object]], errors: list[str]) -> None:
 
     if marker_ok and all(set(row) == set(FIELDS) for row in rows):
         try:
-            expected = replace_readme_stats(
-                replace_readme_tables(readme, render_tables(rows)), render_stats(rows)
+            expected = replace_readme_badge(
+                replace_readme_breakdown(
+                    replace_readme_stats(
+                        replace_readme_tables(readme, render_tables(rows)), render_stats(rows)
+                    ),
+                    render_evidence_breakdown(rows),
+                ),
+                rows,
             )
         except ValueError as exc:
             errors.append(str(exc))
         else:
             if readme != expected:
                 errors.append(
-                    "README resource tables or corpus stats are not the exact generated output"
+                    "README resource tables, corpus stats, or composition line are not the exact generated output"
                 )
 
 

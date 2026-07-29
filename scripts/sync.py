@@ -14,7 +14,7 @@ import io
 import json
 import re
 import sys
-from collections import OrderedDict
+from collections import Counter, OrderedDict
 from pathlib import Path
 
 ROOT = Path(__file__).resolve().parent.parent
@@ -53,6 +53,8 @@ SECTION_ORDER = (
 )
 TABLE_START = "<!-- RESOURCE_TABLES_START -->"
 TABLE_END = "<!-- RESOURCE_TABLES_END -->"
+BREAKDOWN_START = "<!-- CORPUS_BREAKDOWN_START -->"
+BREAKDOWN_END = "<!-- CORPUS_BREAKDOWN_END -->"
 STATS_START = "<!-- CORPUS_STATS_START -->"
 STATS_END = "<!-- CORPUS_STATS_END -->"
 ATLAS_RE = re.compile(
@@ -232,6 +234,69 @@ def render_stats(rows: list[dict[str, object]]) -> str:
     return "\n".join(lines) + "\n"
 
 
+def render_evidence_breakdown(rows: list[dict[str, object]]) -> str:
+    """Sentence listing how many resources carry each evidence label."""
+    order = [
+        "Peer-reviewed research", "Practitioner analysis", "Research preprint",
+        "Official documentation", "Maintained OSS project", "Benchmark/dataset",
+        "Industry standard", "Community resource", "Book/course",
+    ]
+    counts = Counter(str(row["evidence"]) for row in rows)
+    labels = {
+        "Peer-reviewed research": "peer-reviewed research",
+        "Practitioner analysis": "practitioner analysis",
+        "Research preprint": "research preprints",
+        "Official documentation": "official documentation",
+        "Maintained OSS project": "maintained OSS projects",
+        "Benchmark/dataset": "benchmarks or datasets",
+        "Industry standard": "industry standards",
+        "Community resource": "community resources",
+        "Book/course": "books or courses",
+    }
+    singular = {
+        "research preprints": "research preprint",
+        "maintained OSS projects": "maintained OSS project",
+        "benchmarks or datasets": "benchmark or dataset",
+        "industry standards": "industry standard",
+        "community resources": "community resource",
+        "books or courses": "book or course",
+    }
+    parts = []
+    for key in order:
+        count = counts.get(key, 0)
+        if not count:
+            continue
+        label = labels[key]
+        parts.append(f"{count} {singular[label] if count == 1 and label in singular else label}")
+    sources = len({str(row["venue"]) for row in rows})
+    latest = max(int(row["year"]) for row in rows)
+    recent = sum(1 for row in rows if int(row["year"]) == latest)
+    return (
+        f"**Corpus composition:** {len(rows):,} resources drawn from {sources} distinct "
+        f"sources. By evidence label: {', '.join(parts)}. {recent} entries were published "
+        f"or materially updated in {latest}.\n"
+    )
+
+
+def replace_readme_breakdown(readme: str, sentence: str) -> str:
+    if readme.count(BREAKDOWN_START) != 1 or readme.count(BREAKDOWN_END) != 1:
+        raise ValueError(
+            "README.md must contain exactly one CORPUS_BREAKDOWN_START/END marker pair"
+        )
+    before, remainder = readme.split(BREAKDOWN_START, 1)
+    _, after = remainder.split(BREAKDOWN_END, 1)
+    return (
+        before + BREAKDOWN_START + "\n\n" + sentence.rstrip() + "\n\n" + BREAKDOWN_END + after
+    )
+
+
+def replace_readme_badge(readme: str, rows: list[dict[str, object]]) -> str:
+    """Keep the resources badge count derived from the dataset."""
+    total = len(rows)
+    readme = re.sub(r'alt="[\d,]+ curated resources"', f'alt="{total:,} curated resources"', readme)
+    return re.sub(r"badge/resources-[\d,%]+-", f"badge/resources-{total}-", readme)
+
+
 def replace_readme_stats(readme: str, stats: str) -> str:
     if readme.count(STATS_START) != 1 or readme.count(STATS_END) != 1:
         raise ValueError(
@@ -270,8 +335,14 @@ def expected_artifacts(rows: list[dict[str, object]]) -> dict[Path, str]:
     site = SITE.read_text(encoding="utf-8")
     return {
         CSV: render_csv(rows),
-        README: replace_readme_stats(
-            replace_readme_tables(readme, render_tables(rows)), render_stats(rows)
+        README: replace_readme_badge(
+            replace_readme_breakdown(
+                replace_readme_stats(
+                    replace_readme_tables(readme, render_tables(rows)), render_stats(rows)
+                ),
+                render_evidence_breakdown(rows),
+            ),
+            rows,
         ),
         SITE: replace_atlas_data(site, render_atlas(rows)),
     }
