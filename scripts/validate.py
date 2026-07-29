@@ -266,6 +266,30 @@ def validate_rows(rows: list[dict[str, object]], errors: list[str]) -> None:
         errors.append("dataset has no resources in layer(s): " + ", ".join(missing_layers))
 
 
+def validate_launch_kit(rows: list[dict[str, object]], errors: list[str]) -> None:
+    """Keep the translated share copy's headline count aligned with the dataset.
+
+    Numbers below 100, years, and image dimensions such as 1200x630 are ignored;
+    everything else in LAUNCH-KIT.md is a resource count in one of the languages.
+    """
+    path = ROOT / "LAUNCH-KIT.md"
+    try:
+        text = path.read_text(encoding="utf-8")
+    except OSError:
+        return
+    text = re.sub(r"https?://\S+", "", text)
+    text = re.sub(r"\d+\s*[x\u00d7]\s*\d+", "", text)
+    for match in re.finditer(r"\b\d{3,4}\b", text):
+        value = int(match.group(0))
+        if 1900 <= value <= 2100 or value < 100:
+            continue
+        if value != len(rows):
+            context = text[max(0, match.start() - 45) : match.start() + 25].replace("\n", " ")
+            errors.append(
+                f"LAUNCH-KIT.md states {value} where the dataset has {len(rows)}: ...{context.strip()}..."
+            )
+
+
 def validate_schema(errors: list[str]) -> None:
     try:
         schema = json.loads(SCHEMA.read_text(encoding="utf-8"))
@@ -427,6 +451,7 @@ def main() -> int:
     validate_schema(errors)
     validate_csv(rows, errors)
     validate_readme(rows, errors)
+    validate_launch_kit(rows, errors)
     validate_site(rows, errors)
     if errors:
         print(f"FAIL — {len(errors)} problem(s):")
