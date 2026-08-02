@@ -266,6 +266,63 @@ def validate_rows(rows: list[dict[str, object]], errors: list[str]) -> None:
         errors.append("dataset has no resources in layer(s): " + ", ".join(missing_layers))
 
 
+# Pairs that legitimately share most of their title words: a normative spec and
+# its implementation repository, framework documentation subpages beside the
+# framework's overview entry, and distinct papers with similar names. Keyed by
+# the two normalized titles so the entry survives ID renumbering.
+ALLOWED_SIMILAR_TITLES = {
+    ('a day in gas town', 'ai town'),
+    ('a survey of agent interoperability protocols mcp acp a2a and anp', 'a survey of ai agent protocols'),
+    ('agent2agent a2a protocol specification sdks', 'agent2agent protocol specification v1 0 0'),
+    ('aipom agent aware interactive planning for multi agent systems', 'verification aware planning for multi agent systems'),
+    ('dapr agents', 'dapr agents introduction'),
+    ('microsoft agent framework', 'microsoft agent framework workflows'),
+    ('openai agents sdk', 'openai agents sdk handoffs'),
+    ('openai agents sdk', 'openai agents sdk sessions'),
+    ('openai agents sdk', 'openai agents sdk tracing'),
+}
+SIMILARITY_THRESHOLD = 0.62
+
+
+def _title_tokens(title: str) -> set[str]:
+    return set(re.findall(r"[a-z0-9]{4,}", title.lower()))
+
+
+def _normalize_title(title: str) -> str:
+    return " ".join(re.findall(r"[a-z0-9]+", title.lower()))
+
+
+def validate_near_duplicates(rows: list[dict[str, object]], errors: list[str]) -> None:
+    """Catch the same work catalogued twice under different hosts.
+
+    Exact URL and title checks miss a paper listed once via its preprint and
+    once via the venue that published it, so compare titles by word overlap and
+    require any surviving pair to be declared in ALLOWED_SIMILAR_TITLES.
+    """
+    entries = [
+        (str(row.get("id")), str(row.get("title", "")), _title_tokens(str(row.get("title", ""))))
+        for row in rows
+        if isinstance(row.get("title"), str)
+    ]
+    for index, (left_id, left_title, left_tokens) in enumerate(entries):
+        if not left_tokens:
+            continue
+        for right_id, right_title, right_tokens in entries[index + 1 :]:
+            if not right_tokens:
+                continue
+            overlap = len(left_tokens & right_tokens) / len(left_tokens | right_tokens)
+            if overlap < SIMILARITY_THRESHOLD:
+                continue
+            key = tuple(sorted((_normalize_title(left_title), _normalize_title(right_title))))
+            if key in ALLOWED_SIMILAR_TITLES:
+                continue
+            errors.append(
+                f"{left_id} and {right_id} share {overlap:.0%} of their title words; "
+                f"merge them or add the pair to ALLOWED_SIMILAR_TITLES: "
+                f"{left_title!r} / {right_title!r}"
+            )
+
+
 def validate_launch_kit(rows: list[dict[str, object]], errors: list[str]) -> None:
     """Keep the translated share copy's headline count aligned with the dataset.
 
@@ -451,6 +508,7 @@ def main() -> int:
     validate_schema(errors)
     validate_csv(rows, errors)
     validate_readme(rows, errors)
+    validate_near_duplicates(rows, errors)
     validate_launch_kit(rows, errors)
     validate_site(rows, errors)
     if errors:
