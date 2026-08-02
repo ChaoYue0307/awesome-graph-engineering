@@ -66,7 +66,7 @@ Here, **graph engineering** means engineering graph-structured **AI-agent system
     <td align="center"><strong>250</strong><br><sub>papers &amp; preprints</sub></td>
     <td align="center"><strong>143</strong><br><sub>tools, docs &amp; standards</sub></td>
     <td align="center"><strong>37</strong><br><sub>benchmarks &amp; datasets</sub></td>
-    <td align="center"><strong>1</strong><br><sub>published in 2027</sub></td>
+    <td align="center"><strong>290</strong><br><sub>published in 2026</sub></td>
   </tr>
 </table>
 
@@ -172,7 +172,7 @@ The resource directory prioritizes primary research, official documentation, mai
 
 <!-- CORPUS_BREAKDOWN_START -->
 
-**Corpus composition:** 558 resources drawn from 241 distinct sources. By evidence label: 143 peer-reviewed research, 104 practitioner analysis, 107 research preprints, 70 official documentation, 60 maintained OSS projects, 37 benchmarks or datasets, 13 industry standards, 13 community resources, 11 books or courses. 1 entries were published or materially updated in 2027.
+**Corpus composition:** 558 resources drawn from 241 distinct sources. By evidence label: 143 peer-reviewed research, 104 practitioner analysis, 107 research preprints, 70 official documentation, 60 maintained OSS projects, 37 benchmarks or datasets, 13 industry standards, 13 community resources, 11 books or courses. 290 entries were published or materially updated in 2026.
 
 <!-- CORPUS_BREAKDOWN_END -->
 

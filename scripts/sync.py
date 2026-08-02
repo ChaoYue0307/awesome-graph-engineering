@@ -198,10 +198,22 @@ def render_tables(rows: list[dict[str, object]]) -> str:
     return "\n\n".join(chunks) + "\n"
 
 
+
+def headline_year(rows: list[dict[str, object]]) -> int:
+    """The year the corpus actually concentrates in.
+
+    Using max(year) let a single forward-dated entry, such as a conference
+    scheduled for next year, become the headline cohort. The modal year is
+    deterministic from the data and cannot be skewed by one record.
+    """
+    counts = Counter(int(row["year"]) for row in rows)
+    return max(counts, key=lambda year: (counts[year], year))
+
+
 def corpus_stats(rows: list[dict[str, object]]) -> list[tuple[str, str]]:
     """Derive the headline corpus numbers shown in the README intro."""
     research = {"Peer-reviewed research", "Research preprint"}
-    latest = max(int(row["year"]) for row in rows)
+    latest = headline_year(rows)
     counts = {
         "curated resources": len(rows),
         "directory sections": len({str(row["section"]) for row in rows}),
@@ -269,12 +281,13 @@ def render_evidence_breakdown(rows: list[dict[str, object]]) -> str:
         label = labels[key]
         parts.append(f"{count} {singular[label] if count == 1 and label in singular else label}")
     sources = len({str(row["venue"]) for row in rows})
-    latest = max(int(row["year"]) for row in rows)
+    latest = headline_year(rows)
     recent = sum(1 for row in rows if int(row["year"]) == latest)
     return (
         f"**Corpus composition:** {len(rows):,} resources drawn from {sources} distinct "
-        f"sources. By evidence label: {', '.join(parts)}. {recent} entries were published "
-        f"or materially updated in {latest}.\n"
+        f"sources. By evidence label: {', '.join(parts)}. {recent} "
+        f"{'entry was' if recent == 1 else 'entries were'} published or materially "
+        f"updated in {latest}.\n"
     )
 
 
