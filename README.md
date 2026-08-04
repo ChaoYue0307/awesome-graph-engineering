@@ -12,7 +12,7 @@
 </p>
 
 <p align="center">
-  <a href="#-resource-directory"><img alt="558 curated resources" src="https://img.shields.io/badge/resources-558-9d7dff?style=flat-square"></a>
+  <a href="#-resource-directory"><img alt="561 curated resources" src="https://img.shields.io/badge/resources-561-9d7dff?style=flat-square"></a>
   <a href="https://github.com/ChaoYue0307/awesome-graph-engineering/actions/workflows/quality.yml"><img alt="Quality checks" src="https://img.shields.io/github/actions/workflow/status/ChaoYue0307/awesome-graph-engineering/quality.yml?branch=main&style=flat-square&label=quality"></a>
   <a href="https://huggingface.co/datasets/cy0307/awesome-graph-engineering"><img alt="Hugging Face dataset" src="https://img.shields.io/badge/%F0%9F%A4%97-dataset-FFD21E?style=flat-square"></a>
   <a href="LICENSE"><img alt="CC0 1.0 license" src="https://img.shields.io/badge/license-CC0--1.0-b8f24a?style=flat-square"></a>
@@ -57,16 +57,16 @@ Here, **graph engineering** means engineering graph-structured **AI-agent system
 
 <table>
   <tr>
-    <td align="center"><strong>558</strong><br><sub>curated resources</sub></td>
+    <td align="center"><strong>561</strong><br><sub>curated resources</sub></td>
     <td align="center"><strong>11</strong><br><sub>directory sections</sub></td>
     <td align="center"><strong>9</strong><br><sub>design layers</sub></td>
     <td align="center"><strong>241</strong><br><sub>distinct sources</sub></td>
   </tr>
   <tr>
     <td align="center"><strong>250</strong><br><sub>papers &amp; preprints</sub></td>
-    <td align="center"><strong>143</strong><br><sub>tools, docs &amp; standards</sub></td>
+    <td align="center"><strong>146</strong><br><sub>tools, docs &amp; standards</sub></td>
     <td align="center"><strong>37</strong><br><sub>benchmarks &amp; datasets</sub></td>
-    <td align="center"><strong>290</strong><br><sub>published in 2026</sub></td>
+    <td align="center"><strong>293</strong><br><sub>published in 2026</sub></td>
   </tr>
 </table>
 
@@ -172,7 +172,7 @@ The resource directory prioritizes primary research, official documentation, mai
 
 <!-- CORPUS_BREAKDOWN_START -->
 
-**Corpus composition:** 558 resources drawn from 241 distinct sources. By evidence label: 143 peer-reviewed research, 104 practitioner analysis, 107 research preprints, 70 official documentation, 60 maintained OSS projects, 37 benchmarks or datasets, 13 industry standards, 13 community resources, 11 books or courses. 290 entries were published or materially updated in 2026.
+**Corpus composition:** 561 resources drawn from 241 distinct sources. By evidence label: 143 peer-reviewed research, 104 practitioner analysis, 107 research preprints, 70 official documentation, 63 maintained OSS projects, 37 benchmarks or datasets, 13 industry standards, 13 community resources, 11 books or courses. 293 entries were published or materially updated in 2026.
 
 <!-- CORPUS_BREAKDOWN_END -->
 
@@ -186,7 +186,7 @@ Use the [interactive Resource Atlas](https://chaoyue0307.github.io/awesome-graph
 - [Research Foundations](#research-foundations) — 149 resources
 - [Frameworks &amp; SDKs](#frameworks--sdks) — 57 resources
 - [Protocols &amp; Handoffs](#protocols--handoffs) — 37 resources
-- [State, Memory &amp; Artifacts](#state-memory--artifacts) — 28 resources
+- [State, Memory &amp; Artifacts](#state-memory--artifacts) — 31 resources
 - [Verification &amp; Evals](#verification--evals) — 34 resources
 - [Reliability &amp; Durable Execution](#reliability--durable-execution) — 38 resources
 - [Observability &amp; Cost](#observability--cost) — 35 resources
@@ -538,6 +538,9 @@ Use the [interactive Resource Atlas](https://chaoyue0307.github.io/awesome-graph
 | 🧰 **[Graphiti: Real-Time Knowledge Graphs for AI Agents](https://github.com/getzep/graphiti)**<br><sub>Tool · Temporal graph memory</sub> | **GitHub**<br><sub>Zep (getzep) · 2026</sub> | The open-source temporal graph engine underlying Zep: incrementally ingests episodes from many agents, resolves entities and contradictions on write, and serves hybrid semantic/keyword/graph retrieval without batch recomputation. The main off-the-shelf option for graph-shaped shared memory serving an agent organization; ships an MCP server so any agent can attach.<br><sub><strong>Why:</strong> Temporal shared state across many agents, where facts carry validity intervals rather than being overwritten.</sub> | **Maintained OSS project**<br><sub>State</sub> |
 | 📄 **[Zep: A Temporal Knowledge Graph Architecture for Agent Memory](https://arxiv.org/abs/2501.13956)**<br><sub>Paper · Temporal graph memory</sub> | **arXiv**<br><sub>Preston Rasmussen, Pavlo Paliychuk, Travis Beauvais, Jack Ryan, Daniel Chalef · 2025</sub> | Agent memory as a bi-temporal knowledge graph: every edge carries validity intervals for when a fact was true and when it was learned, so contradicted facts are invalidated, not deleted — giving an agent org a queryable, auditable shared world-model over time. Beats MemGPT on Deep Memory Retrieval (94.8% vs 93.4%).<br><sub><strong>Why:</strong> Bi-temporal memory answers when a fact was true and when it was learned, which matters when nodes disagree.</sub> | **Research preprint**<br><sub>State</sub> |
 | 🧰 **[Agent Memory Techniques (NirDiamant)](https://github.com/NirDiamant/Agent_Memory_Techniques)**<br><sub>Tool · Tutorials</sub> | **GitHub**<br><sub>Nir Diamant · 2026</sub> | Runnable-notebook catalog of 20+ agent memory patterns, including a dedicated multi-agent shared memory tutorial (technique 22) covering shared stores, scoping, and cross-agent retrieval with Mem0 and friends. From the author of the widely used RAG_Techniques and GenAI_Agents repos; the fastest hands-on path through this section's ideas.<br><sub><strong>Why:</strong> Runnable notebooks for memory patterns, including a shared multi-agent case, which shortens the path from idea to test.</sub> | **Maintained OSS project**<br><sub>State</sub> |
+| 🧰 **[Firecracker](https://github.com/firecracker-microvm/firecracker)**<br><sub>Tool · Worker isolation</sub> | **GitHub**<br><sub>Amazon Web Services · 2026</sub> | Apache-2.0 virtual machine monitor built on Linux KVM that runs workloads in minimal microVMs, giving each one its own kernel while keeping the startup cost and density closer to containers than to full virtual machines. Around 35.9k stars and the isolation layer beneath several commercial agent sandboxes.<br><sub><strong>Why:</strong> Hardware-level isolation per worker is what makes it safe to run many agents writing untrusted code side by side.</sub> | **Maintained OSS project**<br><sub>State</sub> |
+| 🧰 **[E2B](https://github.com/e2b-dev/E2B)**<br><sub>Tool · Worker isolation</sub> | **GitHub**<br><sub>E2B · 2026</sub> | Apache-2.0 infrastructure for running AI-generated code in isolated cloud sandboxes, with Python and JavaScript SDKs for creating sandboxes, executing commands, and managing filesystem state, plus Terraform-based self-hosting on AWS, GCP, and Azure. Around 13.2k stars and actively developed.<br><sub><strong>Why:</strong> Gives each node a disposable filesystem and shell, which is the practical unit of isolation when workers run in parallel.</sub> | **Maintained OSS project**<br><sub>State</sub> |
+| 🧰 **[gVisor](https://github.com/google/gvisor)**<br><sub>Tool · Worker isolation</sub> | **GitHub**<br><sub>Google · 2026</sub> | Apache-2.0 OCI runtime implementing a Linux-compatible kernel in userspace Go, so a sandboxed process's syscalls are serviced by gVisor rather than reaching the host kernel directly. Around 19k stars, and the alternative isolation model to microVMs, trading some compatibility for faster startup.<br><sub><strong>Why:</strong> The other mainstream isolation choice for agent workers, and the tradeoff against microVMs is a real design decision.</sub> | **Maintained OSS project**<br><sub>State</sub> |
 
 ### Verification &amp; Evals
 
