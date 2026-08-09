@@ -42,6 +42,26 @@ jobs:
       - name: Run repository quality gates
         run: bash scripts/check.sh
 
+  repos:
+    name: Repository status audit
+    # Needs the GitHub API, so it runs on the weekly schedule and on demand
+    # rather than on every pull request.
+    if: github.event_name == 'schedule' || github.event_name == 'workflow_dispatch'
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v7
+
+      - name: Set up Python
+        uses: actions/setup-python@v7
+        with:
+          python-version: "3.x"
+
+      - name: Check listed repositories for archival, renames, and inactivity
+        env:
+          GITHUB_TOKEN: ${{ github.token }}
+        run: python3 scripts/check_repos.py
+
   links:
     name: Link audit
     runs-on: ubuntu-latest
