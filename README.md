@@ -12,7 +12,7 @@
 </p>
 
 <p align="center">
-  <a href="#-resource-directory"><img alt="561 curated resources" src="https://img.shields.io/badge/resources-561-9d7dff?style=flat-square"></a>
+  <a href="#-resource-directory"><img alt="564 curated resources" src="https://img.shields.io/badge/resources-564-9d7dff?style=flat-square"></a>
   <a href="https://github.com/ChaoYue0307/awesome-graph-engineering/actions/workflows/quality.yml"><img alt="Quality checks" src="https://img.shields.io/github/actions/workflow/status/ChaoYue0307/awesome-graph-engineering/quality.yml?branch=main&style=flat-square&label=quality"></a>
   <a href="https://huggingface.co/datasets/cy0307/awesome-graph-engineering"><img alt="Hugging Face dataset" src="https://img.shields.io/badge/%F0%9F%A4%97-dataset-FFD21E?style=flat-square"></a>
   <a href="LICENSE"><img alt="CC0 1.0 license" src="https://img.shields.io/badge/license-CC0--1.0-b8f24a?style=flat-square"></a>
@@ -57,16 +57,16 @@ Here, **graph engineering** means engineering graph-structured **AI-agent system
 
 <table>
   <tr>
-    <td align="center"><strong>561</strong><br><sub>curated resources</sub></td>
+    <td align="center"><strong>564</strong><br><sub>curated resources</sub></td>
     <td align="center"><strong>11</strong><br><sub>directory sections</sub></td>
     <td align="center"><strong>9</strong><br><sub>design layers</sub></td>
     <td align="center"><strong>241</strong><br><sub>distinct sources</sub></td>
   </tr>
   <tr>
-    <td align="center"><strong>250</strong><br><sub>papers &amp; preprints</sub></td>
+    <td align="center"><strong>252</strong><br><sub>papers &amp; preprints</sub></td>
     <td align="center"><strong>146</strong><br><sub>tools, docs &amp; standards</sub></td>
     <td align="center"><strong>37</strong><br><sub>benchmarks &amp; datasets</sub></td>
-    <td align="center"><strong>293</strong><br><sub>published in 2026</sub></td>
+    <td align="center"><strong>296</strong><br><sub>published in 2026</sub></td>
   </tr>
 </table>
 
@@ -172,7 +172,7 @@ The resource directory prioritizes primary research, official documentation, mai
 
 <!-- CORPUS_BREAKDOWN_START -->
 
-**Corpus composition:** 561 resources drawn from 241 distinct sources. By evidence label: 143 peer-reviewed research, 104 practitioner analysis, 107 research preprints, 70 official documentation, 63 maintained OSS projects, 37 benchmarks or datasets, 13 industry standards, 13 community resources, 11 books or courses. 293 entries were published or materially updated in 2026.
+**Corpus composition:** 564 resources drawn from 241 distinct sources. By evidence label: 143 peer-reviewed research, 105 practitioner analysis, 109 research preprints, 70 official documentation, 63 maintained OSS projects, 37 benchmarks or datasets, 13 industry standards, 13 community resources, 11 books or courses. 296 entries were published or materially updated in 2026.
 
 <!-- CORPUS_BREAKDOWN_END -->
 
@@ -182,14 +182,14 @@ Use the [interactive Resource Atlas](https://chaoyue0307.github.io/awesome-graph
 
 ### Contents
 
-- [Start Here](#start-here) — 49 resources
+- [Start Here](#start-here) — 50 resources
 - [Research Foundations](#research-foundations) — 149 resources
 - [Frameworks &amp; SDKs](#frameworks--sdks) — 57 resources
 - [Protocols &amp; Handoffs](#protocols--handoffs) — 37 resources
 - [State, Memory &amp; Artifacts](#state-memory--artifacts) — 31 resources
-- [Verification &amp; Evals](#verification--evals) — 34 resources
+- [Verification &amp; Evals](#verification--evals) — 35 resources
 - [Reliability &amp; Durable Execution](#reliability--durable-execution) — 38 resources
-- [Observability &amp; Cost](#observability--cost) — 35 resources
+- [Observability &amp; Cost](#observability--cost) — 36 resources
 - [Benchmarks &amp; Datasets](#benchmarks--datasets) — 45 resources
 - [Production Case Studies](#production-case-studies) — 39 resources
 - [Critiques &amp; Limits](#critiques--limits) — 47 resources
@@ -247,6 +247,7 @@ Use the [interactive Resource Atlas](https://chaoyue0307.github.io/awesome-graph
 | 📝 **[Agentic AI Weekly (Berkeley RDI)](https://berkeleyrdi.substack.com/)**<br><sub>Blog · Newsletters, blogs and podcasts</sub> | **Substack**<br><sub>Berkeley Center for Responsible, Decentralized Intelligence · 2026</sub> | Weekly research-leaning roundup from the group behind the Berkeley Agentic AI MOOC and the AgentX-AgentBeats competition (1,300+ teams across 100+ countries, $1M+ in prizes, Phase 2 launched 23 February 2026). Consistent academic coverage of coordination and evaluation that practitioner newsletters skip.<br><sub><strong>Why:</strong> A weekly digest from an academic center, a lower-noise way to track the field than social feeds.</sub> | **Practitioner analysis**<br><sub>Topology</sub> |
 | 📝 **[Latent Space: The AI Engineer Podcast and Newsletter](https://www.latent.space/podcast)**<br><sub>Blog · Newsletters, blogs and podcasts</sub> | **Substack**<br><sub>swyx, Alessio Fanelli · 2026</sub> | 194,000+ subscribers and 217 episodes as of late July 2026, with recurring deep dives on multi-agent orchestration — including a 7 April 2026 episode on Symphony, OpenAI's internal Elixir-based layer for spinning up, supervising, and coordinating large fleets of coding agents across tickets and repos.<br><sub><strong>Why:</strong> The podcast and newsletter where practitioners describe agent architectures before they are written up.</sub> | **Practitioner analysis**<br><sub>Topology</sub> |
 | 📝 **[Anthropic Engineering blog](https://www.anthropic.com/engineering)**<br><sub>Blog · Newsletters, blogs and podcasts</sub> | **Anthropic**<br><sub>Anthropic engineering teams · 2026</sub> | First-party writeups of production agent architecture, including "How we built our multi-agent research system" (13 Jun 2025, orchestrator-worker with parallel subagents), "Building a C compiler with a team of parallel Claudes" (5 Feb 2026), "Harness design for long-running application development" (24 Mar 2026), and "Scaling Managed Agents: Decoupling the brain from the hands" (8 Apr 2026).<br><sub><strong>Why:</strong> The first-party engineering blog behind several of the production accounts in this catalog.</sub> | **Practitioner analysis**<br><sub>Roles</sub> |
+| 📝 **[3 Years of Graph Engineering with LangGraph](https://www.langchain.com/blog/3-years-of-graph-engineering-with-langgraph)**<br><sub>Blog · Framework retrospective</sub> | **LangChain**<br><sub>Sydney Runkle, Harrison Chase · 2026</sub> | A July 22, 2026 retrospective from the team behind the reference graph-native framework, arguing production agents need cycles rather than DAGs, that a loop is a simplified graph rather than an alternative to one, and that nodes have grown from single model calls into full agent runs. Reports 65M+ monthly downloads.<br><sub><strong>Why:</strong> The framework author's own account of what three years of building agent graphs taught them, including where the DAG mental model breaks.</sub> | **Practitioner analysis**<br><sub>Topology</sub> |
 
 ### Research Foundations
 
@@ -580,6 +581,7 @@ Use the [interactive Resource Atlas](https://chaoyue0307.github.io/awesome-graph
 | 📝 **[Verification Is the New Bottleneck — Not Generation](https://danielkeller.com/tech/verification-not-generation/)**<br><sub>Blog · Verification-bottleneck essays</sub> | **danielkeller.com**<br><sub>Daniel Keller · 2026</sub> | July 3, 2026 essay proposing a Swiss-cheese verification stack for agent pipelines: deterministic checks (static analysis, tests, security scans) first, LLM-as-judge for semantic correctness second, and humans reviewing evidence rather than artifacts last. Recommends spending 30% of effort on generation and 70% on verification infrastructure.<br><sub><strong>Why:</strong> Proposes a layered verification stack for agent pipelines, combining deterministic checks with model judgment.</sub> | **Practitioner analysis**<br><sub>Gates</sub> |
 | 📝 **[Verification Is the Next Bottleneck in AI-Assisted Development](https://www.opslane.com/blog/verification-bottleneck)**<br><sub>Blog · Verification-bottleneck essays</sub> | **opslane.com**<br><sub>Abhishek Ray · 2026</sub> | April 2026 essay arguing that automation cost is collapsing while "the cost to verify is biologically bounded": teams shipping 40-50 agent PRs a week drown reviewers. Prescribes a three-layer gate stack — test suites, upstream human acceptance criteria, and adversarial "agents verifying agents" — with humans reserved for critical changes.<br><sub><strong>Why:</strong> Frames verification cost as the binding constraint on automation, which is the economic case for gate design.</sub> | **Practitioner analysis**<br><sub>Gates</sub> |
 | 📄 **[Generative Verifiers: Reward Modeling as Next-Token Prediction](https://arxiv.org/abs/2408.15240)**<br><sub>Paper · Verifier models as gates</sub> | **arXiv**<br><sub>Lunjun Zhang, Arian Hosseini, et al. (Google DeepMind) · 2024</sub> | Trains verifiers as generative next-token predictors (GenRM) that can reason before scoring and exploit test-time compute, outperforming discriminative reward models. Blurs the line between judge nodes and reward-model gates — the same node can deliberate and then gate. Published at ICLR 2025.<br><sub><strong>Why:</strong> Verifiers that reason before scoring and can explain themselves are more useful as graph nodes than opaque scorers.</sub> | **Peer-reviewed research**<br><sub>Gates</sub> |
+| 📄 **[TraceFix: Repairing Agent Coordination Protocols with TLA+ Counterexamples](https://arxiv.org/abs/2605.07935)**<br><sub>Paper · Protocol verification</sub> | **arXiv**<br><sub>Shuren Xia, Qiwei Li, Taqiya Ehsan, Jorge Ortiz · 2026</sub> | Model-checks agent coordination protocols in TLA+ and repairs them from counterexamples until verification passes: all 48 tasks across 16 scenario families verified, 62.5% on the first attempt and none needing more than four repair cycles. Across 3,456 runs, verified protocols cut deadlock and livelock from 31.1% to 14.1%.<br><sub><strong>Why:</strong> Shows a coordination protocol can be formally checked and repaired before deployment, rather than debugged from production incidents.</sub> | **Research preprint**<br><sub>Handoffs</sub> |
 
 ### Reliability &amp; Durable Execution
 
@@ -663,6 +665,7 @@ Use the [interactive Resource Atlas](https://chaoyue0307.github.io/awesome-graph
 | 📚 **[MLflow Tracing for GenAI](https://mlflow.org/docs/latest/genai/tracing/)**<br><sub>Docs · Tracing platforms</sub> | **mlflow.org**<br><sub>MLflow / Linux Foundation · 2026</sub> | Fully OpenTelemetry-compatible tracing in the Linux Foundation's MLflow: one-line auto-instrumentation for OpenAI, LangChain, LlamaIndex, DSPy, and Pydantic AI, per-step latency and token capture, async logging, and a lightweight mlflow-tracing SDK with 95% smaller footprint for production. Notable as the vendor-neutral, foundation-governed option that emits GenAI semantic conventions natively.<br><sub><strong>Why:</strong> Open-standard tracing inside a widely deployed machine-learning platform, useful where the graph lives beside existing pipelines.</sub> | **Official documentation**<br><sub>Observability &amp; cost</sub> |
 | 🧰 **[Pydantic Logfire](https://pydantic.dev/logfire)**<br><sub>Tool · Tracing platforms</sub> | **pydantic.dev**<br><sub>Pydantic · 2026</sub> | OTel-native observability from the Pydantic team that treats the agent graph as part of the whole application: LLM calls, agent reasoning, database queries, and API calls in one end-to-end timeline, queryable with plain SQL, with real-time cross-provider cost tracking and Pydantic Evals for continuous production evaluation. Built on the premise that most agent failures happen at integration points, not in the model.<br><sub><strong>Why:</strong> Treats the agent graph as part of the whole application trace rather than a separate silo.</sub> | **Maintained OSS project**<br><sub>Observability &amp; cost</sub> |
 | 🧰 **[W&amp;B Weave](https://github.com/wandb/weave)**<br><sub>Tool · Tracing platforms</sub> | **GitHub**<br><sub>Weights &amp; Biases · 2026</sub> | Weights &amp; Biases' GenAI toolkit: decorate functions to capture full execution traces of agent pipelines, run rigorous evaluations, and carry data from experimentation into production monitoring. Registered as an external trace processor by the OpenAI Agents SDK and most major frameworks; latest releases current as of July 2026.<br><sub><strong>Why:</strong> Captures full execution traces with evaluation attached, aimed at teams already using the surrounding toolkit.</sub> | **Maintained OSS project**<br><sub>Observability &amp; cost</sub> |
+| 📄 **[From Agent Traces to Trust: A Survey of Evidence Tracing and Execution Provenance in LLM Agents](https://arxiv.org/abs/2606.04990)**<br><sub>Paper · Execution provenance</sub> | **arXiv**<br><sub>Yiqi Wang, Jiaqi Zhang, Taotao Cai, et al. · 2026</sub> | Defines execution provenance as the typed graph of an agent run and evidence tracing as its projection onto evidence-support relations, then organizes the literature by trace source, provenance relation, representation form, granularity, and timing. Revised through June 2026.<br><sub><strong>Why:</strong> Gives precise vocabulary for the run lineage a graph has to record before any claim it produces can be audited.</sub> | **Research preprint**<br><sub>Observability &amp; cost</sub> |
 
 ### Benchmarks &amp; Datasets
 
