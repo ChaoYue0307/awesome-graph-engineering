@@ -12,7 +12,7 @@
 </p>
 
 <p align="center">
-  <a href="#-resource-directory"><img alt="562 curated resources" src="https://img.shields.io/badge/resources-562-9d7dff?style=flat-square"></a>
+  <a href="#-resource-directory"><img alt="563 curated resources" src="https://img.shields.io/badge/resources-563-9d7dff?style=flat-square"></a>
   <a href="https://github.com/ChaoYue0307/awesome-graph-engineering/actions/workflows/quality.yml"><img alt="Quality checks" src="https://img.shields.io/github/actions/workflow/status/ChaoYue0307/awesome-graph-engineering/quality.yml?branch=main&style=flat-square&label=quality"></a>
   <a href="https://huggingface.co/datasets/cy0307/awesome-graph-engineering"><img alt="Hugging Face dataset" src="https://img.shields.io/badge/%F0%9F%A4%97-dataset-FFD21E?style=flat-square"></a>
   <a href="LICENSE"><img alt="CC0 1.0 license" src="https://img.shields.io/badge/license-CC0--1.0-b8f24a?style=flat-square"></a>
@@ -57,16 +57,16 @@ Here, **graph engineering** means engineering graph-structured **AI-agent system
 
 <table>
   <tr>
-    <td align="center"><strong>562</strong><br><sub>curated resources</sub></td>
+    <td align="center"><strong>563</strong><br><sub>curated resources</sub></td>
     <td align="center"><strong>11</strong><br><sub>directory sections</sub></td>
     <td align="center"><strong>9</strong><br><sub>design layers</sub></td>
     <td align="center"><strong>241</strong><br><sub>distinct sources</sub></td>
   </tr>
   <tr>
     <td align="center"><strong>252</strong><br><sub>papers &amp; preprints</sub></td>
-    <td align="center"><strong>144</strong><br><sub>tools, docs &amp; standards</sub></td>
+    <td align="center"><strong>145</strong><br><sub>tools, docs &amp; standards</sub></td>
     <td align="center"><strong>37</strong><br><sub>benchmarks &amp; datasets</sub></td>
-    <td align="center"><strong>294</strong><br><sub>published in 2026</sub></td>
+    <td align="center"><strong>295</strong><br><sub>published in 2026</sub></td>
   </tr>
 </table>
 
@@ -172,7 +172,7 @@ The resource directory prioritizes primary research, official documentation, mai
 
 <!-- CORPUS_BREAKDOWN_START -->
 
-**Corpus composition:** 562 resources drawn from 241 distinct sources. By evidence label: 143 peer-reviewed research, 105 practitioner analysis, 109 research preprints, 69 official documentation, 62 maintained OSS projects, 37 benchmarks or datasets, 13 industry standards, 13 community resources, 11 books or courses. 294 entries were published or materially updated in 2026.
+**Corpus composition:** 563 resources drawn from 241 distinct sources. By evidence label: 143 peer-reviewed research, 105 practitioner analysis, 109 research preprints, 69 official documentation, 63 maintained OSS projects, 37 benchmarks or datasets, 13 industry standards, 13 community resources, 11 books or courses. 295 entries were published or materially updated in 2026.
 
 <!-- CORPUS_BREAKDOWN_END -->
 
@@ -184,7 +184,7 @@ Use the [interactive Resource Atlas](https://chaoyue0307.github.io/awesome-graph
 
 - [Start Here](#start-here) — 50 resources
 - [Research Foundations](#research-foundations) — 149 resources
-- [Frameworks &amp; SDKs](#frameworks--sdks) — 57 resources
+- [Frameworks &amp; SDKs](#frameworks--sdks) — 58 resources
 - [Protocols &amp; Handoffs](#protocols--handoffs) — 37 resources
 - [State, Memory &amp; Artifacts](#state-memory--artifacts) — 31 resources
 - [Verification &amp; Evals](#verification--evals) — 35 resources
@@ -464,6 +464,7 @@ Use the [interactive Resource Atlas](https://chaoyue0307.github.io/awesome-graph
 | 🧰 **[joonspk-research/generative_agents](https://github.com/joonspk-research/generative_agents)**<br><sub>Tool · Generative agent societies</sub> | **GitHub**<br><sub>Joon Sung Park et al. · 2023</sub> | The released Smallville codebase, including the simulation server, agent cognitive modules, and a replay viewer that lets you step through a recorded run agent-by-agent. It is the most-forked starting point for anyone building their own agent town, and its replay artifact is an early example of treating a run as an inspectable record rather than a transcript. The repository has not been updated since August 2024 and is a frozen research artifact rather than an actively developed project.<br><sub><strong>Why:</strong> A runnable society plus a replay viewer, which makes a multi-agent run an inspectable record rather than a wall of transcript.</sub> | **Maintained OSS project**<br><sub>Roles</sub> |
 | 🧰 **[AI Town](https://github.com/a16z-infra/ai-town)**<br><sub>Tool · Generative agent societies</sub> | **GitHub**<br><sub>a16z Infrastructure / AI Stack Devs · 2023</sub> | MIT-licensed JS/TS starter kit for a virtual town of AI characters that walk, converse, and remember, built on Convex so the back end natively supports shared global state, transactions, and a deterministic simulation engine. Defaults to local inference via Ollama, making agent-society experiments cheap to run without API spend.<br><sub><strong>Why:</strong> A cheap local-inference starting point for society experiments, built on a backend that gives shared state real transactions.</sub> | **Maintained OSS project**<br><sub>State</sub> |
 | 🧰 **[google-deepmind/concordia](https://github.com/google-deepmind/concordia)**<br><sub>Tool · Simulation platforms</sub> | **GitHub**<br><sub>Google DeepMind · 2023</sub> | Apache-licensed library for generative agent-based models, structured around Entities, composable Components (memory, chain-of-thought, logic), and an Engine that runs the loop. Component-level composition means an agent's reasoning structure is declared as data you can diff and re-run, not hand-written prose.<br><sub><strong>Why:</strong> Component-level composition means an agent's reasoning structure is declared as data you can diff and re-run.</sub> | **Maintained OSS project**<br><sub>Topology</sub> |
+| 🧰 **[GraphCode (graph workspace for coding-agent sessions)](https://github.com/scgopi/GraphCode)**<br><sub>Tool · Session-graph workspace</sub> | **GitHub**<br><sub>Srinivasa Chaitanya Gopireddy and contributors · 2026</sub> | A native macOS workspace that models a fleet of coding-agent sessions as an explicit graph. Each node is a live terminal backed by libghostty and a zmx multiplexer, so a running session can be inspected and corrected mid-run rather than only after it exits. Coordination is typed: hand-off, message, and spawn edges fire without a person present, and a goal-based loop terminates when its shell predicate exits 0, which is the event that fires its outgoing edges. A local daemon keeps sessions alive across app restarts. Claude Code is the most complete backend; Codex and Copilot CLI are also supported.<br><sub><strong>Why:</strong> A rare case where the run graph is the operator interface rather than a diagram, and where the edge-firing condition is an ordinary shell exit code, making the handoff trigger auditable outside the model.</sub> | **Maintained OSS project**<br><sub>Handoffs</sub> |
 
 ### Protocols &amp; Handoffs
 
