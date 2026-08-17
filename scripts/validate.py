@@ -323,6 +323,16 @@ def validate_near_duplicates(rows: list[dict[str, object]], errors: list[str]) -
             )
 
 
+# Words that follow the headline count in each translated blurb.
+COUNT_NOUN_RE = re.compile(
+    r"(curated|resources|sources|entries|selected|fuentes|seleccionadas|kuratierte|"
+    r"Quellen|fontes|selecionadas|ressources|s\u00e9lectionn\u00e9es|"
+    r"\u9879\u7cbe\u9009\u8d44\u6599|\u7cbe\u9009|\u4ef6\u306e\u53b3\u9078\u8cc7\u6599|"
+    r"\u53b3\u9078|\uac1c \uc790\ub8cc|\uc790\ub8cc)",
+    re.IGNORECASE,
+)
+
+
 def validate_launch_kit(rows: list[dict[str, object]], errors: list[str]) -> None:
     """Keep the translated share copy's headline count aligned with the dataset.
 
@@ -336,9 +346,15 @@ def validate_launch_kit(rows: list[dict[str, object]], errors: list[str]) -> Non
         return
     text = re.sub(r"https?://\S+", "", text)
     text = re.sub(r"\d+\s*[x\u00d7]\s*\d+", "", text)
-    for match in re.finditer(r"\b\d{3,4}\b", text):
+    # Only numbers presented as a resource count are compared. Matching every
+    # 3-4 digit number flagged correct prose such as "the 280-character version",
+    # and the old \b\d{3,4}\b bound stopped matching entirely past 9,999.
+    for match in re.finditer(r"\b\d{3,6}\b", text):
         value = int(match.group(0))
-        if 1900 <= value <= 2100 or value < 100:
+        if 1900 <= value <= 2100:
+            continue
+        trailing = text[match.end() : match.end() + 40]
+        if not COUNT_NOUN_RE.search(trailing):
             continue
         if value != len(rows):
             context = text[max(0, match.start() - 45) : match.start() + 25].replace("\n", " ")
@@ -423,8 +439,11 @@ def validate_readme(rows: list[dict[str, object]], errors: list[str]) -> None:
 
     # The generated link boundary, rather than the first ``)``, matters for DOI
     # URLs whose path legitimately contains parentheses.
+    # ``markdown_text`` escapes "]" as "\]", so a title containing brackets is
+    # invisible to a naive [^\]]+ class: validate would report the URL missing
+    # while sync reported everything in sync, deadlocking CI.
     readme_urls = re.findall(
-        r"^\| .*?\*\*\[[^\]]+\]\((https?://[^\s|]+)\)\*\*<br><sub>", block, re.M
+        r"^\| .*?\*\*\[(?:[^\]\\]|\\.)+\]\((https?://[^\s|]+)\)\*\*<br><sub>", block, re.M
     )
     data_urls = [
         markdown_destination(row.get("url"))

@@ -24,7 +24,7 @@ from pathlib import Path
 
 ROOT = Path(__file__).resolve().parent.parent
 JSONL = ROOT / "data" / "resources.jsonl"
-REPO_RE = re.compile(r"https://github\.com/([\w.-]+)/([\w.-]+?)/?$")
+REPO_RE = re.compile(r"https://github\.com/([\w.-]+)/([\w.-]+?)(?:/(?:tree|blob|releases|pull|issues|commit)/.*)?/?$")
 # A research artifact can be worth listing long after its last commit. Entries
 # here have said so in their own description, so quiet does not mean stale.
 QUIET_OK = {"age-0458"}
@@ -44,6 +44,10 @@ def api(path: str) -> dict | None:
         with urllib.request.urlopen(request, timeout=30) as response:
             return json.load(response)
     except urllib.error.HTTPError as exc:
+        # 404/451 mean the repository is gone, renamed without a redirect, or
+        # blocked. That is a finding, not an infrastructure failure.
+        if exc.code in {404, 451}:
+            return {"_gone": exc.code}
         return {"_error": f"HTTP {exc.code}"}
     except Exception as exc:  # network failure should not masquerade as rot
         return {"_error": str(exc)}
@@ -68,6 +72,12 @@ def main() -> int:
     errors: list[str] = []
     today = date.today()
     for row, slug, data in results:
+        if data and data.get("_gone"):
+            problems.append(
+                f"{row['id']} {slug} returned HTTP {data['_gone']} — the repository is gone, "
+                f"renamed without a redirect, or private; update or drop the entry"
+            )
+            continue
         if not data or data.get("_error"):
             errors.append(f"{row['id']} {slug}: {data.get('_error') if data else 'no response'}")
             continue
@@ -91,13 +101,21 @@ def main() -> int:
                 )
 
     if errors:
-        print(f"WARN — {len(errors)} repo(s) could not be checked:", file=sys.stderr)
+        # An expired token or a rate-limit trip fails every probe. Reporting OK
+        # there would claim verification that never happened.
+        print(f"UNVERIFIED — {len(errors)} repo(s) could not be checked:", file=sys.stderr)
         for line in errors:
             print(f"  - {line}", file=sys.stderr)
     if problems:
         print(f"FAIL — {len(problems)} repository status problem(s):")
         for line in problems:
             print(f"  - {line}")
+        return 1
+    if errors:
+        print(
+            f"FAIL — {len(errors)} of {len(targets)} repositories could not be verified; "
+            f"check GITHUB_TOKEN and rate limits."
+        )
         return 1
     print(f"OK — {len(targets)} GitHub repositories are active, canonically named, and recently pushed.")
     return 0

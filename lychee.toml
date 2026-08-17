@@ -3,8 +3,9 @@
 # the weekly scheduled run plus manual audits catch true rot.
 
 max_redirects = 8
-max_retries = 2
-timeout = 25
+# Slow-but-alive hosts were failing the scheduled run on timeout alone.
+max_retries = 3
+timeout = 45
 accept = ["200..299", "403", "405", "406", "429"]
 scheme = ["https", "http"]
 
@@ -30,4 +31,22 @@ exclude = [
   "^https://ojs\\.aaai\\.org",
 ]
 
-exclude_path = ["node_modules", "docs"]
+# Only the generated site output is skipped. Excluding all of "docs" also
+# excluded docs/llms.txt, which the workflow explicitly asks Lychee to check,
+# so that file was silently never verified.
+exclude_path = [
+  "node_modules",
+  "docs/index.html",
+  "docs/404.html",
+  "docs/app.js",
+  "docs/i18n.js",
+  "docs/graph-scene.js",
+  "docs/assets",
+  "docs/de",
+  "docs/es",
+  "docs/fr",
+  "docs/ja",
+  "docs/ko",
+  "docs/pt-BR",
+  "docs/zh-Hans",
+]
