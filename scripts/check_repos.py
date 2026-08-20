@@ -16,6 +16,7 @@ import json
 import os
 import re
 import sys
+import time
 import urllib.error
 import urllib.request
 from concurrent.futures import ThreadPoolExecutor
@@ -31,7 +32,13 @@ QUIET_OK = {"age-0458"}
 QUIET_AFTER_DAYS = 550
 
 
-def api(path: str) -> dict | None:
+def api(path: str, attempts: int = 4) -> dict | None:
+    """Query the API, retrying transient failures.
+
+    Unverified probes fail the run, so a single dropped TLS handshake would
+    otherwise turn the scheduled job red on noise — measured at roughly one run
+    in three. Retries keep the strict exit code meaningful instead of routine.
+    """
     request = urllib.request.Request(
         f"https://api.github.com/{path}",
         headers={
@@ -40,17 +47,25 @@ def api(path: str) -> dict | None:
             **({"Authorization": f"Bearer {os.environ['GITHUB_TOKEN']}"} if os.environ.get("GITHUB_TOKEN") else {}),
         },
     )
-    try:
-        with urllib.request.urlopen(request, timeout=30) as response:
-            return json.load(response)
-    except urllib.error.HTTPError as exc:
-        # 404/451 mean the repository is gone, renamed without a redirect, or
-        # blocked. That is a finding, not an infrastructure failure.
-        if exc.code in {404, 451}:
-            return {"_gone": exc.code}
-        return {"_error": f"HTTP {exc.code}"}
-    except Exception as exc:  # network failure should not masquerade as rot
-        return {"_error": str(exc)}
+    last = "no response"
+    for attempt in range(attempts):
+        try:
+            with urllib.request.urlopen(request, timeout=30) as response:
+                return json.load(response)
+        except urllib.error.HTTPError as exc:
+            # 404/451 mean the repository is gone, renamed without a redirect,
+            # or blocked. That is a finding, not an infrastructure failure, and
+            # retrying will not change it.
+            if exc.code in {404, 451}:
+                return {"_gone": exc.code}
+            last = f"HTTP {exc.code}"
+            if exc.code < 500 and exc.code != 429:
+                return {"_error": last}
+        except Exception as exc:  # network failure should not masquerade as rot
+            last = str(exc)
+        if attempt < attempts - 1:
+            time.sleep(1.5 * (attempt + 1))
+    return {"_error": last}
 
 
 def main() -> int:

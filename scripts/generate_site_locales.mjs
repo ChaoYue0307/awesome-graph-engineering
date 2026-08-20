@@ -77,13 +77,21 @@ function isLocalReference(value) {
   return !/^(?:[a-z][a-z0-9+.-]*:|\/\/|\/|#)/i.test(value);
 }
 
+// Translated copy is escaped, never injected as markup. A single deliberate
+// convention survives that escaping: **bold** becomes <strong>. Without it the
+// emphasis on the definition lede was silently dropped from every locale,
+// because the whole inner HTML is replaced with escaped text.
+function renderEmphasis(value) {
+  return escapeHtml(value).replace(/\*\*([^*]+)\*\*/g, "<strong>$1</strong>");
+}
+
 function localizeElements(html, strings) {
   const pattern = /(<([a-z][\w-]*)\b[^>]*\bdata-i18n="([^"]+)"[^>]*>)[\s\S]*?(<\/\2>)/gi;
   let replacements = 0;
   const output = html.replace(pattern, (_, opening, _tag, key, closing) => {
     if (!Object.hasOwn(strings, key)) throw new Error(`docs/i18n.js has no copy for HTML key ${key}`);
     replacements += 1;
-    return `${opening}${escapeHtml(strings[key])}${closing}`;
+    return `${opening}${renderEmphasis(strings[key])}${closing}`;
   });
   if (replacements === 0) throw new Error("Template does not contain any data-i18n elements");
   return output;
