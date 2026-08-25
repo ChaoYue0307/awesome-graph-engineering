@@ -29,6 +29,9 @@ exclude = [
   # AAAI's OJS endpoint intermittently rejects Lychee's HTTP/2 CI client even
   # when the canonical article pages load; records are verified manually.
   "^https://ojs\\.aaai\\.org",
+  # Conway's own page for the 1968 paper answers in about 1.5s from a browser
+  # but times out from GitHub-hosted runners; the record is verified manually.
+  "^https://www\\.melconway\\.com",
 ]
 
 # Only the generated site output is skipped. Excluding all of "docs" also
