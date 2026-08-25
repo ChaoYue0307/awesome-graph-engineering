@@ -12,7 +12,7 @@
 </p>
 
 <p align="center">
-  <a href="#-resource-directory"><img alt="562 curated resources" src="https://img.shields.io/badge/resources-562-9d7dff?style=flat-square"></a>
+  <a href="#-resource-directory"><img alt="565 curated resources" src="https://img.shields.io/badge/resources-565-9d7dff?style=flat-square"></a>
   <a href="https://github.com/ChaoYue0307/awesome-graph-engineering/actions/workflows/quality.yml"><img alt="Quality checks" src="https://img.shields.io/github/actions/workflow/status/ChaoYue0307/awesome-graph-engineering/quality.yml?branch=main&style=flat-square&label=quality"></a>
   <a href="https://huggingface.co/datasets/cy0307/awesome-graph-engineering"><img alt="Hugging Face dataset" src="https://img.shields.io/badge/%F0%9F%A4%97-dataset-FFD21E?style=flat-square"></a>
   <a href="LICENSE"><img alt="CC0 1.0 license" src="https://img.shields.io/badge/license-CC0--1.0-b8f24a?style=flat-square"></a>
@@ -57,16 +57,16 @@ Here, **graph engineering** means engineering graph-structured **AI-agent system
 
 <table>
   <tr>
-    <td align="center"><strong>562</strong><br><sub>curated resources</sub></td>
+    <td align="center"><strong>565</strong><br><sub>curated resources</sub></td>
     <td align="center"><strong>11</strong><br><sub>directory sections</sub></td>
     <td align="center"><strong>9</strong><br><sub>design layers</sub></td>
     <td align="center"><strong>241</strong><br><sub>distinct sources</sub></td>
   </tr>
   <tr>
-    <td align="center"><strong>252</strong><br><sub>papers &amp; preprints</sub></td>
+    <td align="center"><strong>255</strong><br><sub>papers &amp; preprints</sub></td>
     <td align="center"><strong>144</strong><br><sub>tools, docs &amp; standards</sub></td>
     <td align="center"><strong>37</strong><br><sub>benchmarks &amp; datasets</sub></td>
-    <td align="center"><strong>294</strong><br><sub>published in 2026</sub></td>
+    <td align="center"><strong>296</strong><br><sub>published in 2026</sub></td>
   </tr>
 </table>
 
@@ -172,7 +172,7 @@ The resource directory prioritizes primary research, official documentation, mai
 
 <!-- CORPUS_BREAKDOWN_START -->
 
-**Corpus composition:** 562 resources drawn from 241 distinct sources. By evidence label: 143 peer-reviewed research, 105 practitioner analysis, 109 research preprints, 69 official documentation, 62 maintained OSS projects, 37 benchmarks or datasets, 13 industry standards, 13 community resources, 11 books or courses. 294 entries were published or materially updated in 2026.
+**Corpus composition:** 565 resources drawn from 241 distinct sources. By evidence label: 143 peer-reviewed research, 105 practitioner analysis, 112 research preprints, 69 official documentation, 62 maintained OSS projects, 37 benchmarks or datasets, 13 industry standards, 13 community resources, 11 books or courses. 296 entries were published or materially updated in 2026.
 
 <!-- CORPUS_BREAKDOWN_END -->
 
@@ -182,8 +182,8 @@ Use the [interactive Resource Atlas](https://chaoyue0307.github.io/awesome-graph
 
 ### Contents
 
-- [Start Here](#start-here) — 50 resources
-- [Research Foundations](#research-foundations) — 149 resources
+- [Start Here](#start-here) — 51 resources
+- [Research Foundations](#research-foundations) — 150 resources
 - [Frameworks &amp; SDKs](#frameworks--sdks) — 57 resources
 - [Protocols &amp; Handoffs](#protocols--handoffs) — 37 resources
 - [State, Memory &amp; Artifacts](#state-memory--artifacts) — 31 resources
@@ -192,7 +192,7 @@ Use the [interactive Resource Atlas](https://chaoyue0307.github.io/awesome-graph
 - [Observability &amp; Cost](#observability--cost) — 35 resources
 - [Benchmarks &amp; Datasets](#benchmarks--datasets) — 45 resources
 - [Production Case Studies](#production-case-studies) — 39 resources
-- [Critiques &amp; Limits](#critiques--limits) — 47 resources
+- [Critiques &amp; Limits](#critiques--limits) — 48 resources
 
 ### Start Here
 
@@ -248,6 +248,7 @@ Use the [interactive Resource Atlas](https://chaoyue0307.github.io/awesome-graph
 | 📝 **[Latent Space: The AI Engineer Podcast and Newsletter](https://www.latent.space/podcast)**<br><sub>Blog · Newsletters, blogs and podcasts</sub> | **Substack**<br><sub>swyx, Alessio Fanelli · 2026</sub> | 194,000+ subscribers and 217 episodes as of late July 2026, with recurring deep dives on multi-agent orchestration — including a 7 April 2026 episode on Symphony, OpenAI's internal Elixir-based layer for spinning up, supervising, and coordinating large fleets of coding agents across tickets and repos.<br><sub><strong>Why:</strong> The podcast and newsletter where practitioners describe agent architectures before they are written up.</sub> | **Practitioner analysis**<br><sub>Topology</sub> |
 | 📝 **[Anthropic Engineering blog](https://www.anthropic.com/engineering)**<br><sub>Blog · Newsletters, blogs and podcasts</sub> | **Anthropic**<br><sub>Anthropic engineering teams · 2026</sub> | First-party writeups of production agent architecture, including "How we built our multi-agent research system" (13 Jun 2025, orchestrator-worker with parallel subagents), "Building a C compiler with a team of parallel Claudes" (5 Feb 2026), "Harness design for long-running application development" (24 Mar 2026), and "Scaling Managed Agents: Decoupling the brain from the hands" (8 Apr 2026).<br><sub><strong>Why:</strong> The first-party engineering blog behind several of the production accounts in this catalog.</sub> | **Practitioner analysis**<br><sub>Roles</sub> |
 | 📝 **[3 Years of Graph Engineering with LangGraph](https://www.langchain.com/blog/3-years-of-graph-engineering-with-langgraph)**<br><sub>Blog · Framework retrospective</sub> | **LangChain**<br><sub>Sydney Runkle, Harrison Chase · 2026</sub> | A July 22, 2026 retrospective from the team behind the reference graph-native framework, arguing production agents need cycles rather than DAGs, that a loop is a simplified graph rather than an alternative to one, and that nodes have grown from single model calls into full agent runs. Reports 65M+ monthly downloads.<br><sub><strong>Why:</strong> The framework author's own account of what three years of building agent graphs taught them, including where the DAG mental model breaks.</sub> | **Practitioner analysis**<br><sub>Topology</sub> |
+| 📄 **[From Static Templates to Dynamic Runtime Graphs: A Survey of Workflow Optimization for LLM Agents](https://arxiv.org/abs/2603.22386)**<br><sub>Paper · Field survey</sub> | **arXiv**<br><sub>Ling Yue, Kushal Raj Bhandari, Ching-Yun Ko, Dhaval Patel, Shuxin Lin, Nianjun Zhou, Jianxi Gao, Pin-Yu Chen, Shaowu Pan · 2026</sub> | Surveys how agent systems build and optimize executable workflows, treating them as agentic computation graphs and separating reusable templates from the run-specific graph and its execution trace. Organizes the literature by when structure is fixed, what is optimized, and which signals guide it, and argues for structure-aware evaluation alongside task scores.<br><sub><strong>Why:</strong> The closest thing to a field survey of this catalog's subject, and its template-versus-runtime-graph split matches the org and run graph distinction used throughout.</sub> | **Research preprint**<br><sub>Topology</sub> |
 
 ### Research Foundations
 
@@ -402,6 +403,7 @@ Use the [interactive Resource Atlas](https://chaoyue0307.github.io/awesome-graph
 | 📄 **[The Application of Petri Nets to Workflow Management](https://doi.org/10.1142/S0218126698000043)**<br><sub>Paper · Workflow and dataflow theory</sub> | **Journal of Circuits, Systems and Computers 8, 21-66**<br><sub>Wil M. P. van der Aalst · 1998</sub> | Defines WF-nets, a restricted class of Petri nets for workflows, and gives a decidable soundness criterion: every case can still reach completion, completion leaves no tokens behind, and no transition is dead. Shows what it means to statically verify that a task graph cannot deadlock or strand work before you run it.<br><sub><strong>Why:</strong> Formal workflow semantics developed long before agent DAGs, including the soundness questions those DAGs ignore.</sub> | **Peer-reviewed research**<br><sub>Work graphs</sub> |
 | 📕 **[Multiagent Systems: Algorithmic, Game-Theoretic, and Logical Foundations](https://www.masfoundations.org/)**<br><sub>Book · Foundational texts</sub> | **Cambridge University Press**<br><sub>Yoav Shoham, Kevin Leyton-Brown · 2009</sub> | The standard graduate reference on multiagent systems — distributed constraint satisfaction, coalition formation, mechanism design, social choice — with a free uncorrected PDF distributed by the authors under their Cambridge contract. The formal grounding for delegation, verification, and escalation edges predating LLM agents.<br><sub><strong>Why:</strong> The standard textbook for the algorithmic and game-theoretic side of multi-agent systems.</sub> | **Book/course**<br><sub>Topology</sub> |
 | 📕 **[An Introduction to MultiAgent Systems (2nd edition)](https://www.cs.ox.ac.uk/people/michael.wooldridge/pubs/imas/)**<br><sub>Book · Foundational texts</sub> | **John Wiley &amp; Sons**<br><sub>Michael Wooldridge · 2009</sub> | The standard undergraduate textbook for classical multi-agent systems; the 2009 second edition adds chapters on ontologies, voting, auctions, bargaining, coalition formation, and argumentation. Author's page carries errata and slide decks.<br><sub><strong>Why:</strong> The standard introductory text on multi-agent systems, and the fastest way to stop reinventing its vocabulary.</sub> | **Book/course**<br><sub>Roles</sub> |
+| 📄 **[Topological Structure Learning Should Be A Research Priority for LLM-Based Multi-Agent Systems](https://arxiv.org/abs/2505.22467)**<br><sub>Paper · Topology research agenda</sub> | **arXiv**<br><sub>Jiaxi Yang, Mengqi Zhang, Yiqiao Jin, Hao Chen, Qingsong Wen, Lu Lin, Yi He, Srijan Kumar, Weijie Xu, James Evans, Jindong Wang · 2025</sub> | A position paper arguing that how agents are connected is neglected relative to how they are prompted, and proposing a three-stage agenda of agent selection, structure profiling, and topology synthesis, tied to adaptability, efficiency, robustness, and fairness. Revised October 2025.<br><sub><strong>Why:</strong> States the case that topology is a first-class design variable, and names the stages a team would work through to choose one deliberately.</sub> | **Research preprint**<br><sub>Topology</sub> |
 
 ### Frameworks &amp; SDKs
 
@@ -810,6 +812,7 @@ Use the [interactive Resource Atlas](https://chaoyue0307.github.io/awesome-graph
 | 📝 **[On Agent Frameworks and Agent Observability](https://www.langchain.com/blog/on-agent-frameworks-and-agent-observability)**<br><sub>Blog · Framework and abstraction critiques</sub> | **LangChain**<br><sub>LangChain · 2025</sub> | LangChain's answer to the "you don't need a framework" wave, conceding the criticism is partly right while arguing most teams still need help moving faster than going it alone. Useful as the other side of the argument, and as a record of how the leading framework vendor kept revising its own abstraction story.<br><sub><strong>Why:</strong> Argues observability, not abstraction, is what agent frameworks should actually be selected for.</sub> | **Practitioner analysis**<br><sub>Observability &amp; cost</sub> |
 | 📝 **[You Probably Don't Need an Agent Framework](https://towardsdatascience.com/you-probably-dont-need-an-agent-framework/)**<br><sub>Blog · Framework and abstraction critiques</sub> | **Towards Data Science**<br><sub>Shuai Guo · 2026</sub> | June 2026 walkthrough building a two-role LLM investigation pipeline in plain Python — explicit control flow, role instructions, prompt builders, structured outputs — to show that a deterministic workflow beats an autonomous agent on debuggability for most real tasks. Concedes frameworks earn their keep only for genuinely open-ended problems and deployment concerns.<br><sub><strong>Why:</strong> The case for plain code over a framework, and the baseline any orchestration dependency has to beat.</sub> | **Practitioner analysis**<br><sub>Topology</sub> |
 | 📄 **[Beyond Exponential Decay: Rethinking Error Accumulation in Large Language Models](https://arxiv.org/abs/2505.24187)**<br><sub>Paper · Cost multipliers and economics</sub> | **arXiv**<br><sub>Mikhail L. Arbuzov, Sisong Bei, Ziwei Dong, Dmitri Kalaev, Alexey A. Shvets · 2025</sub> | Attacks the p^N compounding-error argument that is routinely used to justify decomposing work across many verified agents. Errors are not i.i.d. across steps but concentrate at 5-10% of tokens that are genuine decision junctions, so reliability strategies should target those junctions rather than multiply supervisory agents.<br><sub><strong>Why:</strong> Revisits the compounding-error model, showing error accumulation does not follow the simple exponential everyone cites.</sub> | **Research preprint**<br><sub>Reliability</sub> |
+| 📄 **[Scaling LLM-Driven Multi-Agent Systems: Design Principles and Architectural Scalability Analysis](https://arxiv.org/abs/2607.27942)**<br><sub>Paper · Scaling limits</sub> | **arXiv**<br><sub>Linus Sander, Fengjunjie Pan, Vahid Zolfaghari, Andre Schamschurko, Nenad Petrovic, Alois Knoll · 2026</sub> | Tests configurations of increasing complexity on terminal-based systems-engineering tasks and finds accuracy improving with roughly linear cost growth only once the base model clears a capability threshold, with performance peaking at intermediate complexity and then degrading. Distills four principles: simplicity, elastic feedback, sequential workflows with optional loops, and summary-based communication.<br><sub><strong>Why:</strong> Puts a shape on where adding structure stops paying, and names consistency as the failure that persists at every scale.</sub> | **Research preprint**<br><sub>Topology</sub> |
 
 <!-- RESOURCE_TABLES_END -->
 
