@@ -42,10 +42,10 @@ jobs:
       - name: Run repository quality gates
         run: bash scripts/check.sh
 
-  repos:
-    name: Repository status audit
-    # Needs the GitHub API, so it runs on the weekly schedule and on demand
-    # rather than on every pull request.
+  sources:
+    name: Source status audit
+    # These reach third-party APIs, so they run on the weekly schedule and on
+    # demand rather than on every pull request.
     if: github.event_name == 'schedule' || github.event_name == 'workflow_dispatch'
     runs-on: ubuntu-latest
     steps:
@@ -61,6 +61,9 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ github.token }}
         run: python3 scripts/check_repos.py
+
+      - name: Check listed arXiv papers for undisclosed withdrawals
+        run: python3 scripts/check_arxiv.py
 
   links:
     name: Link audit
