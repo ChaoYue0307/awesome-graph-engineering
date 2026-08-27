@@ -32,6 +32,11 @@ exclude = [
   # Conway's own page for the 1968 paper answers in about 1.5s from a browser
   # but times out from GitHub-hosted runners; the record is verified manually.
   "^https://www\\.melconway\\.com",
+  # bair.berkeley.edu stopped answering entirely on 27 August 2026 — the host
+  # root times out too, and the audit passed two days earlier — so this is an
+  # outage rather than a removed post. The canonical URL is kept; drop this
+  # exclusion once the host is serving again.
+  "^https://bair\\.berkeley\\.edu",
 ]
 
 # Only the generated site output is skipped. Excluding all of "docs" also
