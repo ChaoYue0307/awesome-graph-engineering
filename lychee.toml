@@ -37,6 +37,10 @@ exclude = [
   # outage rather than a removed post. The canonical URL is kept; drop this
   # exclusion once the host is serving again.
   "^https://bair\\.berkeley\\.edu",
+  # Simon & Schuster answers 503 on book pages and 403 on its own root to every
+  # automated client tried, which is anti-bot behaviour rather than a missing
+  # page; the ISBN URL is kept and verified manually.
+  "^https://www\\.simonandschuster\\.com",
 ]
 
 # Only the generated site output is skipped. Excluding all of "docs" also
