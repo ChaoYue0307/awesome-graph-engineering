@@ -21,6 +21,7 @@ import json
 import re
 import sys
 import time
+import urllib.error
 import urllib.request
 import xml.etree.ElementTree as ET
 from pathlib import Path
@@ -32,27 +33,45 @@ NS = {"a": "http://www.w3.org/2005/Atom", "arxiv": "http://arxiv.org/schemas/ato
 WITHDRAWN_RE = re.compile(r"\b(withdrawn|retracted|retraction)\b", re.IGNORECASE)
 # Wording that counts as the entry disclosing the status to a reader.
 DISCLOSED_RE = re.compile(r"\b(withdraw\w*|retract\w*)\b", re.IGNORECASE)
-BATCH = 40
+# Fewer, larger requests give the throttle less to count.
+BATCH = 100
+
+
+USER_AGENT = "awesome-graph-engineering-arxiv-check"
+EXPORT_API = "https://export.arxiv.org/api/query?id_list={ids}&max_results={count}"
+# arXiv asks automated clients for at most one request every three seconds and
+# throttles bursts with 429 or, from its front end, an instant 406. GitHub-hosted
+# runners share IPs with other arXiv traffic, so a run can inherit a throttle it
+# did not cause: back off in minutes rather than seconds.
+RATE_LIMITED = {406, 429}
+MAX_WAIT_SECONDS = 300
 
 
 def fetch(ids: list[str], attempts: int = 5) -> dict[str, dict[str, str]]:
-    url = (
-        "https://export.arxiv.org/api/query?id_list="
-        + ",".join(ids)
-        + f"&max_results={len(ids)}"
+    request = urllib.request.Request(
+        EXPORT_API.format(ids=",".join(ids), count=len(ids)),
+        headers={"User-Agent": USER_AGENT},
     )
-    request = urllib.request.Request(url, headers={"User-Agent": "awesome-graph-engineering-arxiv-check"})
     for attempt in range(attempts):
+        wait = 30 * 2**attempt
         try:
             with urllib.request.urlopen(request, timeout=90) as response:
                 payload = response.read()
             break
+        except urllib.error.HTTPError as exc:
+            # Other 4xx codes mean the request itself is wrong; retrying cannot help.
+            if exc.code < 500 and exc.code not in RATE_LIMITED:
+                raise
+            if attempt == attempts - 1:
+                raise
+            retry_after = (exc.headers or {}).get("Retry-After", "")
+            if retry_after.isdigit():
+                wait = int(retry_after)
         except Exception:
             if attempt == attempts - 1:
                 raise
-            # The export API is slow and rate-limited; a scheduled run failed on a
-            # single read timeout after three quick attempts. Back off harder.
-            time.sleep(15 * (attempt + 1))
+        print(f"arXiv did not answer (attempt {attempt + 1} of {attempts}); retrying in {min(wait, MAX_WAIT_SECONDS)}s", file=sys.stderr)
+        time.sleep(min(wait, MAX_WAIT_SECONDS))
     out: dict[str, dict[str, str]] = {}
     for entry in ET.fromstring(payload).findall("a:entry", NS):
         identifier = entry.find("a:id", NS)
@@ -105,7 +124,7 @@ def main() -> int:
                 f"description does not say so — disclose it or drop the entry. arXiv says: {note}"
             )
         if start + BATCH < len(targets):
-            time.sleep(3)
+            time.sleep(5)
 
     if problems:
         print(f"FAIL — {len(problems)} undisclosed withdrawal(s):")
