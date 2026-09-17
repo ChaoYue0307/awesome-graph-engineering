@@ -30,7 +30,7 @@ Prefer primary sources—official documentation, original papers, standards, and
 
 `id`, `section`, `subcategory`, `rtype`, `title`, `url`, `venue`, `year`, `authors`, `description`, `why`, `evidence`, `layer`.
 
-The generated README tables, `data/resources.csv`, and website atlas must not be edited by hand. Run `python3 scripts/sync.py` after changing the JSONL source. Full field semantics are documented in [`data/README.md`](data/README.md).
+The generated README tables and counts, `data/resources.csv`, the website atlas, and the resource counts in `LAUNCH-KIT.md` must not be edited by hand. Run `python3 scripts/sync.py` after changing the JSONL source. Full field semantics are documented in [`data/README.md`](data/README.md).
 
 ### Controlled display labels
 
@@ -58,7 +58,7 @@ The `evidence` value describes **what kind of source it is**. It is not a qualit
 
 1. **Small resource fix**: edit the matching JSON object in `data/resources.jsonl`.
 2. **New resource**: append one complete 13-field object. Use the next unused `age-NNNN` identifier; identifiers are never recycled.
-3. Run `python3 scripts/sync.py` to regenerate the CSV, README tables, and website atlas.
+3. Run `python3 scripts/sync.py` to regenerate the CSV, README tables and counts, website atlas, and share-copy counts.
 4. Run `bash scripts/check.sh`.
 5. Open a pull request explaining the addition or correction. Prefer one resource per pull request; use a coherent batch when the changes share one rationale.
 

@@ -35,21 +35,24 @@ DISCLOSED_RE = re.compile(r"\b(withdraw\w*|retract\w*)\b", re.IGNORECASE)
 BATCH = 40
 
 
-def fetch(ids: list[str], attempts: int = 3) -> dict[str, dict[str, str]]:
+def fetch(ids: list[str], attempts: int = 5) -> dict[str, dict[str, str]]:
     url = (
-        "http://export.arxiv.org/api/query?id_list="
+        "https://export.arxiv.org/api/query?id_list="
         + ",".join(ids)
         + f"&max_results={len(ids)}"
     )
+    request = urllib.request.Request(url, headers={"User-Agent": "awesome-graph-engineering-arxiv-check"})
     for attempt in range(attempts):
         try:
-            with urllib.request.urlopen(url, timeout=60) as response:
+            with urllib.request.urlopen(request, timeout=90) as response:
                 payload = response.read()
             break
         except Exception:
             if attempt == attempts - 1:
                 raise
-            time.sleep(4 * (attempt + 1))
+            # The export API is slow and rate-limited; a scheduled run failed on a
+            # single read timeout after three quick attempts. Back off harder.
+            time.sleep(15 * (attempt + 1))
     out: dict[str, dict[str, str]] = {}
     for entry in ET.fromstring(payload).findall("a:entry", NS):
         identifier = entry.find("a:id", NS)
@@ -74,6 +77,7 @@ def main() -> int:
             targets.append((row, match.group(1)))
 
     problems: list[str] = []
+    missing: list[str] = []
     checked = 0
     for start in range(0, len(targets), BATCH):
         batch = targets[start : start + BATCH]
@@ -85,6 +89,8 @@ def main() -> int:
         for row, identifier in batch:
             record = found.get(identifier)
             if record is None:
+                # An empty or truncated feed must not read as "no withdrawals".
+                missing.append(f"{row['id']} arXiv {identifier}")
                 continue
             checked += 1
             # The comment carries the withdrawal note; the summary is checked too
@@ -104,6 +110,11 @@ def main() -> int:
     if problems:
         print(f"FAIL — {len(problems)} undisclosed withdrawal(s):")
         for line in problems:
+            print(f"  - {line}")
+        return 1
+    if missing:
+        print(f"FAIL — arXiv returned no record for {len(missing)} of {len(targets)} entries; nothing verified for:")
+        for line in missing:
             print(f"  - {line}")
         return 1
     print(f"OK — {checked} arXiv entries checked; every withdrawal is disclosed in its description.")

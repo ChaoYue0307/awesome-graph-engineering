@@ -2,7 +2,8 @@
 """Generate every derived resource view from data/resources.jsonl.
 
 The JSONL file is the only hand-edited dataset. This script derives the CSV,
-the README resource tables, and the website's ``atlas-data`` JSON island.
+the README resource tables and counts, the website's ``atlas-data`` JSON island,
+and the resource count quoted in each language of LAUNCH-KIT.md.
 Use ``--check`` in CI to report drift without changing files.
 """
 
@@ -22,6 +23,7 @@ JSONL = ROOT / "data" / "resources.jsonl"
 CSV = ROOT / "data" / "resources.csv"
 README = ROOT / "README.md"
 SITE = ROOT / "docs" / "index.html"
+LAUNCH_KIT = ROOT / "LAUNCH-KIT.md"
 
 FIELDS = (
     "id",
@@ -303,6 +305,48 @@ def replace_readme_breakdown(readme: str, sentence: str) -> str:
     )
 
 
+# Words that follow a resource count in LAUNCH-KIT.md, in every language it ships.
+COUNT_NOUN_RE = re.compile(
+    r"(curated|resources|sources|entries|selected|fuentes|seleccionadas|kuratierte|"
+    r"Quellen|fontes|selecionadas|ressources|s\u00e9lectionn\u00e9es|"
+    r"\u9879\u7cbe\u9009\u8d44\u6599|\u7cbe\u9009|\u4ef6\u306e\u53b3\u9078\u8cc7\u6599|"
+    r"\u53b3\u9078|\uac1c \uc790\ub8cc|\uc790\ub8cc)",
+    re.IGNORECASE,
+)
+
+
+def launch_kit_counts(text: str) -> list[re.Match[str]]:
+    """Return the numbers LAUNCH-KIT.md presents as the resource count.
+
+    Years, image dimensions such as 1200x630, and digits inside URLs are not
+    counts. Digit lookarounds are used instead of \\b because Korean attaches
+    the counter directly (584개), and there is no word boundary between a digit
+    and a Hangul syllable.
+    """
+    protected = [m.span() for m in re.finditer(r"https?://\S+|\d+\s*[x\u00d7]\s*\d+", text)]
+    found = []
+    for match in re.finditer(r"(?<!\d)\d{3,6}(?!\d)", text):
+        if any(start <= match.start() < end for start, end in protected):
+            continue
+        if 1900 <= int(match.group(0)) <= 2100:
+            continue
+        trailing = re.sub(r"https?://\S+", "", text[match.end() : match.end() + 80])[:40]
+        if COUNT_NOUN_RE.search(trailing):
+            found.append(match)
+    return found
+
+
+def replace_launch_kit_counts(text: str, rows: list[dict[str, object]]) -> str:
+    """Rewrite every quoted resource count so translated share copy never goes stale."""
+    total = str(len(rows))
+    pieces, last = [], 0
+    for match in launch_kit_counts(text):
+        pieces.extend((text[last : match.start()], total))
+        last = match.end()
+    pieces.append(text[last:])
+    return "".join(pieces)
+
+
 def replace_readme_badge(readme: str, rows: list[dict[str, object]]) -> str:
     """Keep the resources badge count derived from the dataset."""
     total = len(rows)
@@ -346,7 +390,7 @@ def replace_atlas_data(html: str, payload: str) -> str:
 def expected_artifacts(rows: list[dict[str, object]]) -> dict[Path, str]:
     readme = README.read_text(encoding="utf-8")
     site = SITE.read_text(encoding="utf-8")
-    return {
+    artifacts = {
         CSV: render_csv(rows),
         README: replace_readme_badge(
             replace_readme_breakdown(
@@ -359,6 +403,11 @@ def expected_artifacts(rows: list[dict[str, object]]) -> dict[Path, str]:
         ),
         SITE: replace_atlas_data(site, render_atlas(rows)),
     }
+    if LAUNCH_KIT.exists():
+        artifacts[LAUNCH_KIT] = replace_launch_kit_counts(
+            LAUNCH_KIT.read_text(encoding="utf-8"), rows
+        )
+    return artifacts
 
 
 def main(argv: list[str] | None = None) -> int:
