@@ -48,7 +48,7 @@ The test applies to systems. A foundational workflow substrate, protocol, or cla
 
 ## Evidence map for the synthesis
 
-No single paper, framework, or social post establishes this meaning of *graph engineering*. The definition synthesizes independently documented parts of the design space; the final column identifies the inference and limit drawn from each body of evidence. A source may support a primitive without using the emerging label.
+No single paper, framework, or social post establishes this meaning of *graph engineering*; the first survey to adopt the label appeared as a preprint in August 2026 and is discussed [below](#two-complementary-analytical-views). The definition synthesizes independently documented parts of the design space; the final column identifies the inference and limit drawn from each body of evidence. A source may support a primitive without using the emerging label.
 
 | Boundary claim | Independent evidence | Inference and limit |
 | --- | --- | --- |
@@ -75,6 +75,8 @@ The mapping is many-to-many: one role can spawn several runtime instances, one w
 
 The split is not unique to this project. A [2026 survey of workflow optimization for LLM agents](https://arxiv.org/abs/2603.22386) separates reusable workflow templates from the run-specific realized graph and from the execution trace, arriving at a comparable three-way distinction from the optimization literature rather than from practitioner usage. It does not adopt the *graph engineering* label, so it corroborates the projections rather than the name.
 
+[*Graph Engineering in the Era of LLM Agents*](https://arxiv.org/abs/2608.21156), an August 2026 preprint and the first survey to use the label, reaches a similar structure from a broader literature review. It organizes the field into three coupled graph views—task organization, agent coordination, and runtime state management—plus system evolution, which turns execution evidence into validated structural changes. Its agent-coordination view corresponds roughly to the agent-organization graph above, and its task and runtime-state views to the run/work graph. Its inclusion rule is also close to the one used here: a system counts when changing its structure changes how it executes, and a knowledge graph used only as a retrieval source does not. The main difference is that the survey proposes ontology engineering as the next layer, which this catalog treats as adjacent rather than core.
+
 ## Relationship to prompts, context, harnesses, and loops
 
 These are interacting design dimensions, not a universal maturity ladder:
@@ -84,6 +86,8 @@ These are interacting design dimensions, not a universal maturity ladder:
 - **Harness engineering** supplies the runtime, tools, permissions, isolation, interfaces, checks, and telemetry that make nodes and edges executable.
 - **Loop engineering** governs iteration, feedback, retry, and stopping. A loop can live inside one instance or appear as a cycle across several instances.
 - **Graph engineering** governs the relationships among roles, instances, operations, and evidence across the collective system.
+
+The August 2026 survey arranges the same dimensions as a progression: prompt and context engineering at the model level, harness and loop engineering at the level of an individual agent, and graph engineering at the system level, where each agent keeps its own execution loop and the graph organizes how those loops work together. That ordering is a useful map of where each loop sits; it does not mean a design must pass through the stages in order.
 
 A graph does not replace prompts, context, harnesses, or loops. Changing an edge can change a node's context; a harness enforces edge and lifecycle contracts; loops may traverse graph cycles; and weak instructions or evaluation evidence can still make a sophisticated topology fail.
 
