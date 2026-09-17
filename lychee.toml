@@ -10,6 +10,12 @@ accept = ["200..299", "403", "405", "406", "429"]
 scheme = ["https", "http"]
 
 exclude = [
+  # A whole-host outage is excluded only temporarily, and the canonical URLs are
+  # kept. Mark it with two comment lines directly above the pattern:
+  #   # outage-since: YYYY-MM-DD
+  #   # outage-probe: https://host.example/
+  # scripts/check_outages.py probes them weekly and fails once the host answers
+  # again, or once the outage passes 30 days and the entries need a mirror.
   # Pages deploys in a parallel workflow; verify the live site after deployment.
   "^https://chaoyue0307\\.github\\.io/awesome-graph-engineering",
   # Bot-hostile domains: block all non-browser traffic outright.
@@ -32,12 +38,6 @@ exclude = [
   # Conway's own page for the 1968 paper answers in about 1.5s from a browser
   # but times out from GitHub-hosted runners; the record is verified manually.
   "^https://www\\.melconway\\.com",
-  # nips.cc, iclr.cc, and icml.cc share one server, which stopped answering on
-  # 17 September 2026: host roots time out from GitHub runners and from two
-  # other networks, and the audit passed on 14 September. This is an outage
-  # rather than removed pages, so the canonical proceedings URLs are kept;
-  # drop this exclusion once the hosts are serving again.
-  "^https://(nips|neurips|iclr|icml)\\.cc",
   # Simon & Schuster answers 503 on book pages and 403 on its own root to every
   # automated client tried, which is anti-bot behaviour rather than a missing
   # page; the ISBN URL is kept and verified manually.

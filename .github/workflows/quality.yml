@@ -65,6 +65,9 @@ jobs:
       - name: Check listed arXiv papers for undisclosed withdrawals
         run: python3 scripts/check_arxiv.py
 
+      - name: Check that link-audit outage exclusions are still justified
+        run: python3 scripts/check_outages.py
+
   links:
     name: Link audit
     runs-on: ubuntu-latest
