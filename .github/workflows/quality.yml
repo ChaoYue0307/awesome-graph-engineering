@@ -12,8 +12,11 @@ on:
 permissions:
   contents: read
 
+# The event is part of the group so a scheduled or manual full audit never
+# cancels the push run for the same commit, which left that commit's check
+# marked cancelled.
 concurrency:
-  group: quality-${{ github.ref }}
+  group: quality-${{ github.event_name }}-${{ github.ref }}
   cancel-in-progress: true
 
 jobs:
@@ -67,6 +70,9 @@ jobs:
 
       - name: Check that link-audit outage exclusions are still justified
         run: python3 scripts/check_outages.py
+
+      - name: Check that the Hugging Face mirror matches the repository
+        run: python3 scripts/check_mirror.py
 
   links:
     name: Link audit

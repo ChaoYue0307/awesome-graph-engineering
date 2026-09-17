@@ -11,6 +11,7 @@ on:
       - "huggingface/**"
       - "scripts/check.sh"
       - "scripts/publish_huggingface.sh"
+      - "scripts/check_mirror.py"
       - "scripts/sync.py"
       - "scripts/validate.py"
       - "scripts/validate_i18n.py"
@@ -56,7 +57,7 @@ jobs:
             echo "available=true" >> "$GITHUB_OUTPUT"
           else
             echo "available=false" >> "$GITHUB_OUTPUT"
-            echo "::notice::HF_TOKEN is not configured; validation passed and publishing was skipped."
+            echo "::warning title=Hugging Face mirror not updated::HF_TOKEN is not configured, so this push was validated but not published and the mirror is now behind. Add the secret and re-run this workflow."
           fi
 
       - name: Install the Hugging Face CLI
@@ -71,4 +72,7 @@ jobs:
 
       - name: Report a validated dry run
         if: steps.hf-auth.outputs.available != 'true'
-        run: echo "The dataset mirror is valid; add the HF_TOKEN repository secret to enable automatic publishing."
+        run: |
+          echo "The dataset is valid but was NOT published; add the HF_TOKEN repository secret to enable automatic publishing."
+          echo "### Hugging Face mirror not updated" >> "$GITHUB_STEP_SUMMARY"
+          echo "HF_TOKEN is not configured, so this run validated the dataset and skipped the upload." >> "$GITHUB_STEP_SUMMARY"
