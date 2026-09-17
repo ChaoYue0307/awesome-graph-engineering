@@ -32,11 +32,12 @@ exclude = [
   # Conway's own page for the 1968 paper answers in about 1.5s from a browser
   # but times out from GitHub-hosted runners; the record is verified manually.
   "^https://www\\.melconway\\.com",
-  # bair.berkeley.edu stopped answering entirely on 27 August 2026 — the host
-  # root times out too, and the audit passed two days earlier — so this is an
-  # outage rather than a removed post. The canonical URL is kept; drop this
-  # exclusion once the host is serving again.
-  "^https://bair\\.berkeley\\.edu",
+  # nips.cc, iclr.cc, and icml.cc share one server, which stopped answering on
+  # 17 September 2026: host roots time out from GitHub runners and from two
+  # other networks, and the audit passed on 14 September. This is an outage
+  # rather than removed pages, so the canonical proceedings URLs are kept;
+  # drop this exclusion once the hosts are serving again.
+  "^https://(nips|neurips|iclr|icml)\\.cc",
   # Simon & Schuster answers 503 on book pages and 403 on its own root to every
   # automated client tried, which is anti-bot behaviour rather than a missing
   # page; the ISBN URL is kept and verified manually.
