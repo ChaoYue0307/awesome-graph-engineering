@@ -33,34 +33,40 @@ NS = {"a": "http://www.w3.org/2005/Atom", "arxiv": "http://arxiv.org/schemas/ato
 WITHDRAWN_RE = re.compile(r"\b(withdrawn|retracted|retraction)\b", re.IGNORECASE)
 # Wording that counts as the entry disclosing the status to a reader.
 DISCLOSED_RE = re.compile(r"\b(withdraw\w*|retract\w*)\b", re.IGNORECASE)
-# Fewer, larger requests give the throttle less to count.
+# The query API takes a batch per request; OAI-PMH is always one paper per request.
 BATCH = 100
 
 
 USER_AGENT = "awesome-graph-engineering-arxiv-check"
 EXPORT_API = "https://export.arxiv.org/api/query?id_list={ids}&max_results={count}"
-# arXiv asks automated clients for at most one request every three seconds and
-# throttles bursts with 429 or, from its front end, an instant 406. GitHub-hosted
-# runners share IPs with other arXiv traffic, so a run can inherit a throttle it
-# did not cause: back off in minutes rather than seconds.
-RATE_LIMITED = {406, 429}
+OAI_RECORD = "https://oaipmh.arxiv.org/oai?verb=GetRecord&metadataPrefix=arXivRaw&identifier=oai:arXiv.org:{id}"
+# arXiv answers some clients with an instant 406, and which endpoint refuses
+# varies by IP and over time. On 17 Sep 2026 the query API refused all eight
+# fresh GitHub runners probed while OAI-PMH served them, and a few hours later
+# OAI-PMH briefly refused a laptop the query API was serving. So 403/406 means
+# "use the other endpoint", and only both refusing is a failure.
+REFUSED = {403, 406}
+# arXiv's terms ask automated clients for at most one request every 3 seconds.
+REQUEST_SPACING_SECONDS = 3
 MAX_WAIT_SECONDS = 300
 
 
-def fetch(ids: list[str], attempts: int = 5) -> dict[str, dict[str, str]]:
-    request = urllib.request.Request(
-        EXPORT_API.format(ids=",".join(ids), count=len(ids)),
-        headers={"User-Agent": USER_AGENT},
-    )
+class Refused(Exception):
+    """The endpoint rejects this client outright; retrying will not help."""
+
+
+def get(url: str, attempts: int = 4) -> bytes:
+    request = urllib.request.Request(url, headers={"User-Agent": USER_AGENT})
     for attempt in range(attempts):
-        wait = 30 * 2**attempt
+        wait = 15 * 2**attempt
         try:
             with urllib.request.urlopen(request, timeout=90) as response:
-                payload = response.read()
-            break
+                return response.read()
         except urllib.error.HTTPError as exc:
-            # Other 4xx codes mean the request itself is wrong; retrying cannot help.
-            if exc.code < 500 and exc.code not in RATE_LIMITED:
+            if exc.code in REFUSED:
+                raise Refused(f"HTTP {exc.code}") from exc
+            # Other 4xx codes mean the request itself is wrong.
+            if exc.code < 500 and exc.code != 429:
                 raise
             if attempt == attempts - 1:
                 raise
@@ -72,19 +78,68 @@ def fetch(ids: list[str], attempts: int = 5) -> dict[str, dict[str, str]]:
                 raise
         print(f"arXiv did not answer (attempt {attempt + 1} of {attempts}); retrying in {min(wait, MAX_WAIT_SECONDS)}s", file=sys.stderr)
         time.sleep(min(wait, MAX_WAIT_SECONDS))
+    raise RuntimeError("unreachable")
+
+
+def record(comment: ET.Element | None, summary: ET.Element | None) -> dict[str, str]:
+    return {
+        "comment": (comment.text or "") if comment is not None else "",
+        "summary": (summary.text or "") if summary is not None else "",
+    }
+
+
+def fetch_export(ids: list[str]) -> dict[str, dict[str, str]]:
+    """One query-API request for a whole batch: fast, but refused from CI runners."""
+    payload = get(EXPORT_API.format(ids=",".join(ids), count=len(ids)))
     out: dict[str, dict[str, str]] = {}
     for entry in ET.fromstring(payload).findall("a:entry", NS):
         identifier = entry.find("a:id", NS)
         match = ARXIV_RE.search(identifier.text or "") if identifier is not None else None
-        if not match:
-            continue
-        comment = entry.find("arxiv:comment", NS)
-        summary = entry.find("a:summary", NS)
-        out[match.group(1)] = {
-            "comment": (comment.text or "") if comment is not None else "",
-            "summary": (summary.text or "") if summary is not None else "",
-        }
+        if match:
+            out[match.group(1)] = record(entry.find("arxiv:comment", NS), entry.find("a:summary", NS))
     return out
+
+
+def fetch_oai(ids: list[str], out: dict[str, dict[str, str] | None]) -> None:
+    """One OAI-PMH request per paper: slower, but often reachable when the query API is not.
+
+    Results go straight into ``out`` so papers already fetched survive a
+    refusal part-way through; ``None`` marks a paper arXiv has no record of.
+    """
+    for index, identifier in enumerate(ids):
+        if index:
+            time.sleep(REQUEST_SPACING_SECONDS)
+        root = ET.fromstring(get(OAI_RECORD.format(id=identifier)))
+        raw = root.find(".//{*}arXivRaw")
+        out[identifier] = record(raw.find("{*}comments"), raw.find("{*}abstract")) if raw is not None else None
+
+
+QUERY_API, OAI_PMH = "the query API", "OAI-PMH"
+
+
+def fetch(ids: list[str], state: dict[str, object], rounds: int = 3) -> dict[str, dict[str, str] | None]:
+    """Fetch a batch from whichever endpoint accepts this client, switching on refusal."""
+    out: dict[str, dict[str, str] | None] = {}
+    for round_number in range(rounds):
+        for _ in (QUERY_API, OAI_PMH):
+            source = state["source"]
+            try:
+                if source == QUERY_API:
+                    out.update(fetch_export(ids))
+                else:
+                    fetch_oai([identifier for identifier in ids if identifier not in out], out)
+                state["used"].add(source)
+                return out
+            except Refused as exc:
+                other = OAI_PMH if source == QUERY_API else QUERY_API
+                print(f"arXiv {source} refused this client ({exc}); switching to {other}", file=sys.stderr)
+                state["source"] = other
+                time.sleep(REQUEST_SPACING_SECONDS)
+        if round_number < rounds - 1:
+            wait = 60 * 2**round_number
+            print(f"both arXiv endpoints refused this client; trying again in {wait}s", file=sys.stderr)
+            time.sleep(wait)
+    raise Refused(f"both {QUERY_API} and {OAI_PMH} refused this client in {rounds} rounds")
 
 
 def main() -> int:
@@ -98,12 +153,13 @@ def main() -> int:
     problems: list[str] = []
     missing: list[str] = []
     checked = 0
+    state: dict[str, object] = {"source": QUERY_API, "used": set()}
     for start in range(0, len(targets), BATCH):
         batch = targets[start : start + BATCH]
         try:
-            found = fetch([identifier for _, identifier in batch])
+            found = fetch([identifier for _, identifier in batch], state)
         except Exception as exc:
-            print(f"FAIL — arXiv API unreachable, nothing verified: {exc}", file=sys.stderr)
+            print(f"FAIL — arXiv unreachable, nothing verified: {exc}", file=sys.stderr)
             return 1
         for row, identifier in batch:
             record = found.get(identifier)
@@ -124,7 +180,7 @@ def main() -> int:
                 f"description does not say so — disclose it or drop the entry. arXiv says: {note}"
             )
         if start + BATCH < len(targets):
-            time.sleep(5)
+            time.sleep(REQUEST_SPACING_SECONDS)
 
     if problems:
         print(f"FAIL — {len(problems)} undisclosed withdrawal(s):")
@@ -136,7 +192,7 @@ def main() -> int:
         for line in missing:
             print(f"  - {line}")
         return 1
-    print(f"OK — {checked} arXiv entries checked; every withdrawal is disclosed in its description.")
+    print(f"OK — {checked} arXiv entries checked through {' and '.join(sorted(state['used']))}; every withdrawal is disclosed in its description.")
     return 0
 
 
