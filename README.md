@@ -12,7 +12,7 @@
 </p>
 
 <p align="center">
-  <a href="#-resource-directory"><img alt="584 curated resources" src="https://img.shields.io/badge/resources-584-9d7dff?style=flat-square"></a>
+  <a href="#-resource-directory"><img alt="585 curated resources" src="https://img.shields.io/badge/resources-585-9d7dff?style=flat-square"></a>
   <a href="https://github.com/ChaoYue0307/awesome-graph-engineering/actions/workflows/quality.yml"><img alt="Quality checks" src="https://img.shields.io/github/actions/workflow/status/ChaoYue0307/awesome-graph-engineering/quality.yml?branch=main&style=flat-square&label=quality"></a>
   <a href="https://huggingface.co/datasets/cy0307/awesome-graph-engineering"><img alt="Hugging Face dataset" src="https://img.shields.io/badge/%F0%9F%A4%97-dataset-FFD21E?style=flat-square"></a>
   <a href="LICENSE"><img alt="CC0 1.0 license" src="https://img.shields.io/badge/license-CC0--1.0-b8f24a?style=flat-square"></a>
@@ -57,16 +57,16 @@ Here, **graph engineering** means engineering graph-structured **AI-agent system
 
 <table>
   <tr>
-    <td align="center"><strong>584</strong><br><sub>curated resources</sub></td>
+    <td align="center"><strong>585</strong><br><sub>curated resources</sub></td>
     <td align="center"><strong>11</strong><br><sub>directory sections</sub></td>
     <td align="center"><strong>9</strong><br><sub>design layers</sub></td>
     <td align="center"><strong>246</strong><br><sub>distinct sources</sub></td>
   </tr>
   <tr>
     <td align="center"><strong>268</strong><br><sub>papers &amp; preprints</sub></td>
-    <td align="center"><strong>146</strong><br><sub>tools, docs &amp; standards</sub></td>
+    <td align="center"><strong>147</strong><br><sub>tools, docs &amp; standards</sub></td>
     <td align="center"><strong>37</strong><br><sub>benchmarks &amp; datasets</sub></td>
-    <td align="center"><strong>315</strong><br><sub>published in 2026</sub></td>
+    <td align="center"><strong>316</strong><br><sub>published in 2026</sub></td>
   </tr>
 </table>
 
@@ -172,7 +172,7 @@ The resource directory prioritizes primary research, official documentation, mai
 
 <!-- CORPUS_BREAKDOWN_START -->
 
-**Corpus composition:** 584 resources drawn from 246 distinct sources. By evidence label: 144 peer-reviewed research, 108 practitioner analysis, 124 research preprints, 69 official documentation, 64 maintained OSS projects, 37 benchmarks or datasets, 13 industry standards, 14 community resources, 11 books or courses. 315 entries were published or materially updated in 2026.
+**Corpus composition:** 585 resources drawn from 246 distinct sources. By evidence label: 144 peer-reviewed research, 108 practitioner analysis, 124 research preprints, 69 official documentation, 65 maintained OSS projects, 37 benchmarks or datasets, 13 industry standards, 14 community resources, 11 books or courses. 316 entries were published or materially updated in 2026.
 
 <!-- CORPUS_BREAKDOWN_END -->
 
@@ -186,7 +186,7 @@ Use the [interactive Resource Atlas](https://chaoyue0307.github.io/awesome-graph
 - [Research Foundations](#research-foundations) — 155 resources
 - [Frameworks &amp; SDKs](#frameworks--sdks) — 59 resources
 - [Protocols &amp; Handoffs](#protocols--handoffs) — 39 resources
-- [State, Memory &amp; Artifacts](#state-memory--artifacts) — 31 resources
+- [State, Memory &amp; Artifacts](#state-memory--artifacts) — 32 resources
 - [Verification &amp; Evals](#verification--evals) — 36 resources
 - [Reliability &amp; Durable Execution](#reliability--durable-execution) — 38 resources
 - [Observability &amp; Cost](#observability--cost) — 36 resources
@@ -555,6 +555,7 @@ Use the [interactive Resource Atlas](https://chaoyue0307.github.io/awesome-graph
 | 🧰 **[Firecracker](https://github.com/firecracker-microvm/firecracker)**<br><sub>Tool · Worker isolation</sub> | **GitHub**<br><sub>Amazon Web Services · 2026</sub> | Apache-2.0 virtual machine monitor built on Linux KVM that runs workloads in minimal microVMs, giving each one its own kernel while keeping the startup cost and density closer to containers than to full virtual machines. Around 35.9k stars and the isolation layer beneath several commercial agent sandboxes.<br><sub><strong>Why:</strong> Hardware-level isolation per worker is what makes it safe to run many agents writing untrusted code side by side.</sub> | **Maintained OSS project**<br><sub>State</sub> |
 | 🧰 **[E2B](https://github.com/e2b-dev/E2B)**<br><sub>Tool · Worker isolation</sub> | **GitHub**<br><sub>E2B · 2026</sub> | Apache-2.0 infrastructure for running AI-generated code in isolated cloud sandboxes, with Python and JavaScript SDKs for creating sandboxes, executing commands, and managing filesystem state, plus Terraform-based self-hosting on AWS, GCP, and Azure. Around 13.2k stars and actively developed.<br><sub><strong>Why:</strong> Gives each node a disposable filesystem and shell, which is the practical unit of isolation when workers run in parallel.</sub> | **Maintained OSS project**<br><sub>State</sub> |
 | 🧰 **[gVisor](https://github.com/google/gvisor)**<br><sub>Tool · Worker isolation</sub> | **GitHub**<br><sub>Google · 2026</sub> | Apache-2.0 OCI runtime implementing a Linux-compatible kernel in userspace Go, so a sandboxed process's syscalls are serviced by gVisor rather than reaching the host kernel directly. Around 19k stars, and the alternative isolation model to microVMs, trading some compatibility for faster startup.<br><sub><strong>Why:</strong> The other mainstream isolation choice for agent workers, and the tradeoff against microVMs is a real design decision.</sub> | **Maintained OSS project**<br><sub>State</sub> |
+| 🧰 **[Mnemoverse](https://github.com/mnemoverse/mcp-memory-server)**<br><sub>Tool · Memory systems</sub> | **GitHub**<br><sub>Mnemoverse · 2026</sub> | Hosted persistent memory API for AI agents over MCP: one API key, or OAuth on the hosted connector, gives Claude Code, Cursor, VS Code, Windsurf and ChatGPT the same store, so several agent runtimes read and write one memory. A write passes an importance gate that returns a score and the reason it was kept; recall expands through Hebbian concept associations, and a Rescorla-Wagner update on the prediction error moves a memory's valence when an agent reports it helped or misled, so later ranking follows reported outcomes. MCP server and Python SDK are MIT (npm 0.10.2); the engine is a hosted service with a free tier.<br><sub><strong>Why:</strong> Recall re-ordered by reported outcomes rather than fixed at write time, behind one MCP endpoint several agent runtimes attach to, which makes shared memory a substrate choice rather than per-tool.</sub> | **Maintained OSS project**<br><sub>State</sub> |
 
 ### Verification &amp; Evals
 
