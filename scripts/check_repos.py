@@ -29,6 +29,9 @@ REPO_RE = re.compile(r"https://github\.com/([\w.-]+)/([\w.-]+?)(?:/(?:tree|blob|
 # A research artifact can be worth listing long after its last commit. Entries
 # here have said so in their own description, so quiet does not mean stale.
 QUIET_OK = {"age-0458"}
+# An archived project can still be the clearest reference for a pattern. The
+# rule is that the entry says so, which is what this looks for.
+ARCHIVED_DISCLOSED_RE = re.compile(r"\b(archiv\w+|frozen|no longer maintained|unmaintained|discontinued)\b", re.IGNORECASE)
 QUIET_AFTER_DAYS = 550
 
 
@@ -98,9 +101,10 @@ def main() -> int:
             continue
         if data.get("archived") or data.get("disabled"):
             state = "archived" if data.get("archived") else "disabled"
-            problems.append(
-                f"{row['id']} {slug} is {state} — say so in the description or drop the entry"
-            )
+            if not ARCHIVED_DISCLOSED_RE.search(str(row["description"])):
+                problems.append(
+                    f"{row['id']} {slug} is {state} — say so in the description or drop the entry"
+                )
         canonical = str(data.get("full_name") or "")
         if canonical and canonical.lower() != slug.lower():
             problems.append(
