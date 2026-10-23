@@ -3,7 +3,8 @@
 
 The JSONL file is the only hand-edited dataset. This script derives the CSV,
 the README resource tables and counts, the website's ``atlas-data`` JSON island,
-and the resource count quoted in each language of LAUNCH-KIT.md.
+the resource count quoted in each language of LAUNCH-KIT.md, and the citation
+title and version everywhere they are repeated, taken from CITATION.cff.
 Use ``--check`` in CI to report drift without changing files.
 """
 
@@ -24,6 +25,7 @@ CSV = ROOT / "data" / "resources.csv"
 README = ROOT / "README.md"
 SITE = ROOT / "docs" / "index.html"
 LAUNCH_KIT = ROOT / "LAUNCH-KIT.md"
+CFF = ROOT / "CITATION.cff"
 
 FIELDS = (
     "id",
@@ -387,6 +389,54 @@ def replace_atlas_data(html: str, payload: str) -> str:
     return generated
 
 
+# Every place the citation is repeated. CITATION.cff is the source: citation
+# indexes such as Google Scholar group references by title, so one title that
+# differs between copies splits the citations to this work.
+CITATION_COPIES = (
+    README,
+    ROOT / "huggingface" / "README.md",
+    *sorted((ROOT / "i18n").glob("*/README.md")),
+)
+BIBTEX_RE = re.compile(r"@misc\{he2026awesomegraphengineering,.*?\n\}", re.S)
+APA_VERSION_RE = re.compile(r"\(Version [0-9][0-9.]*\) \[Data set\]")
+
+
+def citation_metadata() -> dict[str, str]:
+    """Read the canonical title, version, and release date from CITATION.cff."""
+    text = CFF.read_text(encoding="utf-8")
+    fields = {}
+    for key in ("title", "version", "date-released"):
+        match = re.search(rf"^{key}:\s*\"?([^\"\n]+?)\"?\s*$", text, re.M)
+        if not match:
+            raise ValueError(f"CITATION.cff does not declare {key}")
+        fields[key] = match.group(1)
+    return fields
+
+
+def replace_citations(text: str, meta: dict[str, str]) -> str:
+    """Rewrite the BibTeX title and version, and the APA version, from CITATION.cff."""
+
+    def fix(match: re.Match[str]) -> str:
+        block = re.sub(r"(title\s*=\s*\{).*?(\},)", lambda m: m.group(1) + meta["title"] + m.group(2), match.group(0), count=1)
+        return re.sub(r"(version\s*=\s*\{)[^}]*(\})", lambda m: m.group(1) + meta["version"] + m.group(2), block, count=1)
+
+    text = BIBTEX_RE.sub(fix, text)
+    return APA_VERSION_RE.sub(f"(Version {meta['version']}) [Data set]", text)
+
+
+def replace_site_citation(html: str, meta: dict[str, str]) -> str:
+    """Keep the site's schema.org Dataset name, version, and date in step with CITATION.cff."""
+    start = html.find('"@type": "Dataset"')
+    end = html.find('"distribution"', start)
+    if start < 0 or end < 0:
+        raise ValueError("docs/index.html must contain one schema.org Dataset with a distribution list")
+    dataset = html[start:end]
+    dataset = re.sub(r'("name": )"[^"]*"', lambda m: m.group(1) + json.dumps(meta["title"]), dataset, count=1)
+    dataset = re.sub(r'("version": )"[^"]*"', lambda m: f'{m.group(1)}"{meta["version"]}"', dataset, count=1)
+    dataset = re.sub(r'("dateModified": )"[^"]*"', lambda m: f'{m.group(1)}"{meta["date-released"]}"', dataset, count=1)
+    return html[:start] + dataset + html[end:]
+
+
 def expected_artifacts(rows: list[dict[str, object]]) -> dict[Path, str]:
     readme = README.read_text(encoding="utf-8")
     site = SITE.read_text(encoding="utf-8")
@@ -403,6 +453,12 @@ def expected_artifacts(rows: list[dict[str, object]]) -> dict[Path, str]:
         ),
         SITE: replace_atlas_data(site, render_atlas(rows)),
     }
+    meta = citation_metadata()
+    artifacts[README] = replace_citations(artifacts[README], meta)
+    artifacts[SITE] = replace_site_citation(artifacts[SITE], meta)
+    for path in CITATION_COPIES[1:]:
+        if path.exists():
+            artifacts[path] = replace_citations(path.read_text(encoding="utf-8"), meta)
     if LAUNCH_KIT.exists():
         artifacts[LAUNCH_KIT] = replace_launch_kit_counts(
             LAUNCH_KIT.read_text(encoding="utf-8"), rows

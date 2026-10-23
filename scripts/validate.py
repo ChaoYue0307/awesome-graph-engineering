@@ -23,7 +23,12 @@ from sync import (
     SITE,
     TABLE_END,
     TABLE_START,
+    CITATION_COPIES,
+    BIBTEX_RE,
+    citation_metadata,
     launch_kit_counts,
+    replace_citations,
+    replace_site_citation,
     render_atlas,
     render_csv,
     render_evidence_breakdown,
@@ -36,6 +41,8 @@ from sync import (
     replace_readme_stats,
     replace_readme_tables,
 )
+
+CFF_PATH = ROOT / "CITATION.cff"
 
 TYPES = {
     "Paper",
@@ -344,6 +351,39 @@ def validate_launch_kit(rows: list[dict[str, object]], errors: list[str]) -> Non
             )
 
 
+def validate_citations(errors: list[str]) -> None:
+    """One title and version wherever the citation is repeated.
+
+    Citation indexes group references by title. A copy that drifts from
+    CITATION.cff splits the citations to this work, which is how the CFF title
+    once disagreed with every BibTeX block.
+    """
+    try:
+        meta = citation_metadata()
+    except (OSError, ValueError) as exc:
+        errors.append(str(exc))
+        return
+    cff = CFF_PATH.read_text(encoding="utf-8")
+    titles = set(re.findall(r'^\s*title:\s*"([^"]+)"', cff, re.M))
+    if titles != {meta["title"]}:
+        errors.append(f"CITATION.cff declares more than one title: {sorted(titles)}")
+    for path in CITATION_COPIES:
+        if not path.exists():
+            continue
+        text = path.read_text(encoding="utf-8")
+        relative = path.relative_to(ROOT)
+        if not BIBTEX_RE.search(text):
+            errors.append(f"{relative} has no he2026awesomegraphengineering BibTeX block")
+        elif replace_citations(text, meta) != text:
+            errors.append(f"{relative} citation title or version differs from CITATION.cff; run: python3 scripts/sync.py")
+    try:
+        html = SITE.read_text(encoding="utf-8")
+        if replace_site_citation(html, meta) != html:
+            errors.append("docs/index.html Dataset name, version, or date differs from CITATION.cff; run: python3 scripts/sync.py")
+    except (OSError, ValueError) as exc:
+        errors.append(str(exc))
+
+
 def validate_schema(errors: list[str]) -> None:
     try:
         schema = json.loads(SCHEMA.read_text(encoding="utf-8"))
@@ -510,6 +550,7 @@ def main() -> int:
     validate_readme(rows, errors)
     validate_near_duplicates(rows, errors)
     validate_launch_kit(rows, errors)
+    validate_citations(errors)
     validate_site(rows, errors)
     if errors:
         print(f"FAIL — {len(errors)} problem(s):")
