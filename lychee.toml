@@ -43,6 +43,11 @@ exclude = [
   # 45-second timeout, from GitHub runners and locally, while browser requests
   # loaded in 5 to 13 seconds. The URL is kept and verified manually.
   "^https://(www\\.)?latent\\.space",
+  # This project's own Hugging Face Parquet export is rebuilt after every
+  # publish, and every path to it (file, branch folder, listing API) answers
+  # 404 or 400 "not ready yet" for several minutes while that runs. The mirror
+  # itself is verified byte for byte by scripts/check_mirror.py.
+  "^https://huggingface\\.co/(api/)?datasets/cy0307/awesome-graph-engineering/.*parquet",
   # Simon & Schuster answers 503 on book pages and 403 on its own root to every
   # automated client tried, which is anti-bot behaviour rather than a missing
   # page; the ISBN URL is kept and verified manually.
