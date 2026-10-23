@@ -38,6 +38,11 @@ exclude = [
   # Conway's own page for the 1968 paper answers in about 1.5s from a browser
   # but times out from GitHub-hosted runners; the record is verified manually.
   "^https://www\\.melconway\\.com",
+  # Latent Space, a Substack custom domain, stalls non-browser clients: on
+  # 23 October 2026 two of three requests with Lychee's user agent hit the
+  # 45-second timeout, from GitHub runners and locally, while browser requests
+  # loaded in 5 to 13 seconds. The URL is kept and verified manually.
+  "^https://(www\\.)?latent\\.space",
   # Simon & Schuster answers 503 on book pages and 403 on its own root to every
   # automated client tried, which is anti-bot behaviour rather than a missing
   # page; the ISBN URL is kept and verified manually.
