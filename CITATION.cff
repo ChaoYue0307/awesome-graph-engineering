@@ -4,6 +4,7 @@ title: "Awesome Graph Engineering: A Field Guide, Dataset, and Interactive Atlas
 type: dataset
 version: 1.4.1
 date-released: "2026-10-24"
+doi: "10.5281/zenodo.23617107"
 authors:
   - family-names: "He"
     given-names: "Chaoyue"
@@ -25,8 +26,9 @@ preferred-citation:
     - family-names: "He"
       given-names: "Chaoyue"
   year: 2026
+  doi: "10.5281/zenodo.23617107"
   publisher:
-    name: "GitHub"
+    name: "Zenodo"
   url: "https://github.com/ChaoYue0307/awesome-graph-engineering"
   repository-code: "https://github.com/ChaoYue0307/awesome-graph-engineering"
   license: CC0-1.0

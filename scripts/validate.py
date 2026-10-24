@@ -367,6 +367,9 @@ def validate_citations(errors: list[str]) -> None:
     titles = set(re.findall(r'^\s*title:\s*"([^"]+)"', cff, re.M))
     if titles != {meta["title"]}:
         errors.append(f"CITATION.cff declares more than one title: {sorted(titles)}")
+    dois = set(re.findall(r'^\s*doi:\s*"([^"]+)"', cff, re.M))
+    if len(dois) > 1:
+        errors.append(f"CITATION.cff declares more than one DOI: {sorted(dois)}")
     for path in CITATION_COPIES:
         if not path.exists():
             continue

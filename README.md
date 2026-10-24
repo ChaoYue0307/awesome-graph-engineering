@@ -14,6 +14,7 @@
 <p align="center">
   <a href="#-resource-directory"><img alt="620 curated resources" src="https://img.shields.io/badge/resources-620-9d7dff?style=flat-square"></a>
   <a href="https://github.com/ChaoYue0307/awesome-graph-engineering/actions/workflows/quality.yml"><img alt="Quality checks" src="https://img.shields.io/github/actions/workflow/status/ChaoYue0307/awesome-graph-engineering/quality.yml?branch=main&style=flat-square&label=quality"></a>
+  <a href="https://doi.org/10.5281/zenodo.23617107"><img alt="DOI 10.5281/zenodo.23617107" src="https://zenodo.org/badge/DOI/10.5281/zenodo.23617107.svg"></a>
   <a href="https://huggingface.co/datasets/cy0307/awesome-graph-engineering"><img alt="Hugging Face dataset" src="https://img.shields.io/badge/%F0%9F%A4%97-dataset-FFD21E?style=flat-square"></a>
   <a href="LICENSE"><img alt="CC0 1.0 license" src="https://img.shields.io/badge/license-CC0--1.0-b8f24a?style=flat-square"></a>
   <a href="https://github.com/ChaoYue0307/awesome-graph-engineering"><img alt="GitHub stars" src="https://img.shields.io/github/stars/ChaoYue0307/awesome-graph-engineering?style=flat-square&logo=github&label=stars"></a>
@@ -921,8 +922,9 @@ Curated by He Chaoyue.
   author       = {He, Chaoyue},
   title        = {Awesome Graph Engineering: A Field Guide, Dataset, and Interactive Atlas for Programmable AI-Agent Organizations},
   year         = {2026},
+  doi          = {10.5281/zenodo.23617107},
   version      = {1.4.1},
-  publisher    = {GitHub},
+  publisher    = {Zenodo},
   howpublished = {\url{https://github.com/ChaoYue0307/awesome-graph-engineering}},
   url          = {https://github.com/ChaoYue0307/awesome-graph-engineering}
 }
@@ -930,7 +932,7 @@ Curated by He Chaoyue.
 
 In APA style:
 
-> He, C. (2026). *Awesome Graph Engineering: A Field Guide, Dataset, and Interactive Atlas for Programmable AI-Agent Organizations* (Version 1.4.1) [Data set]. GitHub. <https://github.com/ChaoYue0307/awesome-graph-engineering>
+> He, C. (2026). *Awesome Graph Engineering: A Field Guide, Dataset, and Interactive Atlas for Programmable AI-Agent Organizations* (Version 1.4.1) [Data set]. Zenodo. <https://doi.org/10.5281/zenodo.23617107>
 
 Please keep the title as written. Citation indexes such as Google Scholar group references by title, so the same title keeps citations to every version together. Machine-readable citation metadata is available in [CITATION.cff](CITATION.cff).
 

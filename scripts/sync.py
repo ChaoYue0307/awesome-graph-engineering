@@ -458,6 +458,8 @@ def replace_citations(text: str, meta: dict[str, str]) -> str:
 
     def fix_doi(match: re.Match[str]) -> str:
         block = re.sub(r"\n  doi\s*=\s*\{[^}]*\},", "", match.group(0))
+        # A Zenodo DOI is registered with Zenodo as publisher.
+        block = re.sub(r"(publisher\s*=\s*\{)[^}]*(\})", lambda m: m.group(1) + ("Zenodo" if meta.get("doi") else "GitHub") + m.group(2), block, count=1)
         if meta.get("doi"):
             block = re.sub(r"(\n  year\s*=\s*\{[^}]*\},)", lambda m: m.group(1) + f"\n  doi          = {{{meta['doi']}}},", block, count=1)
         return block
@@ -466,9 +468,10 @@ def replace_citations(text: str, meta: dict[str, str]) -> str:
     text = APA_VERSION_RE.sub(f"(Version {meta['version']}) [Data set]", text)
     # The APA line links the DOI once Zenodo has minted one, the repository before.
     link = f"https://doi.org/{meta['doi']}" if meta.get("doi") else REPOSITORY_URL
+    publisher = "Zenodo" if meta.get("doi") else "GitHub"
     return re.sub(
-        r"(\(Version [0-9.]+\) \[Data set\]\. GitHub\. )<[^>]+>",
-        lambda m: m.group(1) + f"<{link}>",
+        r"(\(Version [0-9.]+\) \[Data set\]\. )(?:GitHub|Zenodo)\. <[^>]+>",
+        lambda m: m.group(1) + f"{publisher}. <{link}>",
         text,
     )
 
