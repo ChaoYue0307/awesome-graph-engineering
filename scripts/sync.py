@@ -422,10 +422,16 @@ def citation_metadata() -> dict[str, str]:
     # Each block runs until the next unindented key.
     fields["keywords"] = re.findall(r"^  - (.+)$", re.split(r"\n(?=\S)", keywords[1], maxsplit=1)[0], re.M) if len(keywords) == 2 else []
     authors = re.split(r"\n(?=\S)", text.split("\nauthors:\n", 1)[1], maxsplit=1)[0]
-    fields["creators"] = [
-        f"{family}, {given}"
-        for family, given in re.findall(r'family-names:\s*"([^"]+)"\s*\n\s*given-names:\s*"([^"]+)"', authors)
-    ]
+    fields["creators"] = []
+    for entry in re.split(r"\n  - ", "\n" + authors)[1:]:
+        family = re.search(r'family-names:\s*"([^"]+)"', entry)
+        given = re.search(r'given-names:\s*"([^"]+)"', entry)
+        orcid = re.search(r'orcid:\s*"https://orcid\.org/([0-9X-]{19})"', entry)
+        if family and given:
+            creator = {"name": f"{family.group(1)}, {given.group(1)}"}
+            if orcid:
+                creator["orcid"] = orcid.group(1)
+            fields["creators"].append(creator)
     return fields
 
 
@@ -440,7 +446,7 @@ def render_zenodo(meta: dict[str, str]) -> str:
         "title": meta["title"],
         "upload_type": "dataset",
         "description": meta["abstract"],
-        "creators": [{"name": name} for name in meta["creators"]],
+        "creators": meta["creators"],
         "license": "cc0-1.0",
         "access_right": "open",
         "keywords": meta["keywords"],

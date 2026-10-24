@@ -923,7 +923,7 @@ Curated by He Chaoyue.
   title        = {Awesome Graph Engineering: A Field Guide, Dataset, and Interactive Atlas for Programmable AI-Agent Organizations},
   year         = {2026},
   doi          = {10.5281/zenodo.23617107},
-  version      = {1.4.1},
+  version      = {1.4.2},
   publisher    = {Zenodo},
   howpublished = {\url{https://github.com/ChaoYue0307/awesome-graph-engineering}},
   url          = {https://github.com/ChaoYue0307/awesome-graph-engineering}
@@ -932,7 +932,7 @@ Curated by He Chaoyue.
 
 In APA style:
 
-> He, C. (2026). *Awesome Graph Engineering: A Field Guide, Dataset, and Interactive Atlas for Programmable AI-Agent Organizations* (Version 1.4.1) [Data set]. Zenodo. <https://doi.org/10.5281/zenodo.23617107>
+> He, C. (2026). *Awesome Graph Engineering: A Field Guide, Dataset, and Interactive Atlas for Programmable AI-Agent Organizations* (Version 1.4.2) [Data set]. Zenodo. <https://doi.org/10.5281/zenodo.23617107>
 
 Please keep the title as written. Citation indexes such as Google Scholar group references by title, so the same title keeps citations to every version together. Machine-readable citation metadata is available in [CITATION.cff](CITATION.cff).
 

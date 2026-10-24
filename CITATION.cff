@@ -2,12 +2,13 @@ cff-version: 1.2.0
 message: "If you use this field guide or its dataset, please cite it as below. Keeping the title as written keeps citations to every version together."
 title: "Awesome Graph Engineering: A Field Guide, Dataset, and Interactive Atlas for Programmable AI-Agent Organizations"
 type: dataset
-version: 1.4.1
+version: 1.4.2
 date-released: "2026-10-24"
 doi: "10.5281/zenodo.23617107"
 authors:
   - family-names: "He"
     given-names: "Chaoyue"
+    orcid: "https://orcid.org/0000-0002-5728-9672"
 repository-code: "https://github.com/ChaoYue0307/awesome-graph-engineering"
 url: "https://chaoyue0307.github.io/awesome-graph-engineering/"
 license: CC0-1.0
@@ -25,6 +26,7 @@ preferred-citation:
   authors:
     - family-names: "He"
       given-names: "Chaoyue"
+      orcid: "https://orcid.org/0000-0002-5728-9672"
   year: 2026
   doi: "10.5281/zenodo.23617107"
   publisher:

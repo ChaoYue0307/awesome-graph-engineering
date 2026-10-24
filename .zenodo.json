@@ -4,7 +4,8 @@
   "description": "A curated field guide, structured dataset, and interactive atlas for graph-structured multi-agent systems and programmable AI-agent organizations: org graphs and work graphs, roles, topologies, handoffs, verification gates, reliability, observability, and evolution.",
   "creators": [
     {
-      "name": "He, Chaoyue"
+      "name": "He, Chaoyue",
+      "orcid": "0000-0002-5728-9672"
     }
   ],
   "license": "cc0-1.0",
