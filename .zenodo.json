@@ -1,0 +1,21 @@
+{
+  "title": "Awesome Graph Engineering: A Field Guide, Dataset, and Interactive Atlas for Programmable AI-Agent Organizations",
+  "upload_type": "dataset",
+  "description": "A curated field guide, structured dataset, and interactive atlas for graph-structured multi-agent systems and programmable AI-agent organizations: org graphs and work graphs, roles, topologies, handoffs, verification gates, reliability, observability, and evolution.",
+  "creators": [
+    {
+      "name": "He, Chaoyue"
+    }
+  ],
+  "license": "cc0-1.0",
+  "access_right": "open",
+  "keywords": [
+    "graph-engineering",
+    "multi-agent-systems",
+    "ai-agents",
+    "agent-orchestration",
+    "loop-engineering",
+    "awesome-list"
+  ],
+  "language": "eng"
+}

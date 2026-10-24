@@ -26,6 +26,8 @@ README = ROOT / "README.md"
 SITE = ROOT / "docs" / "index.html"
 LAUNCH_KIT = ROOT / "LAUNCH-KIT.md"
 CFF = ROOT / "CITATION.cff"
+ZENODO = ROOT / ".zenodo.json"
+REPOSITORY_URL = "https://github.com/ChaoYue0307/awesome-graph-engineering"
 
 FIELDS = (
     "id",
@@ -402,15 +404,49 @@ APA_VERSION_RE = re.compile(r"\(Version [0-9][0-9.]*\) \[Data set\]")
 
 
 def citation_metadata() -> dict[str, str]:
-    """Read the canonical title, version, and release date from CITATION.cff."""
-    text = CFF.read_text(encoding="utf-8")
+    """Read the canonical citation fields from CITATION.cff.
+
+    Only the top-level block is read; ``preferred-citation`` repeats the title
+    and is checked separately by validate.py. ``doi`` is optional until Zenodo
+    has minted one.
+    """
+    text = CFF.read_text(encoding="utf-8").split("\npreferred-citation:", 1)[0]
     fields = {}
-    for key in ("title", "version", "date-released"):
+    for key in ("title", "version", "date-released", "abstract", "doi"):
         match = re.search(rf"^{key}:\s*\"?([^\"\n]+?)\"?\s*$", text, re.M)
-        if not match:
+        if match:
+            fields[key] = match.group(1)
+        elif key != "doi":
             raise ValueError(f"CITATION.cff does not declare {key}")
-        fields[key] = match.group(1)
+    keywords = text.split("\nkeywords:\n", 1)
+    # Each block runs until the next unindented key.
+    fields["keywords"] = re.findall(r"^  - (.+)$", re.split(r"\n(?=\S)", keywords[1], maxsplit=1)[0], re.M) if len(keywords) == 2 else []
+    authors = re.split(r"\n(?=\S)", text.split("\nauthors:\n", 1)[1], maxsplit=1)[0]
+    fields["creators"] = [
+        f"{family}, {given}"
+        for family, given in re.findall(r'family-names:\s*"([^"]+)"\s*\n\s*given-names:\s*"([^"]+)"', authors)
+    ]
     return fields
+
+
+def render_zenodo(meta: dict[str, str]) -> str:
+    """Zenodo archives each GitHub release with this metadata.
+
+    Zenodo implements only a subset of CITATION.cff and documents its example
+    with software, so the dataset type and CC0 license are stated explicitly
+    here. The version comes from the release tag, so it is not repeated.
+    """
+    record = {
+        "title": meta["title"],
+        "upload_type": "dataset",
+        "description": meta["abstract"],
+        "creators": [{"name": name} for name in meta["creators"]],
+        "license": "cc0-1.0",
+        "access_right": "open",
+        "keywords": meta["keywords"],
+        "language": "eng",
+    }
+    return json.dumps(record, ensure_ascii=False, indent=2) + "\n"
 
 
 def replace_citations(text: str, meta: dict[str, str]) -> str:
@@ -420,8 +456,21 @@ def replace_citations(text: str, meta: dict[str, str]) -> str:
         block = re.sub(r"(title\s*=\s*\{).*?(\},)", lambda m: m.group(1) + meta["title"] + m.group(2), match.group(0), count=1)
         return re.sub(r"(version\s*=\s*\{)[^}]*(\})", lambda m: m.group(1) + meta["version"] + m.group(2), block, count=1)
 
-    text = BIBTEX_RE.sub(fix, text)
-    return APA_VERSION_RE.sub(f"(Version {meta['version']}) [Data set]", text)
+    def fix_doi(match: re.Match[str]) -> str:
+        block = re.sub(r"\n  doi\s*=\s*\{[^}]*\},", "", match.group(0))
+        if meta.get("doi"):
+            block = re.sub(r"(\n  year\s*=\s*\{[^}]*\},)", lambda m: m.group(1) + f"\n  doi          = {{{meta['doi']}}},", block, count=1)
+        return block
+
+    text = BIBTEX_RE.sub(fix_doi, BIBTEX_RE.sub(fix, text))
+    text = APA_VERSION_RE.sub(f"(Version {meta['version']}) [Data set]", text)
+    # The APA line links the DOI once Zenodo has minted one, the repository before.
+    link = f"https://doi.org/{meta['doi']}" if meta.get("doi") else REPOSITORY_URL
+    return re.sub(
+        r"(\(Version [0-9.]+\) \[Data set\]\. GitHub\. )<[^>]+>",
+        lambda m: m.group(1) + f"<{link}>",
+        text,
+    )
 
 
 def replace_site_citation(html: str, meta: dict[str, str]) -> str:
@@ -434,6 +483,9 @@ def replace_site_citation(html: str, meta: dict[str, str]) -> str:
     dataset = re.sub(r'("name": )"[^"]*"', lambda m: m.group(1) + json.dumps(meta["title"]), dataset, count=1)
     dataset = re.sub(r'("version": )"[^"]*"', lambda m: f'{m.group(1)}"{meta["version"]}"', dataset, count=1)
     dataset = re.sub(r'("dateModified": )"[^"]*"', lambda m: f'{m.group(1)}"{meta["date-released"]}"', dataset, count=1)
+    dataset = re.sub(r'\n {10}"identifier": "[^"]*",', "", dataset)
+    if meta.get("doi"):
+        dataset = re.sub(r'(\n {10}"version": )', lambda m: f'\n          "identifier": "https://doi.org/{meta["doi"]}",' + m.group(1), dataset, count=1)
     return html[:start] + dataset + html[end:]
 
 
@@ -459,6 +511,7 @@ def expected_artifacts(rows: list[dict[str, object]]) -> dict[Path, str]:
     for path in CITATION_COPIES[1:]:
         if path.exists():
             artifacts[path] = replace_citations(path.read_text(encoding="utf-8"), meta)
+    artifacts[ZENODO] = render_zenodo(meta)
     if LAUNCH_KIT.exists():
         artifacts[LAUNCH_KIT] = replace_launch_kit_counts(
             LAUNCH_KIT.read_text(encoding="utf-8"), rows

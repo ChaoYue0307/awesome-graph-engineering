@@ -921,7 +921,7 @@ Curated by He Chaoyue.
   author       = {He, Chaoyue},
   title        = {Awesome Graph Engineering: A Field Guide, Dataset, and Interactive Atlas for Programmable AI-Agent Organizations},
   year         = {2026},
-  version      = {1.4.0},
+  version      = {1.4.1},
   publisher    = {GitHub},
   howpublished = {\url{https://github.com/ChaoYue0307/awesome-graph-engineering}},
   url          = {https://github.com/ChaoYue0307/awesome-graph-engineering}
@@ -930,7 +930,7 @@ Curated by He Chaoyue.
 
 In APA style:
 
-> He, C. (2026). *Awesome Graph Engineering: A Field Guide, Dataset, and Interactive Atlas for Programmable AI-Agent Organizations* (Version 1.4.0) [Data set]. GitHub. <https://github.com/ChaoYue0307/awesome-graph-engineering>
+> He, C. (2026). *Awesome Graph Engineering: A Field Guide, Dataset, and Interactive Atlas for Programmable AI-Agent Organizations* (Version 1.4.1) [Data set]. GitHub. <https://github.com/ChaoYue0307/awesome-graph-engineering>
 
 Please keep the title as written. Citation indexes such as Google Scholar group references by title, so the same title keeps citations to every version together. Machine-readable citation metadata is available in [CITATION.cff](CITATION.cff).
 
