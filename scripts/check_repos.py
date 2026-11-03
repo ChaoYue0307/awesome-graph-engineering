@@ -26,12 +26,14 @@ from pathlib import Path
 ROOT = Path(__file__).resolve().parent.parent
 JSONL = ROOT / "data" / "resources.jsonl"
 REPO_RE = re.compile(r"https://github\.com/([\w.-]+)/([\w.-]+?)(?:/(?:tree|blob|releases|pull|issues|commit)/.*)?/?$")
-# A research artifact can be worth listing long after its last commit. Entries
-# here have said so in their own description, so quiet does not mean stale.
-QUIET_OK = {"age-0458"}
-# An archived project can still be the clearest reference for a pattern. The
-# rule is that the entry says so, which is what this looks for.
-ARCHIVED_DISCLOSED_RE = re.compile(r"\b(archiv\w+|frozen|no longer maintained|unmaintained|discontinued)\b", re.IGNORECASE)
+# An archived or long-quiet project can still be the clearest reference for a
+# pattern, or a research artifact worth listing long after its last commit. The
+# rule is that the entry tells the reader, which is what this looks for. It
+# replaced a hand-kept list of exceptions that drifted out of date.
+STATUS_DISCLOSED_RE = re.compile(
+    r"\b(archiv\w+|frozen|dormant|no longer maintained|unmaintained|discontinued|not been updated since)\b",
+    re.IGNORECASE,
+)
 QUIET_AFTER_DAYS = 550
 
 
@@ -101,7 +103,7 @@ def main() -> int:
             continue
         if data.get("archived") or data.get("disabled"):
             state = "archived" if data.get("archived") else "disabled"
-            if not ARCHIVED_DISCLOSED_RE.search(str(row["description"])):
+            if not STATUS_DISCLOSED_RE.search(str(row["description"])):
                 problems.append(
                     f"{row['id']} {slug} is {state} — say so in the description or drop the entry"
                 )
@@ -111,12 +113,12 @@ def main() -> int:
                 f"{row['id']} {slug} was renamed to {canonical} — point the URL at the canonical slug"
             )
         pushed = str(data.get("pushed_at") or "")
-        if pushed and row["id"] not in QUIET_OK:
+        if pushed and not STATUS_DISCLOSED_RE.search(str(row["description"])):
             age = (today - datetime.fromisoformat(pushed.replace("Z", "+00:00")).astimezone(timezone.utc).date()).days
             if age > QUIET_AFTER_DAYS:
                 problems.append(
                     f"{row['id']} {slug} has no push in {age} days (last {pushed[:10]}) — "
-                    f"note the status, or add the id to QUIET_OK if that is expected"
+                    f"say so in the description, or drop the entry"
                 )
 
     if errors:
@@ -136,7 +138,10 @@ def main() -> int:
             f"check GITHUB_TOKEN and rate limits."
         )
         return 1
-    print(f"OK — {len(targets)} GitHub repositories are active, canonically named, and recently pushed.")
+    print(
+        f"OK — {len(targets)} GitHub repositories are canonically named, and every archived "
+        f"or long-quiet one says so in its description."
+    )
     return 0
 
 
